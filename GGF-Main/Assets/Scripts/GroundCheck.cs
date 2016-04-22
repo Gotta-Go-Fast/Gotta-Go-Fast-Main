@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GroundCheck : MonoBehaviour
 {
-    private Player player;
+    public Player player;
 
     void Start()
     {
