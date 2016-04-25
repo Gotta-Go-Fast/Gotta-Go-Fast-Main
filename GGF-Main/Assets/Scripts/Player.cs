@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public bool paralyzed;
 
     public Rigidbody2D rbPlayer;
+    private SpriteRenderer spriteRenderer;
     private Animator animator;
     private Animator bombAnimator;
 
@@ -37,8 +38,14 @@ public class Player : MonoBehaviour
     public bool bombUsed;
     public bool haveBomb = true;
 
+    public Player otherPlayer;
+
+    //public BombController bombController;
+
     void Start()
     {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
         bombTimer = 0.0f;
 
         bulletSpeed = 15;
@@ -73,11 +80,12 @@ public class Player : MonoBehaviour
             bombUsed = true;
             //activatedBomb = false;
             //bombTimer = 0;
-        } 
+        }
         if (bombTimer < 1.4f)
         {
             bombUsed = false;
-        } else if (bombTimer > 2.0f)
+        }
+        else if (bombTimer > 2.0f)
         {
             bombUsed = false;
             activatedBomb = false;
@@ -99,14 +107,17 @@ public class Player : MonoBehaviour
 
         bombAnimator.SetBool("Activated", activatedBomb);
 
-        if (Input.GetAxis("Horizontal" + playerNumber) < -0.1f)
+        if (!paralyzed)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+            if (Input.GetAxis("Horizontal" + playerNumber) < -0.1f)
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
 
-        if (Input.GetAxis("Horizontal" + playerNumber) > 0.1f)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
+            if (Input.GetAxis("Horizontal" + playerNumber) > 0.1f)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
 
         oldJumpState = jumpState;
@@ -138,7 +149,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire" + playerNumber) && shots > 0)
         {
             shoot = true;
-            GameObject createBullet = (GameObject) Instantiate(laserBullet, firePoint.position, firePoint.rotation);
+            GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
 
             shots -= 1;
 
@@ -156,7 +167,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire" + playerNumber) && haveBomb)
         {
             bombTimer = 0.0f;
-            GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y+0.3f), firePoint.rotation);
+            GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
             activatedBomb = true;
             haveBomb = true;
         }
@@ -167,6 +178,8 @@ public class Player : MonoBehaviour
         if (paralyzed)
         {
             paralyzedTimer -= Time.deltaTime;
+            spriteRenderer.material.color = Color.cyan;
+
             rbPlayer.velocity = new Vector2(0.0f, rbPlayer.velocity.y);
             //rbPlayer.AddForce(Vector2.left * jumpPower);
             if (paralyzedTimer < 0)
@@ -181,6 +194,7 @@ public class Player : MonoBehaviour
         if (!paralyzed)
         {
             rbPlayer.AddForce((Vector2.right * speed) * h);
+            spriteRenderer.material.color = Color.white;
         }
 
 
@@ -243,9 +257,11 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Bomb"))
         {
-            if (bombUsed == true)
+            if (otherPlayer.bombUsed == true)
             {
                 Destroy(other.gameObject);
+                paralyzedTimer = 1;
+                paralyzed = true;
                 rbPlayer.AddForce(new Vector2(0, 150));
                 //bombTimer = 0.0f;
                 //activatedBomb = false;
@@ -253,12 +269,12 @@ public class Player : MonoBehaviour
         }
     }
 
-        //if (bombTimer > 1.6f)
-        //{
-        //    Destroy(other.gameObject);
-        //    bombTimer = 0;
-        //    activatedBomb = false;
-        //}
+    //if (bombTimer > 1.6f)
+    //{
+    //    Destroy(other.gameObject);
+    //    bombTimer = 0;
+    //    activatedBomb = false;
+    //}
 }
 
 
