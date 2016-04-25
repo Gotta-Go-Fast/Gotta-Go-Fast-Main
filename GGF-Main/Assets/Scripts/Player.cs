@@ -9,10 +9,6 @@ public class Player : MonoBehaviour
     public float speed;
     public float jumpPower;
 
-
-	public bool isInLead;
-
-
     public bool grounded;
     public int doubleJump;
     private bool hasDoubleJumped;
@@ -66,7 +62,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
 
         if (activatedBomb)
         {
