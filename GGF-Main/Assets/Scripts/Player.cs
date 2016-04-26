@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
 
     public Player otherPlayer;
 
+
+    public bool paused;
     //public BombController bombController;
 
     void Start()
@@ -69,107 +71,109 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
-        if (activatedBomb)
+        if (!paused)
         {
-            bombTimer += Time.deltaTime;
-        }
-
-        if (bombTimer > 1.4f && bombTimer < 2.0f)
-        {
-            bombUsed = true;
-            //activatedBomb = false;
-            //bombTimer = 0;
-        }
-        if (bombTimer < 1.4f)
-        {
-            bombUsed = false;
-        }
-        else if (bombTimer > 2.0f)
-        {
-            bombUsed = false;
-            activatedBomb = false;
-        }
-
-        if (speedBoostTimer > 0)
-        {
-            speedBoostTimer -= Time.deltaTime;
-            maxSpeed = 10f;
-        }
-
-        if (speedBoostTimer <= 0)
-        {
-            maxSpeed = 6f;
-        }
-
-        animator.SetBool("Grounded", grounded);
-        animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
-
-        bombAnimator.SetBool("Activated", activatedBomb);
-
-        if (!paralyzed)
-        {
-            if (Input.GetAxis("Horizontal" + playerNumber) < -0.1f)
+            if (activatedBomb)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                bombTimer += Time.deltaTime;
             }
 
-            if (Input.GetAxis("Horizontal" + playerNumber) > 0.1f)
+            if (bombTimer > 1.4f && bombTimer < 2.0f)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                bombUsed = true;
+                //activatedBomb = false;
+                //bombTimer = 0;
             }
-        }
-
-        oldJumpState = jumpState;
-        jumpState = Input.GetButton("Jump" + playerNumber);
-
-
-        //DoubleJump
-        if (jumpState && !oldJumpState && !grounded && (doubleJump > 0) && !hasDoubleJumped)
-        {
-            hasDoubleJumped = true;
-
-            rbPlayer.AddForce(Vector2.up * jumpPower);
-
-            doubleJump -= 1;
-        }
-
-
-        //SingleJump
-        if (jumpState && !oldJumpState && grounded)
-        {
-            hasDoubleJumped = false;
-
-            rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, 0);
-
-            rbPlayer.AddForce(Vector2.up * jumpPower);
-        }
-
-        //Shoot
-        if (Input.GetButtonDown("Fire" + playerNumber) && shots > 0)
-        {
-            shoot = true;
-            GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
-
-            shots -= 1;
-
-            bulletSpeed = 15;
-            if (transform.localScale.x < 0)
+            if (bombTimer < 1.4f)
             {
-                bulletSpeed = -bulletSpeed;
+                bombUsed = false;
+            }
+            else if (bombTimer > 2.0f)
+            {
+                bombUsed = false;
+                activatedBomb = false;
             }
 
-            createBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, laserBullet.GetComponent<Rigidbody2D>().velocity.y);
-            shoot = false;
-        }
+            if (speedBoostTimer > 0)
+            {
+                speedBoostTimer -= Time.deltaTime;
+                maxSpeed = 10f;
+            }
 
-        //Drop Bomb
-        if (Input.GetButtonDown("Fire" + playerNumber) && haveBomb)
-        {
-            bombTimer = 0.0f;
-            GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
-            activatedBomb = true;
-            haveBomb = true;
+            if (speedBoostTimer <= 0)
+            {
+                maxSpeed = 6f;
+            }
+
+            animator.SetBool("Grounded", grounded);
+            animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
+
+            bombAnimator.SetBool("Activated", activatedBomb);
+
+            if (!paralyzed)
+            {
+                if (Input.GetAxis("Horizontal" + playerNumber) < -0.1f)
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+
+                if (Input.GetAxis("Horizontal" + playerNumber) > 0.1f)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+            }
+
+            oldJumpState = jumpState;
+            jumpState = Input.GetButton("Jump" + playerNumber);
+
+
+            //DoubleJump
+            if (jumpState && !oldJumpState && !grounded && (doubleJump > 0) && !hasDoubleJumped)
+            {
+                hasDoubleJumped = true;
+
+                rbPlayer.AddForce(Vector2.up * jumpPower);
+
+                doubleJump -= 1;
+            }
+
+
+            //SingleJump
+            if (jumpState && !oldJumpState && grounded)
+            {
+                hasDoubleJumped = false;
+
+                rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, 0);
+
+                rbPlayer.AddForce(Vector2.up * jumpPower);
+            }
+
+            //Shoot
+            if (Input.GetButtonDown("Fire" + playerNumber) && shots > 0)
+            {
+                shoot = true;
+                GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
+
+                shots -= 1;
+
+                bulletSpeed = 15;
+                if (transform.localScale.x < 0)
+                {
+                    bulletSpeed = -bulletSpeed;
+                }
+
+                createBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, laserBullet.GetComponent<Rigidbody2D>().velocity.y);
+                shoot = false;
+            }
+
+            //Drop Bomb
+            if (Input.GetButtonDown("Fire" + playerNumber) && haveBomb)
+            {
+                bombTimer = 0.0f;
+                GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
+                activatedBomb = true;
+                haveBomb = true;
+            }
         }
     }
 

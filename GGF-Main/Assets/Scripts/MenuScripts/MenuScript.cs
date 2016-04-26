@@ -68,6 +68,11 @@ public class MenuScript : MonoBehaviour {
         levelMenuCanvas.enabled = false;
     }
 
+    // Update
+    private void Update()
+    {
+        Time.timeScale = 1;
+    }
 
     // Main Menu
 

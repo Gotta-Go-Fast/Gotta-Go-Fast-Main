@@ -24,7 +24,8 @@ public class IngameMenuScript : MonoBehaviour
     public AudioSource backgroundMusic;
     public AudioSource pauseMusic;
     public bool mute;
-    public bool soundTrack;
+
+    public bool paused;
 
 
     void Start()
@@ -46,8 +47,10 @@ public class IngameMenuScript : MonoBehaviour
         // Music
         backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
         pauseMusic = pauseMusic.GetComponent<AudioSource>();
+        pauseMusic.Stop();
         mute = false;
-        soundTrack = true;
+
+        paused = false;
 
         pauseCanvas.enabled = false;
         optionsCanvas.enabled = false;
@@ -55,7 +58,24 @@ public class IngameMenuScript : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetButton("Pause"))
+        {
+            paused = true;
 
+            pauseCanvas.enabled = true;
+            backgroundMusic.Stop();
+            pauseMusic.Play();
+        }
+
+        if (paused)
+        {
+            Time.timeScale = 0;
+        }
+
+        if (!paused)
+        {
+            Time.timeScale = 1;
+        }
 
     }
 
@@ -64,6 +84,7 @@ public class IngameMenuScript : MonoBehaviour
     public void Resume()
     {
         pauseCanvas.enabled = false;
+        paused = false;
 
         pauseMusic.Stop();
         backgroundMusic.Play();
@@ -72,6 +93,10 @@ public class IngameMenuScript : MonoBehaviour
     public void Restart()
     {
         Application.LoadLevel(1);
+
+        paused = false;
+
+        pauseMusic.Stop();
     }
 
     public void Options()
@@ -83,6 +108,10 @@ public class IngameMenuScript : MonoBehaviour
     public void MainMenu()
     {
         Application.LoadLevel(0);
+
+        paused = false;
+
+        pauseMusic.Stop();
     }
 
 
@@ -93,10 +122,14 @@ public class IngameMenuScript : MonoBehaviour
         if (mute)
         {
             mute = false;
+
+            pauseMusic.Play();
         }
         else
         {
             mute = true;
+
+            pauseMusic.Stop();
         }
     }
 
