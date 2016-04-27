@@ -23,10 +23,9 @@ public class IngameMenuScript : MonoBehaviour
     // Music
     public AudioSource backgroundMusic;
     public AudioSource pauseMusic;
-    public bool mute;
 
-    public bool paused;
-
+    public static bool paused;
+    public bool muteCheck;
 
     void Start()
     {
@@ -47,24 +46,48 @@ public class IngameMenuScript : MonoBehaviour
         // Music
         backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
         pauseMusic = pauseMusic.GetComponent<AudioSource>();
-        pauseMusic.Stop();
-        mute = false;
 
         paused = false;
 
         pauseCanvas.enabled = false;
         optionsCanvas.enabled = false;
+
+
     }
 
     private void Update()
     {
+        muteCheck = MenuScript.mute;
+
+        if (muteCheck)
+        {
+            backgroundMusic.Pause();
+            pauseMusic.Pause();
+        }
+
+        if (!muteCheck && paused)
+        {
+            pauseMusic.UnPause();
+            backgroundMusic.Pause();
+        }
+
+        if (!muteCheck && !paused)
+        {
+            backgroundMusic.UnPause();
+            pauseMusic.Pause();
+        }
+
         if (Input.GetButton("Pause"))
         {
             paused = true;
 
             pauseCanvas.enabled = true;
-            backgroundMusic.Stop();
-            pauseMusic.Play();
+
+            if (!muteCheck)
+            {
+                backgroundMusic.Stop();
+                pauseMusic.Play();
+            }
         }
 
         if (paused)
@@ -85,9 +108,6 @@ public class IngameMenuScript : MonoBehaviour
     {
         pauseCanvas.enabled = false;
         paused = false;
-
-        pauseMusic.Stop();
-        backgroundMusic.Play();
     }
 
     public void Restart()
@@ -95,8 +115,6 @@ public class IngameMenuScript : MonoBehaviour
         Application.LoadLevel(1);
 
         paused = false;
-
-        pauseMusic.Stop();
     }
 
     public void Options()
@@ -110,8 +128,6 @@ public class IngameMenuScript : MonoBehaviour
         Application.LoadLevel(0);
 
         paused = false;
-
-        pauseMusic.Stop();
     }
 
 
@@ -119,17 +135,13 @@ public class IngameMenuScript : MonoBehaviour
 
     public void ToggleSound()
     {
-        if (mute)
+        if (muteCheck)
         {
-            mute = false;
-
-            pauseMusic.Play();
+            MenuScript.mute = false;
         }
-        else
+        else if (!muteCheck)
         {
-            mute = true;
-
-            pauseMusic.Stop();
+            MenuScript.mute = true;
         }
     }
 

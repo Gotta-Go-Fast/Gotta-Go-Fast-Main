@@ -29,9 +29,10 @@ public class MenuScript : MonoBehaviour {
     public Canvas levelMenuCanvas;
 
     // Music
-    public AudioSource backgroundMusic;
-    public bool mute;
+    public AudioSource mainMenuMusic;
+    public static bool mute;
 
+    public bool muteCheck;
 
     void Start ()
     {
@@ -59,7 +60,8 @@ public class MenuScript : MonoBehaviour {
         levelMenuCanvas = levelMenuCanvas.GetComponent<Canvas>();
 
         // Music
-        backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
+        mainMenuMusic = mainMenuMusic.GetComponent<AudioSource>();
+
         mute = false;
 
         mainMenuCanvas.enabled = true;
@@ -71,6 +73,8 @@ public class MenuScript : MonoBehaviour {
     // Update
     private void Update()
     {
+        muteCheck = mute;
+
         Time.timeScale = 1;
     }
 
@@ -78,8 +82,17 @@ public class MenuScript : MonoBehaviour {
 
     public void StartGame()
     {
-        mainMenuCanvas.enabled = false;
-        characterMenuCanvas.enabled = true;
+        // Temporary shortcut for testing.
+
+        Application.LoadLevel(1);
+
+
+
+
+        // the original code.
+
+        //mainMenuCanvas.enabled = false;
+        //characterMenuCanvas.enabled = true;
     }
 
     public void QuitGame()
@@ -101,12 +114,12 @@ public class MenuScript : MonoBehaviour {
         if (mute)
         {
             mute = false;
-            backgroundMusic.Play();
+            mainMenuMusic.UnPause();
         }
         else
         {
             mute = true;
-            backgroundMusic.Stop();
+            mainMenuMusic.Pause();
         }
     }
 
