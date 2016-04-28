@@ -40,8 +40,6 @@ public class Player : MonoBehaviour
 
     public Player otherPlayer;
 
-
-    public bool paused;
     //public BombController bombController;
 
     void Start()
@@ -69,115 +67,145 @@ public class Player : MonoBehaviour
         bombAnimator = bomb.GetComponent<Animator>();
     }
 
+
+    // Update
     void Update()
     {
-        if (!paused)
+        animator.SetBool("Grounded", grounded);
+        animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
+
+        bombAnimator.SetBool("Activated", activatedBomb);
+
+        oldJumpState = jumpState;
+        jumpState = Input.GetButton("Jump" + playerNumber);
+
+        TurnToInputDirection();
+
+
+        Jump();
+        DoubleJump();
+        SpeedBoost();
+        Shoot();
+        Bomb();
+    }
+
+    private void TurnToInputDirection()
+    {
+        if (!paralyzed)
         {
-            if (activatedBomb)
+            if (Input.GetAxis("Horizontal" + playerNumber) < -0.1f)
             {
-                bombTimer += Time.deltaTime;
+                transform.localScale = new Vector3(-1, 1, 1);
             }
 
-            if (bombTimer > 1.4f && bombTimer < 2.0f)
+            if (Input.GetAxis("Horizontal" + playerNumber) > 0.1f)
             {
-                bombUsed = true;
-                //activatedBomb = false;
-                //bombTimer = 0;
-            }
-            if (bombTimer < 1.4f)
-            {
-                bombUsed = false;
-            }
-            else if (bombTimer > 2.0f)
-            {
-                bombUsed = false;
-                activatedBomb = false;
-            }
-
-            if (speedBoostTimer > 0)
-            {
-                speedBoostTimer -= Time.deltaTime;
-                maxSpeed = 10f;
-            }
-
-            if (speedBoostTimer <= 0)
-            {
-                maxSpeed = 6f;
-            }
-
-            animator.SetBool("Grounded", grounded);
-            animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
-
-            bombAnimator.SetBool("Activated", activatedBomb);
-
-            if (!paralyzed)
-            {
-                if (Input.GetAxis("Horizontal" + playerNumber) < -0.1f)
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-
-                if (Input.GetAxis("Horizontal" + playerNumber) > 0.1f)
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-            }
-
-            oldJumpState = jumpState;
-            jumpState = Input.GetButton("Jump" + playerNumber);
-
-
-            //DoubleJump
-            if (jumpState && !oldJumpState && !grounded && (doubleJump > 0) && !hasDoubleJumped)
-            {
-                hasDoubleJumped = true;
-
-                rbPlayer.AddForce(Vector2.up * jumpPower);
-
-                doubleJump -= 1;
-            }
-
-
-            //SingleJump
-            if (jumpState && !oldJumpState && grounded)
-            {
-                hasDoubleJumped = false;
-
-                rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, 0);
-
-                rbPlayer.AddForce(Vector2.up * jumpPower);
-            }
-
-            //Shoot
-            if (Input.GetButtonDown("Fire" + playerNumber) && shots > 0)
-            {
-                shoot = true;
-                GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
-
-                shots -= 1;
-
-                bulletSpeed = 15;
-                if (transform.localScale.x < 0)
-                {
-                    bulletSpeed = -bulletSpeed;
-                }
-
-                createBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, laserBullet.GetComponent<Rigidbody2D>().velocity.y);
-                shoot = false;
-            }
-
-            //Drop Bomb
-            if (Input.GetButtonDown("Fire" + playerNumber) && haveBomb)
-            {
-                bombTimer = 0.0f;
-                GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
-                activatedBomb = true;
-                haveBomb = true;
+                transform.localScale = new Vector3(1, 1, 1);
             }
         }
     }
 
+    private void Jump()
+    {
+        if (jumpState && !oldJumpState && grounded)
+        {
+            hasDoubleJumped = false;
+
+            rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, 0);
+
+            rbPlayer.AddForce(Vector2.up * jumpPower);
+        }
+    }
+
+    private void DoubleJump()
+    {
+        if (jumpState && !oldJumpState && !grounded && (doubleJump > 0) && !hasDoubleJumped)
+        {
+            hasDoubleJumped = true;
+
+            rbPlayer.AddForce(Vector2.up * jumpPower);
+
+            doubleJump -= 1;
+        }
+    }
+
+    private void SpeedBoost()
+    {
+        if (speedBoostTimer > 0)
+        {
+            speedBoostTimer -= Time.deltaTime;
+            maxSpeed = 10f;
+        }
+
+        if (speedBoostTimer <= 0)
+        {
+            maxSpeed = 6f;
+        }
+    }
+
+    private void Shoot()
+    {
+        if (Input.GetButtonDown("Fire" + playerNumber) && shots > 0)
+        {
+            shoot = true;
+            GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
+
+            shots -= 1;
+
+            bulletSpeed = 15;
+            if (transform.localScale.x < 0)
+            {
+                bulletSpeed = -bulletSpeed;
+            }
+
+            createBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, laserBullet.GetComponent<Rigidbody2D>().velocity.y);
+            shoot = false;
+        }
+    }
+
+    private void Bomb()
+    {
+        if (Input.GetButtonDown("Fire" + playerNumber) && haveBomb)
+        {
+            bombTimer = 0.0f;
+            GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
+            activatedBomb = true;
+            haveBomb = true;
+        }
+
+        if (activatedBomb)
+        {
+            bombTimer += Time.deltaTime;
+        }
+
+        if (bombTimer > 1.4f && bombTimer < 2.0f)
+        {
+            bombUsed = true;
+            //activatedBomb = false;
+            //bombTimer = 0;
+        }
+        if (bombTimer < 1.4f)
+        {
+            bombUsed = false;
+        }
+        else if (bombTimer > 2.0f)
+        {
+            bombUsed = false;
+            activatedBomb = false;
+        }
+    }
+
+    // FixedUpdate
     void FixedUpdate()
+    {
+        float h = Input.GetAxis("Horizontal" + playerNumber);
+
+        Paralyzed();
+
+        SpeedLimit();
+    }
+
+    private void Paralyzed()
     {
         if (paralyzed)
         {
@@ -193,15 +221,15 @@ public class Player : MonoBehaviour
             }
         }
 
-        float h = Input.GetAxis("Horizontal" + playerNumber);
-
-        if (!paralyzed)
+        else if (!paralyzed)
         {
             rbPlayer.AddForce((Vector2.right * speed) * h);
             spriteRenderer.material.color = Color.white;
         }
+    }
 
-
+    private void SpeedLimit()
+    {
         if (rbPlayer.velocity.x > maxSpeed)
         {
             rbPlayer.velocity = new Vector2(maxSpeed, rbPlayer.velocity.y);
@@ -213,49 +241,65 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    // Player colliding with interactables
     void OnTriggerEnter2D(Collider2D other)
+    {
+        PickUpDoubleJump(other);
+        PickUpSpeedBoost(other);
+        PickUpAmmo(other);
+        PickUpBomb(other);
+
+        HitByBullet(other);
+    }
+
+    private void PickUpDoubleJump(Collider2D other)
     {
         if (other.gameObject.CompareTag("DoubleJump"))
         {
             other.gameObject.SetActive(false);
             doubleJump += 1;
         }
+    }
 
+    private void PickUpSpeedBoost(Collider2D other)
+    {
         if (other.gameObject.CompareTag("SpeedBoost"))
         {
             other.gameObject.SetActive(false);
             speedBoostTimer = 0.8f;
         }
+    }
 
+    private void PickUpAmmo(Collider2D other)
+    {
         if (other.gameObject.CompareTag("Ammo"))
         {
             other.gameObject.SetActive(false);
             shots += 1;
         }
+    }
 
-        if (other.gameObject.CompareTag("Bullet"))
-        {
-            Destroy(other.gameObject);
-            paralyzed = true;
-        }
-
+    private void PickUpBomb(Collider2D other)
+    {
         if (other.gameObject.CompareTag("BombPickUp"))
         {
             Destroy(other.gameObject);
             haveBomb = true;
         }
-
-        //if (other.gameObject.CompareTag("Bomb"))
-        //{
-        //    if (bombUsed == true)
-        //    {
-        //        Destroy(other.gameObject);
-        //        rbPlayer.AddForce(new Vector2(-1000, 0));
-        //        //bombTimer = 0.0f;
-        //        //activatedBomb = false;
-        //    }
-        //}
     }
+
+    private void HitByBullet(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+            paralyzed = true;
+        }
+    }
+
+
+
 
     void OnTriggerStay2D(Collider2D other)
     {
