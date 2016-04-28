@@ -62,8 +62,6 @@ public class MenuScript : MonoBehaviour {
         // Music
         mainMenuMusic = mainMenuMusic.GetComponent<AudioSource>();
 
-        mute = false;
-
         mainMenuCanvas.enabled = true;
         optionsCanvas.enabled = false;
         characterMenuCanvas.enabled = false;
@@ -74,6 +72,15 @@ public class MenuScript : MonoBehaviour {
     private void Update()
     {
         muteCheck = mute;
+
+        if (mute)
+        {
+            mainMenuMusic.Pause();
+        }
+        else if (!mute)
+        {
+            mainMenuMusic.UnPause();
+        }
 
         Time.timeScale = 1;
     }
@@ -114,12 +121,10 @@ public class MenuScript : MonoBehaviour {
         if (mute)
         {
             mute = false;
-            mainMenuMusic.UnPause();
         }
         else
         {
             mute = true;
-            mainMenuMusic.Pause();
         }
     }
 
