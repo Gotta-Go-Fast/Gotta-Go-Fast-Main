@@ -39,14 +39,12 @@ public class EvilOverlordGoal : MonoBehaviour {
 
     private void Distances()
     {
-        toGoalPlayer1.x = (goalPosition.x - player1.transform.position.x);
-        toGoalPlayer1.y = (goalPosition.y - player1.transform.position.y);
+        toGoalPlayer1 = (goalPosition - player1.position);
 
         distancePlayer1 = Mathf.Sqrt((toGoalPlayer1.x * toGoalPlayer1.x) + (toGoalPlayer1.y * toGoalPlayer1.y));
 
 
-        toGoalPlayer2.x = (goalPosition.x - player2.transform.position.x);
-        toGoalPlayer2.y = (goalPosition.y - player2.transform.position.y);
+        toGoalPlayer2 = (goalPosition - player2.position);
 
         distancePlayer2 = Mathf.Sqrt((toGoalPlayer2.x * toGoalPlayer2.x) + (toGoalPlayer2.y * toGoalPlayer2.y));
 

@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private bool jumpState;
     private bool oldJumpState;
 
+    public Vector2 position;
 
     public Player otherPlayer;
     public Transform firePoint;
@@ -71,6 +72,9 @@ public class Player : MonoBehaviour
     // Update
     void Update()
     {
+        position.x = transform.position.x;
+        position.y = transform.position.y;
+
         animator.SetBool("Grounded", grounded);
         animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
 
@@ -106,7 +110,7 @@ public class Player : MonoBehaviour
     }
     private void Jump()
     {
-        if (jumpState && !oldJumpState && grounded)
+        if (jumpState && !oldJumpState && grounded && !paralyzed)
         {
             hasDoubleJumped = false;
 
