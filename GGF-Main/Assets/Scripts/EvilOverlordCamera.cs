@@ -19,7 +19,7 @@ public class EvilOverlordCamera : MonoBehaviour
 
     private void Start()
     {
-        maxDistance = 5;
+        maxDistance = 2.5f;
 
         followBoth = true;
 
@@ -60,7 +60,7 @@ public class EvilOverlordCamera : MonoBehaviour
         distance = Mathf.Sqrt((playerDistance.x * playerDistance.x) + (playerDistance.y * playerDistance.y));
 
         // Tells the camera to follow the leader if the players get to far apart
-        if (distance > maxDistance)
+        if (distance > (maxDistance * 2))
         {
             followBoth = false;
         }
