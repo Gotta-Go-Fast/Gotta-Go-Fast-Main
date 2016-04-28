@@ -12,14 +12,21 @@ public class EvilOverlordCamera : MonoBehaviour
     private Vector2 cameraOffset;
     private Vector2 directionLosingPlayer;
 
+    private Vector3 cameraV2toV3;
+    private Vector3 velocity;
+
     private bool followBoth;
 
-    public float distance;
+    private float distance;
     private float maxDistance;
+    private float smoothTime;
 
     private void Start()
     {
+        velocity = Vector3.zero;
+
         maxDistance = 2.5f;
+        smoothTime = 0.2f;
 
         followBoth = true;
 
@@ -90,15 +97,19 @@ public class EvilOverlordCamera : MonoBehaviour
         if (player1.leader)
         {
             cameraPosition = player1.position - cameraOffset;
-
-            transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -10);
         }
 
         else
         {
             cameraPosition = player2.position - cameraOffset;
-
-            transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -10);
         }
+
+        cameraV2toV3.x = cameraPosition.x;
+        cameraV2toV3.y = cameraPosition.y;
+        cameraV2toV3.z = -10f;
+
+        transform.position = Vector3.SmoothDamp(transform.position, cameraV2toV3, ref velocity, smoothTime);
+
+        //transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -10);
     }
 }
