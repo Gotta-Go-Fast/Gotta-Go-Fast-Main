@@ -59,24 +59,29 @@ public class IngameMenuScript : MonoBehaviour
     {
         muteCheck = MenuScript.mute;
 
+
+        // No music if muted
         if (muteCheck)
         {
             backgroundMusic.Pause();
             pauseMusic.Pause();
         }
 
+        // Music if not muted and paused
         if (!muteCheck && paused)
         {
             pauseMusic.UnPause();
             backgroundMusic.Pause();
         }
 
+        // Music if not muted and not paused
         if (!muteCheck && !paused)
         {
             backgroundMusic.UnPause();
             pauseMusic.Pause();
         }
 
+        // Press "P" for pause
         if (Input.GetButton("Pause"))
         {
             paused = true;
@@ -85,11 +90,12 @@ public class IngameMenuScript : MonoBehaviour
 
             if (!muteCheck)
             {
-                backgroundMusic.Stop();
-                pauseMusic.Play();
+                backgroundMusic.Pause();
+                pauseMusic.UnPause();
             }
         }
 
+        // Freezing time when paused
         if (paused)
         {
             Time.timeScale = 0;

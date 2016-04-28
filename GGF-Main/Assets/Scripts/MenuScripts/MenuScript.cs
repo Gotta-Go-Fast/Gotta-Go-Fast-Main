@@ -91,15 +91,15 @@ public class MenuScript : MonoBehaviour {
     {
         // Temporary shortcut for testing.
 
-        Application.LoadLevel(1);
+        //Application.LoadLevel(1);
 
 
 
 
         // the original code.
 
-        //mainMenuCanvas.enabled = false;
-        //characterMenuCanvas.enabled = true;
+        mainMenuCanvas.enabled = false;
+        characterMenuCanvas.enabled = true;
     }
 
     public void QuitGame()
