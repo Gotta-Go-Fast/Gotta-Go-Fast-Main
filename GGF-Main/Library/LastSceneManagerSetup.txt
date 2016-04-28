@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Testscenes/joel-platform.unity
+- path: Assets/Scenes/Testscenes/Evil Overlord Platform.unity
   isLoaded: 1
   isActive: 1

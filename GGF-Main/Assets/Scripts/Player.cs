@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public float bombTimer;
 
 
+    public bool leader;
     public bool activatedBomb;
     public bool bombUsed;
     public bool haveBomb = true;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
     private bool hasDoubleJumped;
     private bool jumpState;
     private bool oldJumpState;
+
 
     public Player otherPlayer;
     public Transform firePoint;
