@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private bool oldJumpState;
 
     public Vector2 position;
+    public Vector2 velocity;
 
     public Player otherPlayer;
     public Transform firePoint;
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
         paralyzedReset = 0.6f;
         paralyzedTimer = paralyzedReset;
 
+        velocity = new Vector2(0, 0);
         maxSpeed = 6f;
         speed = 50f;
         jumpPower = 250f;
@@ -215,7 +217,7 @@ public class Player : MonoBehaviour
             spriteRenderer.material.color = Color.cyan;
 
             rbPlayer.velocity = new Vector2(0.0f, rbPlayer.velocity.y);
-            //rbPlayer.AddForce(Vector2.left * jumpPower);
+
             if (paralyzedTimer < 0)
             {
                 paralyzed = false;
@@ -224,10 +226,22 @@ public class Player : MonoBehaviour
         }
 
         // Add input to force movement
-        else if (!paralyzed)
+        else if (!paralyzed && grounded)
         {
-            rbPlayer.AddForce((Vector2.right * speed) * h);
+            velocity.x = (10 * h);
+            velocity.y = rbPlayer.velocity.y;
+
+            rbPlayer.velocity = velocity;
+
             spriteRenderer.material.color = Color.white;
+        }
+
+        if (!paralyzed && !grounded)
+        {
+            velocity.x = (4 * h);
+            velocity.y = rbPlayer.velocity.y;
+
+            rbPlayer.velocity = velocity;
         }
     }
     private void SpeedLimit()
