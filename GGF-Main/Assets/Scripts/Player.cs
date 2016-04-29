@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public int doubleJump;
     public int shots;
     public int bulletSpeed;
+    public int bombs;
+    public int checkPointsReached;
 
     public float maxSpeed;
     public float speed;
@@ -22,13 +24,14 @@ public class Player : MonoBehaviour
     public bool leader;
     public bool activatedBomb;
     public bool bombUsed;
-    public bool haveBomb = true;
     public bool shoot;
     public bool grounded;
     public bool paralyzed;
     private bool hasDoubleJumped;
     private bool jumpState;
     private bool oldJumpState;
+
+    public EvilOverlordGoal goal;
 
     public Vector2 position;
 
@@ -57,15 +60,17 @@ public class Player : MonoBehaviour
         maxSpeed = 6f;
         speed = 50f;
         jumpPower = 250f;
-        shots = 100;
+        shots = 0;
+        bombs = 0;
+
+        checkPointsReached = 0;
 
         doubleJump = 0;
 
         rbPlayer = gameObject.GetComponent<Rigidbody2D>();
-
         animator = gameObject.GetComponent<Animator>();
-
         bombAnimator = bomb.GetComponent<Animator>();
+        goal = goal.GetComponent<EvilOverlordGoal>();
     }
 
 
@@ -166,12 +171,12 @@ public class Player : MonoBehaviour
     }
     private void Bomb()
     {
-        if (Input.GetButtonDown("Fire" + playerNumber) && haveBomb)
+        if (Input.GetButtonDown("Fire" + playerNumber) && bombs > 0)
         {
             bombTimer = 0.0f;
             GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
             activatedBomb = true;
-            haveBomb = true;
+            bombs--;
         }
 
         if (activatedBomb)
@@ -253,6 +258,10 @@ public class Player : MonoBehaviour
         PickUpSpeedBoost(other);
         PickUpAmmo(other);
         PickUpBomb(other);
+
+        CheckPoint1(other);
+        CheckPoint2(other);
+
     }
 
     private void HitByBullet(Collider2D other)
@@ -292,7 +301,32 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("BombPickUp"))
         {
             Destroy(other.gameObject);
-            haveBomb = true;
+            bombs++;
+        }
+    }
+
+    private void CheckPoint1(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Checkpoint1") && checkPointsReached == 0)
+        {
+            checkPointsReached++;
+
+            if (goal.checkPointsReached == 0)
+            {
+                goal.checkPointsReached = 1;
+            }
+        }
+    }
+    private void CheckPoint2(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Checkpoint2") && checkPointsReached == 1)
+        {
+            checkPointsReached++;
+
+            if (goal.checkPointsReached == 1)
+            {
+                goal.checkPointsReached = 2;
+            }
         }
     }
 
