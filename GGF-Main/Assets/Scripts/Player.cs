@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
             spriteRenderer.material.color = Color.cyan;
 
             rbPlayer.velocity = new Vector2(0.0f, rbPlayer.velocity.y);
-            //rbPlayer.AddForce(Vector2.left * jumpPower);
+
             if (paralyzedTimer < 0)
             {
                 paralyzed = false;
