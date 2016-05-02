@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public float paralyzedTimer;
     public float speedBoostTimer = 0;
     public float bombTimer;
+    private float jumpTimer;
 
 
     public bool leader;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     private bool hasDoubleJumped;
     private bool jumpState;
     private bool oldJumpState;
+    private bool airturn;
 
     public EvilOverlordGoal goal;
 
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
-        bombTimer = 0.0f;
+        bombTimer = 0;
 
         bulletSpeed = 15;
 
@@ -60,10 +62,13 @@ public class Player : MonoBehaviour
 
         velocity = new Vector2(0, 0);
         maxSpeed = 6f;
-        speed = 50f;
+        speed = 10f;
         jumpPower = 250f;
+        jumpTimer = 0;
         shots = 0;
         bombs = 0;
+
+        airturn = false;
 
         checkPointsReached = 0;
 
@@ -91,8 +96,6 @@ public class Player : MonoBehaviour
         jumpState = Input.GetButton("Jump" + playerNumber);
 
         TurnToInputDirection();
-
-
         Jump();
         DoubleJump();
         SpeedBoost();
@@ -122,8 +125,15 @@ public class Player : MonoBehaviour
             hasDoubleJumped = false;
 
             rbPlayer.velocity = new Vector2(rbPlayer.velocity.x, 0);
+            velocity = rbPlayer.velocity;
 
             rbPlayer.AddForce(Vector2.up * jumpPower);
+        }
+
+        if (grounded)
+        {
+            airturn = false;
+            speed = 10f;
         }
     }
 
@@ -231,9 +241,9 @@ public class Player : MonoBehaviour
         }
 
         // Add input to force movement
-        else if (!paralyzed && grounded)
+        else if (!paralyzed)
         {
-            velocity.x = (10 * h);
+            velocity.x = (speed * h);
             velocity.y = rbPlayer.velocity.y;
 
             rbPlayer.velocity = velocity;
@@ -241,12 +251,13 @@ public class Player : MonoBehaviour
             spriteRenderer.material.color = Color.white;
         }
 
-        if (!paralyzed && !grounded)
+        if (!grounded && !airturn)
         {
-            velocity.x = (4 * h);
-            velocity.y = rbPlayer.velocity.y;
-
-            rbPlayer.velocity = velocity;
+            if (velocity.x != speed * h)
+            {
+                airturn = true;
+                speed = 6f;
+            }
         }
     }
     private void SpeedLimit()
@@ -344,7 +355,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    // Player collition stay
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        CollidingBomb(other);
+        CollidingPlayer(other);
+
+    }
+
+    private void CollidingBomb(Collider2D other)
     {
         if (other.gameObject.CompareTag("Bomb"))
         {
@@ -359,13 +378,13 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void CollidingPlayer(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player" + playerNumber))
+        {
 
-    //if (bombTimer > 1.6f)
-    //{
-    //    Destroy(other.gameObject);
-    //    bombTimer = 0;
-    //    activatedBomb = false;
-    //}
+        }
+    }
 }
 
 

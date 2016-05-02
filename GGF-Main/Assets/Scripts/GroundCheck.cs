@@ -10,18 +10,55 @@ public class GroundCheck : MonoBehaviour
         player = gameObject.GetComponentInParent<Player>();
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        player.grounded = true;
+        if (player.playerNumber == 1)
+        {
+            if (!other.gameObject.CompareTag("Player2"))
+            {
+                player.grounded = true;
+            }
+        }
+        else
+        {
+            if (!other.gameObject.CompareTag("Player"))
+            {
+                player.grounded = true;
+            }
+        }
     }
-
-    void OnTriggerStay2D(Collider2D collider)
+    void OnTriggerStay2D(Collider2D other)
     {
-        player.grounded = true;
+        if (player.playerNumber == 1)
+        {
+            if (!other.gameObject.CompareTag("Player2"))
+            {
+                player.grounded = true;
+            }
+        }
+        else
+        {
+            if (!other.gameObject.CompareTag("Player"))
+            {
+                player.grounded = true;
+            }
+        }
     }
-
-    void OnTriggerExit2D(Collider2D collider)
+    void OnTriggerExit2D(Collider2D other)
     {
-        player.grounded = false;
+        if (player.playerNumber == 1)
+        {
+            if (!other.gameObject.CompareTag("Player2"))
+            {
+                player.grounded = false;
+            }
+        }
+        else
+        {
+            if (!other.gameObject.CompareTag("Player"))
+            {
+                player.grounded = false;
+            }
+        }
     }
 }

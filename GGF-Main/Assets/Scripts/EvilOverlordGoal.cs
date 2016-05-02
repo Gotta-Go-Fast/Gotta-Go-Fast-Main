@@ -23,6 +23,7 @@ public class EvilOverlordGoal : MonoBehaviour
 
     public int checkPointsReached;
     public int numberOfCheckPoints;
+    public int levelNumber;
 
 
     // Use this for initialization

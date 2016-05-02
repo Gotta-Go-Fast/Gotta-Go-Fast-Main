@@ -94,8 +94,6 @@ public class MenuScript : MonoBehaviour {
         //Application.LoadLevel(1);
 
 
-
-
         // the original code.
 
         mainMenuCanvas.enabled = false;
