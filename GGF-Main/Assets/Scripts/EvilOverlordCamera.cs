@@ -16,6 +16,7 @@ public class EvilOverlordCamera : MonoBehaviour
     private Vector3 velocity;
 
     private bool followBoth;
+    private bool followWinner;
 
     private float distance;
     private float maxDistance;
@@ -25,7 +26,7 @@ public class EvilOverlordCamera : MonoBehaviour
     {
         velocity = Vector3.zero;
 
-        maxDistance = 2.5f;
+        maxDistance = 2f;
         smoothTime = 0.2f;
 
         followBoth = true;
@@ -38,17 +39,23 @@ public class EvilOverlordCamera : MonoBehaviour
     {
         PlayerDistance();
 
-        if (followBoth)
+        if (player1.iMustGo || player2.iMustGo)
+        {
+            FollowWinner();
+        }
+
+        if (followBoth && !followWinner)
         {
             CenterPosition();
         }
 
-        else
+        else if (!followBoth && !followWinner)
         {
             FollowLeader();
         }
 
         UpdateCamera();
+
     }
 
     // Creating a vector between the two players, and calculating the distance to a float
@@ -90,6 +97,14 @@ public class EvilOverlordCamera : MonoBehaviour
         directionLosingPlayer = playerDistance / (Mathf.Sqrt((playerDistance.x * playerDistance.x) + (playerDistance.y * playerDistance.y)));
 
         cameraOffset = directionLosingPlayer * maxDistance;
+    }
+
+    private void FollowWinner()
+    {
+        followWinner = true;
+
+        cameraOffset.x = 0;
+        cameraOffset.y = 0;
     }
 
     private void UpdateCamera()

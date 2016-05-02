@@ -18,12 +18,13 @@ public class EvilOverlordGoal : MonoBehaviour
     private Vector2 toGoalPlayer1;
     private Vector2 toGoalPlayer2;
 
+    public bool winner;
+
     public float distancePlayer1;
     public float distancePlayer2;
 
     public int checkPointsReached;
-    public int numberOfCheckPoints;
-    public int levelNumber;
+    public static int numberOfCheckPoints;
 
 
     // Use this for initialization
@@ -47,16 +48,28 @@ public class EvilOverlordGoal : MonoBehaviour
         player2.leader = false;
 
         checkPointsReached = 0;
+
+        NumberOfCheckPoints();
+    }
+
+    private void NumberOfCheckPoints()
+    {
+        if ((Application.loadedLevel) == 1)
+        {
+            numberOfCheckPoints = 0;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        numberOfCheckPoints = 2;
-
         FindNextCheckPoint();
         Distances();
-        Leader();
+
+        if (!player1.iMustGo && !player2.iMustGo)
+        {
+            Leader();
+        }
     }
 
     private void FindNextCheckPoint()
@@ -117,8 +130,16 @@ public class EvilOverlordGoal : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Player1") && !player2.iMustGo)
+        {
+            player1.iMustGo = true;
+        }
 
+        else if (other.gameObject.CompareTag("Player2") && !player1.iMustGo)
+        {
+            player2.iMustGo = true;
+        }
     }
 }

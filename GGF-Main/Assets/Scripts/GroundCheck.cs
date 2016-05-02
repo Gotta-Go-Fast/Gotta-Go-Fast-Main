@@ -21,7 +21,7 @@ public class GroundCheck : MonoBehaviour
         }
         else
         {
-            if (!other.gameObject.CompareTag("Player"))
+            if (!other.gameObject.CompareTag("Player1"))
             {
                 player.grounded = true;
             }

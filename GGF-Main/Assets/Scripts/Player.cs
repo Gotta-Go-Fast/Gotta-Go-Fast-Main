@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
     public int doubleJump;
     public int shots;
     public int bulletSpeed;
-    public int bombs;
     public int checkPointsReached;
 
     public float maxSpeed;
@@ -20,12 +19,15 @@ public class Player : MonoBehaviour
     public float speedBoostTimer = 0;
     public float bombTimer;
     private float jumpTimer;
-
+    private float winTimer;
 
     public bool leader;
+    public bool iMustGo;
+    public bool winner;
     public bool activatedBomb;
     public bool bombUsed;
     public bool shoot;
+    public bool gotBomb;
     public bool grounded;
     public bool paralyzed;
     private bool hasDoubleJumped;
@@ -63,10 +65,10 @@ public class Player : MonoBehaviour
         velocity = new Vector2(0, 0);
         maxSpeed = 6f;
         speed = 10f;
-        jumpPower = 250f;
+        jumpPower = 270f;
         jumpTimer = 0;
         shots = 0;
-        bombs = 0;
+        gotBomb = false;
 
         airturn = false;
 
@@ -99,8 +101,14 @@ public class Player : MonoBehaviour
         Jump();
         DoubleJump();
         SpeedBoost();
-        Shoot();
-        Bomb();
+
+        if (!iMustGo)
+        {
+            Shoot();
+            Bomb();
+        }
+
+        Winning();
     }
 
     private void TurnToInputDirection()
@@ -183,41 +191,57 @@ public class Player : MonoBehaviour
     }
     private void Bomb()
     {
-        if (Input.GetButtonDown("Fire" + playerNumber) && bombs > 0)
+        if (Input.GetButtonDown("Fire" + playerNumber) && gotBomb)
         {
-            bombTimer = 0.0f;
             GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
+            gotBomb = false;
             activatedBomb = true;
-            bombs--;
+            bombTimer = 0;
         }
 
         if (activatedBomb)
         {
             bombTimer += Time.deltaTime;
+
+            if (bombTimer > 1.4f)
+            {
+                bombUsed = true;
+            }
+
+            if (bombTimer > 1.7f)
+            {
+                bombUsed = false;
+            }
+
+            if (bombTimer > 2.0f)
+            {
+                activatedBomb = false;
+                bombTimer = 0;
+            }
         }
 
-        if (bombTimer > 1.4f && bombTimer < 2.0f)
+
+    }
+
+    private void Winning()
+    {
+        if (iMustGo)
         {
-            bombUsed = true;
-            //activatedBomb = false;
-            //bombTimer = 0;
-        }
-        if (bombTimer < 1.4f)
-        {
-            bombUsed = false;
-        }
-        else if (bombTimer > 2.0f)
-        {
-            bombUsed = false;
-            activatedBomb = false;
+            rbPlayer.velocity = new Vector2((velocity.x/2), 10f);
+
+            winTimer += Time.deltaTime;
+
+            if (winTimer > 1f)
+            {
+                winner = true;
+            }
         }
     }
 
     // FixedUpdate
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Movement();
-
         SpeedLimit();
     }
 
@@ -275,9 +299,10 @@ public class Player : MonoBehaviour
 
 
     // Player colliding with interactables
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         HitByBullet(other);
+        HitByBomb(other);
 
         PickUpDoubleJump(other);
         PickUpSpeedBoost(other);
@@ -286,7 +311,6 @@ public class Player : MonoBehaviour
 
         CheckPoint1(other);
         CheckPoint2(other);
-
     }
 
     private void HitByBullet(Collider2D other)
@@ -295,6 +319,16 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             paralyzed = true;
+        }
+    }
+    private void HitByBomb(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Explosion") && otherPlayer.bombUsed)
+        {
+            Destroy(other.gameObject);
+            paralyzedTimer = 1;
+            paralyzed = true;
+            rbPlayer.velocity = new Vector2(0, 5);
         }
     }
     private void PickUpDoubleJump(Collider2D other)
@@ -323,13 +357,12 @@ public class Player : MonoBehaviour
     }
     private void PickUpBomb(Collider2D other)
     {
-        if (other.gameObject.CompareTag("BombPickUp"))
+        if (other.gameObject.CompareTag("Bomb"))
         {
             Destroy(other.gameObject);
-            bombs++;
+            gotBomb = true;
         }
     }
-
     private void CheckPoint1(Collider2D other)
     {
         if (other.gameObject.CompareTag("Checkpoint1") && checkPointsReached == 0)
@@ -355,35 +388,30 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Player collition stay
+    // Player collition intersects
     private void OnTriggerStay2D(Collider2D other)
     {
         CollidingBomb(other);
-        CollidingPlayer(other);
-
     }
 
     private void CollidingBomb(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Bomb"))
+        if (other.gameObject.CompareTag("Explosion") && otherPlayer.bombUsed)
         {
-            if (otherPlayer.bombUsed == true)
-            {
-                Destroy(other.gameObject);
-                paralyzedTimer = 1;
-                paralyzed = true;
-                rbPlayer.AddForce(new Vector2(0, 150));
-                //bombTimer = 0.0f;
-                //activatedBomb = false;
-            }
+            paralyzedTimer = 1;
+            paralyzed = true;
+            rbPlayer.velocity = new Vector2(0, 5);
+
+            Destroy(other.gameObject);
         }
     }
-    private void CollidingPlayer(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player" + playerNumber))
-        {
 
-        }
+
+    public void Restart()
+    {
+        winner = false;
+        iMustGo = false;
+        leader = false;
     }
 }
 

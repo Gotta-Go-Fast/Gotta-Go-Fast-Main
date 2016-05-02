@@ -4,7 +4,9 @@ using System.Collections;
 
 public class IngameMenuScript : MonoBehaviour
 {
-
+    // Players
+    public Player player1;
+    public Player player2;
 
     // PauseMenu Buttons
     public Button resume;
@@ -16,19 +18,28 @@ public class IngameMenuScript : MonoBehaviour
     public Button toggleSound;
     public Button optionsBack;
 
+    // WinMenu Buttons
+    public Button winRestart;
+
     // Canvases
     public Canvas pauseCanvas;
     public Canvas optionsCanvas;
+    public Canvas winCanvas;
 
     // Music
     public AudioSource backgroundMusic;
     public AudioSource pauseMusic;
+    public AudioSource winMusic;
 
     public static bool paused;
     public bool muteCheck;
 
     void Start()
     {
+        // Players
+        player1 = player1.GetComponent<Player>();
+        player2 = player2.GetComponent<Player>();
+
         // MainMenu Buttons
         resume = resume.GetComponent<Button>();
         restart = restart.GetComponent<Button>();
@@ -39,26 +50,64 @@ public class IngameMenuScript : MonoBehaviour
         toggleSound = toggleSound.GetComponent<Button>();
         optionsBack = optionsBack.GetComponent<Button>();
 
+        // WinMenu Buttons
+        winRestart = winRestart.GetComponent<Button>();
+
         // Canvases
         pauseCanvas = pauseCanvas.GetComponent<Canvas>();
         optionsCanvas = optionsCanvas.GetComponent<Canvas>();
+        winCanvas = winCanvas.GetComponent<Canvas>();
 
         // Music
         backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
         pauseMusic = pauseMusic.GetComponent<AudioSource>();
+        winMusic = winMusic.GetComponent<AudioSource>();
 
         paused = false;
 
         pauseCanvas.enabled = false;
         optionsCanvas.enabled = false;
-
-
+        winCanvas.enabled = false;
     }
 
     private void Update()
     {
-        muteCheck = MenuScript.mute;
+        Pause();
+        Mute();
+        Win();
+    }
 
+    private void Pause()
+    {
+        // Press "P" for pause
+        if (Input.GetButton("Pause") && !winCanvas.enabled)
+        {
+            paused = true;
+
+            pauseCanvas.enabled = true;
+            winCanvas.enabled = false;
+
+            if (!muteCheck)
+            {
+                backgroundMusic.Pause();
+                pauseMusic.UnPause();
+            }
+        }
+
+        // Freezing time when paused
+        if (paused)
+        {
+            Time.timeScale = 0;
+        }
+
+        if (!paused)
+        {
+            Time.timeScale = 1;
+        }
+    }
+    private void Mute()
+    {
+        muteCheck = MenuScript.mute;
 
         // No music if muted
         if (muteCheck)
@@ -80,32 +129,28 @@ public class IngameMenuScript : MonoBehaviour
             backgroundMusic.UnPause();
             pauseMusic.Pause();
         }
-
-        // Press "P" for pause
-        if (Input.GetButton("Pause"))
+    }
+    private void Win()
+    {
+        if (player1.winner)
         {
+            backgroundMusic.Pause();
+            pauseMusic.Pause();
+            //winMusic.UnPause();
+
+            winCanvas.enabled = true;
             paused = true;
-
-            pauseCanvas.enabled = true;
-
-            if (!muteCheck)
-            {
-                backgroundMusic.Pause();
-                pauseMusic.UnPause();
-            }
         }
 
-        // Freezing time when paused
-        if (paused)
+        else if (player2.winner)
         {
-            Time.timeScale = 0;
-        }
+            backgroundMusic.Pause();
+            pauseMusic.Pause();
+            //winMusic.UnPause();
 
-        if (!paused)
-        {
-            Time.timeScale = 1;
+            winCanvas.enabled = true;
+            paused = true;
         }
-
     }
 
     // Pause Menu
@@ -115,20 +160,20 @@ public class IngameMenuScript : MonoBehaviour
         pauseCanvas.enabled = false;
         paused = false;
     }
-
     public void Restart()
     {
         Application.LoadLevel(1);
 
         paused = false;
-    }
 
+        player1.Restart();
+        player2.Restart();
+    }
     public void Options()
     {
         pauseCanvas.enabled = false;
         optionsCanvas.enabled = true;
     }
-
     public void MainMenu()
     {
         Application.LoadLevel(0);
@@ -150,10 +195,21 @@ public class IngameMenuScript : MonoBehaviour
             MenuScript.mute = true;
         }
     }
-
     public void OptionsBack()
     {
         optionsCanvas.enabled = false;
         pauseCanvas.enabled = true;
+    }
+
+    // Win Menu
+
+    public void WinRestart()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+
+        paused = false;
+
+        player1.Restart();
+        player2.Restart();    
     }
 }
