@@ -39,6 +39,11 @@ public class EvilOverlordCamera : MonoBehaviour
     {
         PlayerDistance();
 
+        if (player1.loser || player2.loser)
+        {
+            FollowNotLoser();
+        }
+
         if (player1.iMustGo || player2.iMustGo)
         {
             FollowWinner();
@@ -92,13 +97,19 @@ public class EvilOverlordCamera : MonoBehaviour
     }
 
     // Calculating camera offset to follow the leader
+    private void FollowNotLoser()
+    {
+        followWinner = true;
+
+        cameraOffset.x = 0;
+        cameraOffset.y = +2;
+    }
     private void FollowLeader()
     {
         directionLosingPlayer = playerDistance / (Mathf.Sqrt((playerDistance.x * playerDistance.x) + (playerDistance.y * playerDistance.y)));
 
         cameraOffset = directionLosingPlayer * maxDistance;
     }
-
     private void FollowWinner()
     {
         followWinner = true;
@@ -106,7 +117,6 @@ public class EvilOverlordCamera : MonoBehaviour
         cameraOffset.x = 0;
         cameraOffset.y = 0;
     }
-
     private void UpdateCamera()
     {
         if (player1.leader)

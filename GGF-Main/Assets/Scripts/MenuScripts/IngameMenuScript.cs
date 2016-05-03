@@ -34,6 +34,8 @@ public class IngameMenuScript : MonoBehaviour
     public static bool paused;
     public bool muteCheck;
 
+    private float loseTimer;
+
     void Start()
     {
         // Players
@@ -75,6 +77,7 @@ public class IngameMenuScript : MonoBehaviour
         Pause();
         Mute();
         Win();
+        Lose();
     }
 
     private void Pause()
@@ -152,6 +155,26 @@ public class IngameMenuScript : MonoBehaviour
             paused = true;
         }
     }
+    private void Lose()
+    {
+        if (player1.loser || player2.loser)
+        {
+            if (loseTimer < 1f)
+            {
+                loseTimer += Time.deltaTime;
+            }
+
+            else
+            {
+                backgroundMusic.Pause();
+                pauseMusic.Pause();
+                //winMusic.UnPause();
+
+                winCanvas.enabled = true;
+                paused = true;
+            }
+        }
+    }
 
     // Pause Menu
 
@@ -179,6 +202,9 @@ public class IngameMenuScript : MonoBehaviour
         Application.LoadLevel(0);
 
         paused = false;
+
+        player1.Restart();
+        player2.Restart();
     }
 
 

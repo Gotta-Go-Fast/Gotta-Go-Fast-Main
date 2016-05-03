@@ -99,12 +99,10 @@ public class MenuScript : MonoBehaviour {
         mainMenuCanvas.enabled = false;
         characterMenuCanvas.enabled = true;
     }
-
     public void QuitGame()
     {
         Application.Quit();
     }
-
     public void Options()
     {
         mainMenuCanvas.enabled = false;
@@ -125,7 +123,6 @@ public class MenuScript : MonoBehaviour {
             mute = true;
         }
     }
-
     public void OptionsBack()
     {
         optionsCanvas.enabled = false;
@@ -140,7 +137,6 @@ public class MenuScript : MonoBehaviour {
         characterMenuCanvas.enabled = false;
         levelMenuCanvas.enabled = true;
     }
-
     public void CharacterSelectionBack()
     {
         characterMenuCanvas.enabled = false;
@@ -152,9 +148,10 @@ public class MenuScript : MonoBehaviour {
 
     public void Play()
     {
+        mainMenuMusic.Pause();
+
         Application.LoadLevel(1);        
     }
-
     public void LevelSelectionBack()
     {
         levelMenuCanvas.enabled = false;

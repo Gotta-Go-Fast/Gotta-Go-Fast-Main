@@ -4,7 +4,6 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public int playerNumber;
-    public int doubleJump;
     public int shots;
     public int bulletSpeed;
     public int checkPointsReached;
@@ -24,8 +23,10 @@ public class Player : MonoBehaviour
     public bool leader;
     public bool iMustGo;
     public bool winner;
+    public bool loser;
     public bool activatedBomb;
     public bool bombUsed;
+    public bool doubleJump;
     public bool shoot;
     public bool gotBomb;
     public bool grounded;
@@ -74,7 +75,7 @@ public class Player : MonoBehaviour
 
         checkPointsReached = 0;
 
-        doubleJump = 0;
+        doubleJump = false;
 
         rbPlayer = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -148,13 +149,13 @@ public class Player : MonoBehaviour
     // Pickups
     private void DoubleJump()
     {
-        if (jumpState && !oldJumpState && !grounded && (doubleJump > 0) && !hasDoubleJumped)
+        if (jumpState && !oldJumpState && !grounded && doubleJump)
         {
-            hasDoubleJumped = true;
+            rbPlayer.velocity = new Vector2(velocity.x, 0);
 
             rbPlayer.AddForce(Vector2.up * jumpPower);
 
-            doubleJump -= 1;
+            doubleJump = false;
         }
     }
     private void SpeedBoost()
@@ -336,7 +337,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("DoubleJump"))
         {
             other.gameObject.SetActive(false);
-            doubleJump += 1;
+            doubleJump = true;
         }
     }
     private void PickUpSpeedBoost(Collider2D other)
@@ -352,7 +353,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Ammo"))
         {
             other.gameObject.SetActive(false);
-            shots += 1;
+            shots = 2;
         }
     }
     private void PickUpBomb(Collider2D other)
@@ -393,7 +394,6 @@ public class Player : MonoBehaviour
     {
         CollidingBomb(other);
     }
-
     private void CollidingBomb(Collider2D other)
     {
         if (other.gameObject.CompareTag("Explosion") && otherPlayer.bombUsed)
@@ -406,12 +406,21 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public void Restart()
     {
+        loser = false;
         winner = false;
         iMustGo = false;
         leader = false;
+    }
+
+    // Camera detection
+    private void OnBecameInvisible()
+    {
+        if (!otherPlayer.iMustGo)
+        {
+            loser = true;
+        }
     }
 }
 
