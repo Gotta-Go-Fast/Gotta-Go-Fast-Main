@@ -5,8 +5,8 @@ using System.Collections;
 public class IngameMenuScript : MonoBehaviour
 {
     // Players
-    public Player player1;
-    public Player player2;
+    private Player player1;
+    private Player player2;
 
     // PauseMenu Buttons
     public Button resume;
@@ -36,11 +36,16 @@ public class IngameMenuScript : MonoBehaviour
 
     private float loseTimer;
 
+
+    public MenuScript menuScript;
+
     void Start()
     {
+        menuScript = FindObjectOfType<MenuScript>();
+
         // Players
-        player1 = player1.GetComponent<Player>();
-        player2 = player2.GetComponent<Player>();
+        player1 = menuScript.player1.GetComponent<Player>();
+        player2 = menuScript.player2.GetComponent<Player>();
 
         // MainMenu Buttons
         resume = resume.GetComponent<Button>();
@@ -185,7 +190,7 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void Restart()
     {
-        Application.LoadLevel(1);
+        Application.LoadLevel(Application.loadedLevel);
 
         paused = false;
 

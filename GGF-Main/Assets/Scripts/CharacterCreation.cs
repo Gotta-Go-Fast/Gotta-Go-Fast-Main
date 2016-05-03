@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class CharacterCreation : MonoBehaviour {
 
 	private List<GameObject> models;
+
+    private Player player;
+
 	// Default Index of the model
 	private int selectionIndex = 0;
 
@@ -40,5 +43,12 @@ public class CharacterCreation : MonoBehaviour {
 		selectionIndex = index;
 		models[selectionIndex].SetActive(true);
 	}
+
+    public Player GetCharacter()
+    {
+        player = models[selectionIndex].GetComponent<Player>();
+
+        return player;
+    }
 
 }

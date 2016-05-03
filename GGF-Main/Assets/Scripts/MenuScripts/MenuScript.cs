@@ -34,6 +34,19 @@ public class MenuScript : MonoBehaviour {
 
     public bool muteCheck;
 
+    // Character Selection
+    public GameObject characterBoxes;
+    public CharacterCreation characterCreationPlayer1;
+    public CharacterCreation characterCreationPlayer2;
+
+    // Level Selection
+    public int levelNumber;
+    private Vector3 spawnPoint;
+
+    public Player player1;
+    public Player player2;
+
+
     void Start ()
     {
         // MainMenu Buttons
@@ -61,6 +74,12 @@ public class MenuScript : MonoBehaviour {
 
         // Music
         mainMenuMusic = mainMenuMusic.GetComponent<AudioSource>();
+
+        // Character
+        characterBoxes = characterBoxes.GetComponent<GameObject>();
+
+        // Level
+        levelNumber = 1;
 
         mainMenuCanvas.enabled = true;
         optionsCanvas.enabled = false;
@@ -98,6 +117,8 @@ public class MenuScript : MonoBehaviour {
 
         mainMenuCanvas.enabled = false;
         characterMenuCanvas.enabled = true;
+
+        ShowCharacterBoxes();
     }
     public void QuitGame()
     {
@@ -136,11 +157,16 @@ public class MenuScript : MonoBehaviour {
     {
         characterMenuCanvas.enabled = false;
         levelMenuCanvas.enabled = true;
+
+        HideCharacterBoxes();
+        FindCharacters();
     }
     public void CharacterSelectionBack()
     {
         characterMenuCanvas.enabled = false;
         mainMenuCanvas.enabled = true;
+
+        HideCharacterBoxes();
     }
 
 
@@ -149,12 +175,44 @@ public class MenuScript : MonoBehaviour {
     public void Play()
     {
         mainMenuMusic.Pause();
+        levelMenuCanvas.enabled = false;
 
+        FindCharacters();
+        LoadCharactersToNextScene();
         Application.LoadLevel(1);        
     }
     public void LevelSelectionBack()
     {
         levelMenuCanvas.enabled = false;
         characterMenuCanvas.enabled = true;
+
+        ShowCharacterBoxes();
+    }
+
+
+    // Moving characterboxes in and out from the screen
+    private void ShowCharacterBoxes()
+    {
+        characterBoxes.transform.position = new Vector3(13, -1, 0);
+    }
+    private void HideCharacterBoxes()
+    {
+        characterBoxes.transform.position = new Vector3(-13, -1, 0);
+    }
+
+    public void FindCharacters()
+    {
+        player1 = characterCreationPlayer1.GetCharacter();
+        player2 = characterCreationPlayer2.GetCharacter();
+    }
+
+    private void LoadCharactersToNextScene()
+    {
+        player1.transform.position = new Vector3(-14, 0, 0);
+        player2.transform.position = new Vector3(-14, 0, 0);
+
+        DontDestroyOnLoad(this);
+        
+        DontDestroyOnLoad(characterBoxes);
     }
 }

@@ -14,14 +14,14 @@ public class GroundCheck : MonoBehaviour
     {
         if (player.playerNumber == 1)
         {
-            if (!other.gameObject.CompareTag("Player2"))
+            if (!other.gameObject.CompareTag("Player2") && player.velocity.y == 0)
             {
                 player.grounded = true;
             }
         }
         else
         {
-            if (!other.gameObject.CompareTag("Player1"))
+            if (!other.gameObject.CompareTag("Player1") && player.velocity.y == 0)
             {
                 player.grounded = true;
             }

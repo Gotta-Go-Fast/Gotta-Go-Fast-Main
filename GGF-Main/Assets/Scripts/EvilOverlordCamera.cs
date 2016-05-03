@@ -3,8 +3,8 @@ using System.Collections;
 
 public class EvilOverlordCamera : MonoBehaviour
 {
-    public Player player1;
-    public Player player2;
+    private Player player1;
+    private Player player2;
 
     private Vector2 playerDistance;
     private Vector2 cameraPosition;
@@ -22,8 +22,15 @@ public class EvilOverlordCamera : MonoBehaviour
     private float maxDistance;
     private float smoothTime;
 
+    public MenuScript menuScript;
+
     private void Start()
     {
+        menuScript = FindObjectOfType<MenuScript>();
+
+        player1 = menuScript.player1.GetComponent<Player>();
+        player2 = menuScript.player2.GetComponent<Player>();
+
         velocity = Vector3.zero;
 
         maxDistance = 2f;

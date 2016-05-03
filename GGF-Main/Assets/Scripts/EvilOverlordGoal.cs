@@ -4,12 +4,13 @@ using System.Collections;
 public class EvilOverlordGoal : MonoBehaviour
 {
 
-    public Player player1;
-    public Player player2;
+    private Player player1;
+    private Player player2;
 
     public Transform checkPoint1;
     public Transform checkPoint2;
 
+    public Vector2 spawnPoint;
     public Vector2 nextCheckPoint;
     public Vector2 positionCheckPoint1;
     public Vector2 positionCheckPoint2;
@@ -26,10 +27,17 @@ public class EvilOverlordGoal : MonoBehaviour
     public int checkPointsReached;
     public static int numberOfCheckPoints;
 
+    public MenuScript menuScript;
+
 
     // Use this for initialization
     void Start()
     {
+        menuScript = FindObjectOfType<MenuScript>();
+
+        player1 = menuScript.player1.GetComponent<Player>();
+        player2 = menuScript.player2.GetComponent<Player>();
+
         goalPosition = new Vector2(transform.position.x, transform.position.y);
 
         checkPoint1 = checkPoint1.GetComponent<Transform>();
@@ -44,7 +52,7 @@ public class EvilOverlordGoal : MonoBehaviour
         distancePlayer1 = 0;
         distancePlayer2 = 0;
 
-        player1.leader = true;
+        player1.leader = false;
         player2.leader = false;
 
         checkPointsReached = 0;
