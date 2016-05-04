@@ -4,11 +4,9 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public int playerNumber;
-    public int shots;
     public int bulletSpeed;
     public int checkPointsReached;
 
-    public float maxSpeed;
     public float speed;
     public float jumpPower;
 
@@ -24,11 +22,16 @@ public class Player : MonoBehaviour
     public bool iMustGo;
     public bool winner;
     public bool loser;
+
     public bool activatedBomb;
     public bool bombUsed;
-    public bool doubleJump;
-    public bool shoot;
     public bool gotBomb;
+
+    public bool doubleJump;
+    public int shots;
+    public bool shoot;
+    public bool gotSpeedBoost;
+
     public bool grounded;
     public bool paralyzed;
     private bool hasDoubleJumped;
@@ -64,7 +67,6 @@ public class Player : MonoBehaviour
         paralyzedTimer = paralyzedReset;
 
         velocity = new Vector2(0, 0);
-        maxSpeed = 6f;
         speed = 10f;
         jumpPower = 270f;
         jumpTimer = 0;
@@ -82,7 +84,6 @@ public class Player : MonoBehaviour
         bombAnimator = bomb.GetComponent<Animator>();
         goal = goal.GetComponent<EvilOverlordGoal>();
     }
-
 
     // Update
     void Update()

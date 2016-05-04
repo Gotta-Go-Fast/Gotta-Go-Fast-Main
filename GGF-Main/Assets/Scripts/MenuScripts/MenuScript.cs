@@ -102,6 +102,11 @@ public class MenuScript : MonoBehaviour {
         }
 
         Time.timeScale = 1;
+
+        if (Input.GetAxis("Jump1") > 0)
+        {
+            Play();
+        }
     }
 
     // Main Menu
@@ -197,22 +202,24 @@ public class MenuScript : MonoBehaviour {
     }
     private void HideCharacterBoxes()
     {
-        characterBoxes.transform.position = new Vector3(-13, -1, 0);
+        characterBoxes.transform.position = new Vector3(-100, -1, 0);
     }
 
     public void FindCharacters()
     {
         player1 = characterCreationPlayer1.GetCharacter();
         player2 = characterCreationPlayer2.GetCharacter();
-    }
 
+        player1.otherPlayer = player2;
+        player2.otherPlayer = player1;
+    }
     private void LoadCharactersToNextScene()
     {
         player1.transform.position = new Vector3(-14, 0, 0);
         player2.transform.position = new Vector3(-14, 0, 0);
 
         DontDestroyOnLoad(this);
-        
+
         DontDestroyOnLoad(characterBoxes);
     }
 }

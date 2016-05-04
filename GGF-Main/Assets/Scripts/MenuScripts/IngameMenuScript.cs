@@ -182,7 +182,6 @@ public class IngameMenuScript : MonoBehaviour
     }
 
     // Pause Menu
-
     public void Resume()
     {
         pauseCanvas.enabled = false;
@@ -204,17 +203,17 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void MainMenu()
     {
-        Application.LoadLevel(0);
-
+        pauseCanvas.enabled = false;
         paused = false;
 
-        player1.Restart();
-        player2.Restart();
+        DestroyObject(menuScript.player1.gameObject);
+        DestroyObject(menuScript.player2.gameObject);
+
+        Application.LoadLevel(0);
     }
 
 
     // Options Menu
-
     public void ToggleSound()
     {
         if (muteCheck)
@@ -233,7 +232,6 @@ public class IngameMenuScript : MonoBehaviour
     }
 
     // Win Menu
-
     public void WinRestart()
     {
         Application.LoadLevel(Application.loadedLevel);
@@ -242,5 +240,15 @@ public class IngameMenuScript : MonoBehaviour
 
         player1.Restart();
         player2.Restart();    
+    }
+    public void WinMainMenu()
+    {
+        winCanvas.enabled = false;
+        paused = false;
+
+        DestroyObject(menuScript.player1.gameObject);
+        DestroyObject(menuScript.player2.gameObject);
+
+        Application.LoadLevel(0);
     }
 }
