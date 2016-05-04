@@ -38,6 +38,10 @@ public class MenuScript : MonoBehaviour {
 
     public bool muteCheck;
 
+    // SoundEffects
+    public AudioSource vemEDu;
+    public CalloutScript calloutScript;
+
     // Character Selection
     public GameObject characterBoxes;
     public CharacterCreation characterCreationPlayer1;
@@ -85,6 +89,10 @@ public class MenuScript : MonoBehaviour {
         // Music
         mainMenuMusic = mainMenuMusic.GetComponent<AudioSource>();
 
+        // SoundEffects
+        vemEDu = characterMenuCanvas.GetComponentInChildren<AudioSource>();
+        calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
+
         // Character
         characterBoxes = characterBoxes.GetComponent<GameObject>();
     }
@@ -125,6 +133,8 @@ public class MenuScript : MonoBehaviour {
         characterMenuCanvas.enabled = true;
 
         ShowCharacterBoxes();
+
+        vemEDu.Play();
     }
     public void QuitGame()
     {
@@ -203,6 +213,8 @@ public class MenuScript : MonoBehaviour {
         characterMenuCanvas.enabled = true;
 
         ShowCharacterBoxes();
+
+        vemEDu.Play();
     }
 
     // Moving characterboxes in and out from the screen

@@ -58,9 +58,13 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Animator bombAnimator;
 
+    public CalloutScript calloutScript;
+
     private void Awake()
     {
         active = true;
+
+        calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
     }
 
     private void Start()
@@ -214,13 +218,6 @@ public class Player : MonoBehaviour
         {
             GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
 
-            shots -= 1;
-
-            if (shots == 0)
-            {
-                gotShots = false;
-            }
-
             bulletSpeed = 15;
 
             if (transform.localScale.x < 0)
@@ -229,6 +226,22 @@ public class Player : MonoBehaviour
             }
 
             createBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, laserBullet.GetComponent<Rigidbody2D>().velocity.y);
+
+            if (shots == 2)
+            {
+                calloutScript.PlayerFirstShot();
+            }
+            if (shots == 1)
+            {
+                calloutScript.PlayerSecondShot(otherPlayer);
+            }
+
+            shots -= 1;
+
+            if (shots == 0)
+            {
+                gotShots = false;
+            }
         }
     }
     private void Bomb()

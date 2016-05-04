@@ -11,6 +11,12 @@ public class CharacterCreation : MonoBehaviour {
 	// Default Index of the model
 	private int selectionIndex = 0;
 
+
+    // SoundEffects
+    private AudioSource knifeGuyVoice;
+    private AudioSource rabbitVoice;
+
+
 	private void Start () 
 	{
 		models = new List<GameObject> ();
@@ -22,6 +28,11 @@ public class CharacterCreation : MonoBehaviour {
 		}
 
 		models [selectionIndex].SetActive (true);
+
+
+        // SoundEffects
+        knifeGuyVoice = GameObject.Find("KnifeGuyVoice").GetComponent<AudioSource>();
+        rabbitVoice = GameObject.Find("RabbitVoice").GetComponent<AudioSource>();
 	}
 
 	private void Update()
@@ -42,6 +53,8 @@ public class CharacterCreation : MonoBehaviour {
 		models [selectionIndex].SetActive (false);
 		selectionIndex = index;
 		models[selectionIndex].SetActive(true);
+
+        CharacterVoice(index);
 	}
 
     public Player GetCharacter()
@@ -49,6 +62,20 @@ public class CharacterCreation : MonoBehaviour {
         player = models[selectionIndex].GetComponent<Player>();
 
         return player;
+    }
+
+    private void CharacterVoice(int index)
+    {
+        if (index == 0)
+        {
+            rabbitVoice.Play();
+        }
+
+        if (index == 1)
+        {
+            knifeGuyVoice.Play();
+        }
+
     }
 
 }
