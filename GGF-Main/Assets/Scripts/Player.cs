@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public int checkPointsReached;
 
     public float speed;
+    public float regularSpeed;
+    public float maxSpeed;
     public float jumpPower;
 
     //Timers 
@@ -25,12 +27,14 @@ public class Player : MonoBehaviour
 
     public bool activatedBomb;
     public bool bombUsed;
-    public bool gotBomb;
 
-    public bool doubleJump;
-    public int shots;
-    public bool shoot;
-    public bool gotSpeedBoost;
+    public bool gotPickup;
+    private bool gotBomb;
+    private bool gotSpeedBoost;
+    private bool speedBoost;
+    private bool gotDoubleJump;
+    private bool gotShots;
+    private int shots;
 
     public bool grounded;
     public bool paralyzed;
@@ -68,16 +72,22 @@ public class Player : MonoBehaviour
 
         velocity = new Vector2(0, 0);
         speed = 10f;
+        maxSpeed = 13f;
+        regularSpeed = speed;
         jumpPower = 270f;
         jumpTimer = 0;
         shots = 0;
+
+        gotDoubleJump = false;
+        gotSpeedBoost = false;
+        gotShots = false;
         gotBomb = false;
 
         airturn = false;
 
         checkPointsReached = 0;
 
-        doubleJump = false;
+        gotDoubleJump = false;
 
         rbPlayer = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
@@ -101,11 +111,13 @@ public class Player : MonoBehaviour
 
         TurnToInputDirection();
         Jump();
-        DoubleJump();
-        SpeedBoost();
+
+        GotPickup();
 
         if (!iMustGo)
         {
+            DoubleJump();
+            SpeedBoost();
             Shoot();
             Bomb();
         }
@@ -148,47 +160,69 @@ public class Player : MonoBehaviour
     }
 
     // Pickups
+    private void GotPickup()
+    {
+        if (gotBomb || gotShots || gotDoubleJump || gotSpeedBoost)
+        {
+            gotPickup = true;
+        }
+        else
+        {
+            gotPickup = false;
+        }
+    }
     private void DoubleJump()
     {
-        if (jumpState && !oldJumpState && !grounded && doubleJump)
+        if (jumpState && !oldJumpState && !grounded && gotDoubleJump)
         {
             rbPlayer.velocity = new Vector2(velocity.x, 0);
 
             rbPlayer.AddForce(Vector2.up * jumpPower);
 
-            doubleJump = false;
+            gotDoubleJump = false;
         }
     }
     private void SpeedBoost()
     {
+        if (Input.GetButtonDown("Fire" + playerNumber) && gotSpeedBoost)
+        {
+            speedBoostTimer = 2.0f;
+
+            gotSpeedBoost = false;
+        }
+
         if (speedBoostTimer > 0)
         {
             speedBoostTimer -= Time.deltaTime;
-            maxSpeed = 10f;
+            speed = maxSpeed;
         }
 
         if (speedBoostTimer <= 0)
         {
-            maxSpeed = 6f;
+            speed = regularSpeed;
         }
     }
     private void Shoot()
     {
         if (Input.GetButtonDown("Fire" + playerNumber) && shots > 0)
         {
-            shoot = true;
             GameObject createBullet = (GameObject)Instantiate(laserBullet, firePoint.position, firePoint.rotation);
 
             shots -= 1;
 
+            if (shots == 0)
+            {
+                gotShots = false;
+            }
+
             bulletSpeed = 15;
+
             if (transform.localScale.x < 0)
             {
                 bulletSpeed = -bulletSpeed;
             }
 
             createBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, laserBullet.GetComponent<Rigidbody2D>().velocity.y);
-            shoot = false;
         }
     }
     private void Bomb()
@@ -335,23 +369,23 @@ public class Player : MonoBehaviour
     }
     private void PickUpDoubleJump(Collider2D other)
     {
-        if (other.gameObject.CompareTag("DoubleJump"))
+        if (other.gameObject.CompareTag("DoubleJump") && !gotPickup)
         {
             other.gameObject.SetActive(false);
-            doubleJump = true;
+            gotDoubleJump = true;
         }
     }
     private void PickUpSpeedBoost(Collider2D other)
     {
-        if (other.gameObject.CompareTag("SpeedBoost"))
+        if (other.gameObject.CompareTag("SpeedBoost") && !gotPickup)
         {
             other.gameObject.SetActive(false);
-            speedBoostTimer = 0.8f;
+            gotSpeedBoost = true;
         }
     }
     private void PickUpAmmo(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Ammo"))
+        if (other.gameObject.CompareTag("Ammo") && !gotPickup)
         {
             other.gameObject.SetActive(false);
             shots = 2;
@@ -359,7 +393,7 @@ public class Player : MonoBehaviour
     }
     private void PickUpBomb(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Bomb"))
+        if (other.gameObject.CompareTag("Bomb") && !gotPickup)
         {
             Destroy(other.gameObject);
             gotBomb = true;

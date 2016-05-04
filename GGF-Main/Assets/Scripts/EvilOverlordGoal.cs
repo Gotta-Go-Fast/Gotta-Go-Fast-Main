@@ -38,6 +38,10 @@ public class EvilOverlordGoal : MonoBehaviour
         player1 = menuScript.player1.GetComponent<Player>();
         player2 = menuScript.player2.GetComponent<Player>();
 
+        player1.goal = FindObjectOfType<EvilOverlordGoal>();
+        player2.goal = FindObjectOfType<EvilOverlordGoal>();
+
+
         goalPosition = new Vector2(transform.position.x, transform.position.y);
 
         checkPoint1 = checkPoint1.GetComponent<Transform>();

@@ -208,6 +208,7 @@ public class IngameMenuScript : MonoBehaviour
 
         DestroyObject(menuScript.player1.gameObject);
         DestroyObject(menuScript.player2.gameObject);
+        DestroyObject(menuScript);
 
         Application.LoadLevel(0);
     }
@@ -248,6 +249,7 @@ public class IngameMenuScript : MonoBehaviour
 
         DestroyObject(menuScript.player1.gameObject);
         DestroyObject(menuScript.player2.gameObject);
+        DestroyObject(menuScript);
 
         Application.LoadLevel(0);
     }
