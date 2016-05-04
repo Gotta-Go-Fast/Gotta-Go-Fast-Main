@@ -19,6 +19,10 @@ public class MenuScript : MonoBehaviour {
     public Button characterBack;
 
     // LevelSelection Buttons
+    public Button level1;
+    public Button level2;
+    public Button level3;
+    public Button level4;
     public Button play;
     public Button levelBack;
 
@@ -41,13 +45,15 @@ public class MenuScript : MonoBehaviour {
 
     // Level Selection
     public int levelNumber;
-    private Vector3 spawnPoint;
 
     public Player player1;
     public Player player2;
 
-
-    void Start ()
+    private void Awake()
+    {
+        mainMenuCanvas.enabled = true;
+    }
+    private void Start ()
     {
         // MainMenu Buttons
         startGame = startGame.GetComponent<Button>();
@@ -63,6 +69,10 @@ public class MenuScript : MonoBehaviour {
         characterBack = characterBack.GetComponent<Button>();
 
         // LevelSelection Buttons
+        level1 = level1.GetComponent<Button>();
+        level2 = level2.GetComponent<Button>();
+        level3 = level3.GetComponent<Button>();
+        level4 = level4.GetComponent<Button>();
         play = play.GetComponent<Button>();
         levelBack = levelBack.GetComponent<Button>();
 
@@ -77,14 +87,6 @@ public class MenuScript : MonoBehaviour {
 
         // Character
         characterBoxes = characterBoxes.GetComponent<GameObject>();
-
-        // Level
-        levelNumber = 1;
-
-        mainMenuCanvas.enabled = true;
-        optionsCanvas.enabled = false;
-        characterMenuCanvas.enabled = false;
-        levelMenuCanvas.enabled = false;
     }
 
     // Update
@@ -103,14 +105,13 @@ public class MenuScript : MonoBehaviour {
 
         Time.timeScale = 1;
 
-        if (Input.GetAxis("Jump1") > 0)
+        if (Input.GetKeyDown(KeyCode.G))
         {
             Play();
         }
     }
 
     // Main Menu
-
     public void StartGame()
     {
         // Temporary shortcut for testing.
@@ -135,9 +136,7 @@ public class MenuScript : MonoBehaviour {
         optionsCanvas.enabled = true;
     }
 
-
     // Options Menu
-
     public void ToggleSound()
     {
         if (mute)
@@ -155,16 +154,13 @@ public class MenuScript : MonoBehaviour {
         mainMenuCanvas.enabled = true;
     }
 
-
     // Character Selection Menu
-
     public void LevelSelection()
     {
         characterMenuCanvas.enabled = false;
         levelMenuCanvas.enabled = true;
 
         HideCharacterBoxes();
-        FindCharacters();
     }
     public void CharacterSelectionBack()
     {
@@ -174,8 +170,23 @@ public class MenuScript : MonoBehaviour {
         HideCharacterBoxes();
     }
 
-
     // Level Selection Menu
+    public void Level1()
+    {
+        levelNumber = 1;
+    }
+    public void Level2()
+    {
+        levelNumber = 2;
+    }
+    public void Level3()
+    {
+        levelNumber = 3;
+    }
+    public void Level4()
+    {
+        levelNumber = 4;
+    }
 
     public void Play()
     {
@@ -184,7 +195,7 @@ public class MenuScript : MonoBehaviour {
 
         FindCharacters();
         LoadCharactersToNextScene();
-        Application.LoadLevel(1);        
+        LoadLevel();
     }
     public void LevelSelectionBack()
     {
@@ -193,7 +204,6 @@ public class MenuScript : MonoBehaviour {
 
         ShowCharacterBoxes();
     }
-
 
     // Moving characterboxes in and out from the screen
     private void ShowCharacterBoxes()
@@ -215,11 +225,21 @@ public class MenuScript : MonoBehaviour {
     }
     private void LoadCharactersToNextScene()
     {
-        player1.transform.position = new Vector3(-14, 0, 0);
-        player2.transform.position = new Vector3(-14, 0, 0);
+        player1.active = false;
+        player2.active = false;
 
         DontDestroyOnLoad(this);
-
         DontDestroyOnLoad(characterBoxes);
+    }
+    private void LoadLevel()
+    {
+        if (levelNumber > 0 && levelNumber < 5)
+        {
+            Application.LoadLevel(levelNumber);
+        }
+        else
+        {
+            Application.LoadLevel(2);
+        }
     }
 }

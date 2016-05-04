@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     private float jumpTimer;
     private float winTimer;
 
+    public bool active;
     public bool leader;
     public bool iMustGo;
     public bool winner;
@@ -57,9 +58,12 @@ public class Player : MonoBehaviour
     private Animator animator;
     private Animator bombAnimator;
 
-    //public BombController bombController;
+    private void Awake()
+    {
+        active = true;
+    }
 
-    void Start()
+    private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -71,8 +75,8 @@ public class Player : MonoBehaviour
         paralyzedTimer = paralyzedReset;
 
         velocity = new Vector2(0, 0);
-        speed = 10f;
-        maxSpeed = 13f;
+        speed = 8f;
+        maxSpeed = 10f;
         regularSpeed = speed;
         jumpPower = 270f;
         jumpTimer = 0;
@@ -87,8 +91,6 @@ public class Player : MonoBehaviour
 
         checkPointsReached = 0;
 
-        gotDoubleJump = false;
-
         rbPlayer = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         bombAnimator = bomb.GetComponent<Animator>();
@@ -96,7 +98,7 @@ public class Player : MonoBehaviour
     }
 
     // Update
-    void Update()
+    private void Update()
     {
         position.x = transform.position.x;
         position.y = transform.position.y;
@@ -109,20 +111,23 @@ public class Player : MonoBehaviour
         oldJumpState = jumpState;
         jumpState = Input.GetButton("Jump" + playerNumber);
 
-        TurnToInputDirection();
-        Jump();
-
-        GotPickup();
-
-        if (!iMustGo)
+        if (active)
         {
-            DoubleJump();
-            SpeedBoost();
-            Shoot();
-            Bomb();
-        }
+            TurnToInputDirection();
+            Jump();
 
-        Winning();
+            GotPickup();
+
+            if (!iMustGo)
+            {
+                DoubleJump();
+                SpeedBoost();
+                Shoot();
+                Bomb();
+            }
+
+            Winning();
+        }
     }
 
     private void TurnToInputDirection()
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour
         if (grounded)
         {
             airturn = false;
-            speed = 10f;
+            speed = regularSpeed;
         }
     }
 
@@ -186,7 +191,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire" + playerNumber) && gotSpeedBoost)
         {
-            speedBoostTimer = 2.0f;
+            speedBoostTimer += 2.0f;
 
             gotSpeedBoost = false;
         }
@@ -200,6 +205,7 @@ public class Player : MonoBehaviour
         if (speedBoostTimer <= 0)
         {
             speed = regularSpeed;
+            speedBoostTimer = 0;
         }
     }
     private void Shoot()
@@ -263,12 +269,15 @@ public class Player : MonoBehaviour
     {
         if (iMustGo)
         {
-            rbPlayer.velocity = new Vector2((velocity.x/2), 10f);
+            rbPlayer.velocity = new Vector2(0, 10f);
 
             winTimer += Time.deltaTime;
 
             if (winTimer > 1f)
             {
+                active = false;
+                otherPlayer.active = false;
+
                 winner = true;
             }
         }
@@ -277,8 +286,11 @@ public class Player : MonoBehaviour
     // FixedUpdate
     private void FixedUpdate()
     {
-        Movement();
-        SpeedLimit();
+        if (active)
+        {
+            Movement();
+            SpeedLimit();
+        }
     }
 
     private void Movement()
@@ -332,7 +344,6 @@ public class Player : MonoBehaviour
             rbPlayer.velocity = new Vector2(-maxSpeed, rbPlayer.velocity.y);
         }
     }
-
 
     // Player colliding with interactables
     private void OnTriggerEnter2D(Collider2D other)
@@ -447,13 +458,18 @@ public class Player : MonoBehaviour
         winner = false;
         iMustGo = false;
         leader = false;
+
+        winTimer = 0f;
     }
 
     // Camera detection
     private void OnBecameInvisible()
     {
-        if (!otherPlayer.iMustGo)
+        if (!otherPlayer.iMustGo && active)
         {
+            active = false;
+            otherPlayer.active = false;
+
             loser = true;
         }
     }

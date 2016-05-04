@@ -23,10 +23,13 @@ public class EvilOverlordCamera : MonoBehaviour
     private float smoothTime;
 
     public MenuScript menuScript;
+    private Transform spawnPoint;
 
-    private void Start()
+
+    private void Awake()
     {
         menuScript = FindObjectOfType<MenuScript>();
+        spawnPoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
 
         player1 = menuScript.player1.GetComponent<Player>();
         player2 = menuScript.player2.GetComponent<Player>();
@@ -38,7 +41,11 @@ public class EvilOverlordCamera : MonoBehaviour
 
         followBoth = true;
 
-        cameraPosition = player1.position;
+        SetCameraPosition();
+    }
+    private void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -67,7 +74,6 @@ public class EvilOverlordCamera : MonoBehaviour
         }
 
         UpdateCamera();
-
     }
 
     // Creating a vector between the two players, and calculating the distance to a float
@@ -143,5 +149,10 @@ public class EvilOverlordCamera : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, cameraV2toV3, ref velocity, smoothTime);
 
         //transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -10);
+    }
+
+    public void SetCameraPosition()
+    {
+        transform.position = spawnPoint.position;
     }
 }

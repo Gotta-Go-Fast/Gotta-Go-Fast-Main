@@ -29,9 +29,8 @@ public class EvilOverlordGoal : MonoBehaviour
 
     public MenuScript menuScript;
 
-
     // Use this for initialization
-    void Start()
+    private void Awake()
     {
         menuScript = FindObjectOfType<MenuScript>();
 
@@ -41,7 +40,11 @@ public class EvilOverlordGoal : MonoBehaviour
         player1.goal = FindObjectOfType<EvilOverlordGoal>();
         player2.goal = FindObjectOfType<EvilOverlordGoal>();
 
+        NumberOfCheckPoints();
+    }
 
+    void Start()
+    {
         goalPosition = new Vector2(transform.position.x, transform.position.y);
 
         checkPoint1 = checkPoint1.GetComponent<Transform>();
@@ -52,28 +55,34 @@ public class EvilOverlordGoal : MonoBehaviour
 
         toGoalPlayer1 = new Vector2(0, 0);
         toGoalPlayer2 = new Vector2(0, 0);
-
         distancePlayer1 = 0;
         distancePlayer2 = 0;
-
-        player1.leader = false;
-        player2.leader = false;
-
-        checkPointsReached = 0;
-
-        NumberOfCheckPoints();
     }
 
     private void NumberOfCheckPoints()
     {
-        if ((Application.loadedLevel) == 1)
+        checkPointsReached = 0;
+
+        if (menuScript.levelNumber == 1)
+        {
+            numberOfCheckPoints = 0;
+        }
+        if (menuScript.levelNumber == 2)
+        {
+            numberOfCheckPoints = 0;
+        }
+        if (menuScript.levelNumber == 3)
+        {
+            numberOfCheckPoints = 0;
+        }
+        if (menuScript.levelNumber == 4)
         {
             numberOfCheckPoints = 0;
         }
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         FindNextCheckPoint();
         Distances();

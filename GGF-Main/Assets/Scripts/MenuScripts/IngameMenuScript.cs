@@ -5,6 +5,8 @@ using System.Collections;
 public class IngameMenuScript : MonoBehaviour
 {
     // Players
+    public Transform spawnPoint;
+
     private Player player1;
     private Player player2;
 
@@ -36,17 +38,30 @@ public class IngameMenuScript : MonoBehaviour
 
     private float loseTimer;
 
-
     public MenuScript menuScript;
+    public EvilOverlordCamera evilOverlordCamera;
 
-    void Start()
+    // Countdown
+    private float countDownTimer;
+    public bool countDown;
+
+    private void Awake()
     {
         menuScript = FindObjectOfType<MenuScript>();
+        spawnPoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
+        evilOverlordCamera = GameObject.Find("Main Camera").GetComponent<EvilOverlordCamera>();
 
         // Players
         player1 = menuScript.player1.GetComponent<Player>();
         player2 = menuScript.player2.GetComponent<Player>();
 
+        player1.transform.position = spawnPoint.position;
+        player2.transform.position = spawnPoint.position;
+
+        ActivateCountdown();
+    }
+    private void Start()
+    {
         // MainMenu Buttons
         resume = resume.GetComponent<Button>();
         restart = restart.GetComponent<Button>();
@@ -69,22 +84,33 @@ public class IngameMenuScript : MonoBehaviour
         backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
         pauseMusic = pauseMusic.GetComponent<AudioSource>();
         winMusic = winMusic.GetComponent<AudioSource>();
-
-        paused = false;
-
-        pauseCanvas.enabled = false;
-        optionsCanvas.enabled = false;
-        winCanvas.enabled = false;
     }
 
     private void Update()
     {
+        CountDown();
         Pause();
         Mute();
         Win();
         Lose();
     }
 
+    private void CountDown()
+    {
+        if (countDown)
+        {
+            // countdown.Canvas
+            countDownTimer -= Time.deltaTime;
+
+            if (countDownTimer <= 0)
+            {
+                countDown = false;
+
+                player1.active = true;
+                player2.active = true;
+            }
+        }
+    }
     private void Pause()
     {
         // Press "P" for pause
@@ -189,12 +215,8 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void Restart()
     {
-        Application.LoadLevel(Application.loadedLevel);
-
-        paused = false;
-
-        player1.Restart();
-        player2.Restart();
+        pauseCanvas.enabled = false;
+        RestartLevel();
     }
     public void Options()
     {
@@ -213,7 +235,6 @@ public class IngameMenuScript : MonoBehaviour
         Application.LoadLevel(0);
     }
 
-
     // Options Menu
     public void ToggleSound()
     {
@@ -231,16 +252,12 @@ public class IngameMenuScript : MonoBehaviour
         optionsCanvas.enabled = false;
         pauseCanvas.enabled = true;
     }
-
+    
     // Win Menu
     public void WinRestart()
     {
-        Application.LoadLevel(Application.loadedLevel);
-
-        paused = false;
-
-        player1.Restart();
-        player2.Restart();    
+        winCanvas.enabled = false;
+        RestartLevel();
     }
     public void WinMainMenu()
     {
@@ -252,5 +269,26 @@ public class IngameMenuScript : MonoBehaviour
         DestroyObject(menuScript);
 
         Application.LoadLevel(0);
+    }
+
+    // Restarts Level
+    private void RestartLevel()
+    {
+        evilOverlordCamera.SetCameraPosition();
+
+        paused = false;
+
+        ActivateCountdown();
+
+        player1.Restart();
+        player2.Restart();
+
+
+        Application.LoadLevel(Application.loadedLevel);
+    }
+    private void ActivateCountdown()
+    {
+        countDownTimer = 3f;
+        countDown = true;
     }
 }

@@ -12,53 +12,68 @@ public class GroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (player.playerNumber == 1)
+        if (other.gameObject.CompareTag("Platforms"))
         {
-            if (!other.gameObject.CompareTag("Player2") && player.velocity.y == 0)
-            {
-                player.grounded = true;
-            }
+            player.grounded = true;
         }
-        else
-        {
-            if (!other.gameObject.CompareTag("Player1") && player.velocity.y == 0)
-            {
-                player.grounded = true;
-            }
-        }
+
+        //if (player.playerNumber == 1)
+        //{
+        //    if (other.gameObject.CompareTag("Platforms"))
+        //    {
+        //        player.grounded = true;
+        //    }
+        //}
+        //else
+        //{
+        //    if (other.gameObject.CompareTag("Platforms"))
+        //    {
+        //        player.grounded = true;
+        //    }
+        //}
     }
     void OnTriggerStay2D(Collider2D other)
     {
-        if (player.playerNumber == 1)
+        if (other.gameObject.CompareTag("Platforms"))
         {
-            if (!other.gameObject.CompareTag("Player2"))
-            {
-                player.grounded = true;
-            }
+            player.grounded = true;
         }
-        else
-        {
-            if (!other.gameObject.CompareTag("Player"))
-            {
-                player.grounded = true;
-            }
-        }
+
+        //if (player.playerNumber == 1)
+        //{
+        //    if (!other.gameObject.CompareTag("Player2"))
+        //    {
+        //        player.grounded = true;
+        //    }
+        //}
+        //else
+        //{
+        //    if (!other.gameObject.CompareTag("Player"))
+        //    {
+        //        player.grounded = true;
+        //    }
+        //}
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (player.playerNumber == 1)
+        if (other.gameObject.CompareTag("Platforms"))
         {
-            if (!other.gameObject.CompareTag("Player2"))
-            {
-                player.grounded = false;
-            }
+            player.grounded = false;
         }
-        else
-        {
-            if (!other.gameObject.CompareTag("Player"))
-            {
-                player.grounded = false;
-            }
-        }
+
+        //if (player.playerNumber == 1)
+        //{
+        //    if (!other.gameObject.CompareTag("Player2"))
+        //    {
+        //        player.grounded = false;
+        //    }
+        //}
+        //else
+        //{
+        //    if (!other.gameObject.CompareTag("Player"))
+        //    {
+        //        player.grounded = false;
+        //    }
+        //}
     }
 }
