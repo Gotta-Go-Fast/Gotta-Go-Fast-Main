@@ -58,6 +58,7 @@ public class IngameMenuScript : MonoBehaviour
         player1.transform.position = spawnPoint.position;
         player2.transform.position = spawnPoint.position;
 
+        paused = false;
         ActivateCountdown();
     }
     private void Start()

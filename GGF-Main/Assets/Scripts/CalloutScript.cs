@@ -11,19 +11,19 @@ public class CalloutScript : MonoBehaviour {
     private AudioSource andHeWillAS;
     private AudioSource hesGottaUseItSoonAS;
 
-    private float useTimer;
-    private float hitTimer;
+    public float useTimer;
+    public float hitTimer;
 
-    private bool hesGottaUseItSoon;
-    private bool andHeWill;
-    private bool waow;
+    public bool hesGottaUseItSoon;
+    public bool andHeWill;
+    public bool waow;
 
-    private bool secondShot;
+    public bool secondShot;
 
 
     private void Awake()
     {
-        useTimer = 2f;
+        useTimer = 3f;
         hitTimer = 3f;
 
         waowAS = GameObject.Find("CalloutWaow").GetComponent<AudioSource>();
@@ -40,30 +40,13 @@ public class CalloutScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (hesGottaUseItSoon)
-        {
-            useTimer -= Time.deltaTime;
 
-            if (useTimer <= 0)
-            {
-                hesGottaUseItSoonAS.Stop();
-                hesGottaUseItSoon = false;
-
-                useTimer = 3f;
-            }
-        }
-
-        if (hesGottaUseItSoon && secondShot)
-        {
-            andHeWillAS.Play();
-            andHeWill = true;
-        }
-
+        // Checking if second shot hit
         if (andHeWill)
         {
             hitTimer -= Time.deltaTime;
 
-            if (hitTimer <= 0)
+            if (hitTimer <= 0 || waow)
             {
                 andHeWillAS.Stop();
                 andHeWill = false;
@@ -71,17 +54,42 @@ public class CalloutScript : MonoBehaviour {
                 hitTimer = 3f;
             }
 
-            if (target.paralyzed && hitTimer <= 2f)
+            if (target.paralyzed)
             {
                 waowAS.Play();
+                waow = true;
             }
         }
-	}
+
+        // Second shot
+        if (hesGottaUseItSoon && secondShot)
+        {
+            andHeWillAS.Play();
+            andHeWill = true;
+            secondShot = false;
+        }
+
+
+        // First shot
+        if (hesGottaUseItSoon)
+        {
+            useTimer -= Time.deltaTime;
+
+            if (useTimer <= 0 || secondShot)
+            {
+                hesGottaUseItSoonAS.Stop();
+                hesGottaUseItSoon = false;
+
+                useTimer = 3f;
+            }
+        }
+    }
 
     public void PlayerFirstShot()
     {
         hesGottaUseItSoonAS.Play();
         hesGottaUseItSoon = true;
+        waow = false;
     }
     public void PlayerSecondShot(Player otherPlayer)
     {

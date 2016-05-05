@@ -310,6 +310,11 @@ public class Player : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal" + playerNumber);
 
+        if (iMustGo)
+        {
+            speed = 3f;
+        }
+
         // Cant move
         if (paralyzed)
         {
@@ -467,12 +472,15 @@ public class Player : MonoBehaviour
 
     public void Restart()
     {
+        active = false;
         loser = false;
         winner = false;
         iMustGo = false;
         leader = false;
 
         winTimer = 0f;
+
+        rbPlayer.velocity = new Vector2(0, 0);
     }
 
     // Camera detection

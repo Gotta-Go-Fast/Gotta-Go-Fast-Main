@@ -251,7 +251,7 @@ public class MenuScript : MonoBehaviour {
         }
         else
         {
-            Application.LoadLevel(2);
+            Application.LoadLevel(4);
         }
     }
 }
