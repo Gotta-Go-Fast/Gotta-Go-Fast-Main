@@ -134,7 +134,8 @@ public class MenuScript : MonoBehaviour {
 
         ShowCharacterBoxes();
 
-        vemEDu.Play();
+        if (!mute)
+            vemEDu.Play();
     }
     public void QuitGame()
     {
@@ -214,7 +215,8 @@ public class MenuScript : MonoBehaviour {
 
         ShowCharacterBoxes();
 
-        vemEDu.Play();
+        if (!mute)
+            vemEDu.Play();
     }
 
     // Moving characterboxes in and out from the screen

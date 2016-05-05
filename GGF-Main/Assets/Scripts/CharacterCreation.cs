@@ -13,9 +13,7 @@ public class CharacterCreation : MonoBehaviour {
 
 
     // SoundEffects
-    private AudioSource knifeGuyVoice;
-    private AudioSource rabbitVoice;
-
+    private CalloutScript calloutScript;
 
 	private void Start () 
 	{
@@ -31,8 +29,7 @@ public class CharacterCreation : MonoBehaviour {
 
 
         // SoundEffects
-        knifeGuyVoice = GameObject.Find("KnifeGuyVoice").GetComponent<AudioSource>();
-        rabbitVoice = GameObject.Find("RabbitVoice").GetComponent<AudioSource>();
+        calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
 	}
 
 	private void Update()
@@ -68,12 +65,12 @@ public class CharacterCreation : MonoBehaviour {
     {
         if (index == 0)
         {
-            rabbitVoice.Play();
+            calloutScript.RabbitVoice();
         }
 
         if (index == 1)
         {
-            knifeGuyVoice.Play();
+            calloutScript.KnifeGuyVoice();
         }
 
     }

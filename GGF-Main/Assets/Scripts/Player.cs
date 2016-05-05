@@ -323,7 +323,7 @@ public class Player : MonoBehaviour
 
             rbPlayer.velocity = new Vector2(0.0f, rbPlayer.velocity.y);
 
-            if (paralyzedTimer < 0)
+            if (paralyzedTimer < 0 && grounded)
             {
                 paralyzed = false;
                 paralyzedTimer = paralyzedReset;
@@ -417,6 +417,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Ammo") && !gotPickup)
         {
             other.gameObject.SetActive(false);
+            gotShots = true;
             shots = 2;
         }
     }
@@ -472,6 +473,13 @@ public class Player : MonoBehaviour
 
     public void Restart()
     {
+        gotDoubleJump = false;
+        gotSpeedBoost = false;
+        gotShots = false;
+        gotBomb = false;
+
+        paralyzed = false;
+
         active = false;
         loser = false;
         winner = false;
@@ -486,12 +494,17 @@ public class Player : MonoBehaviour
     // Camera detection
     private void OnBecameInvisible()
     {
-        if (!otherPlayer.iMustGo && active)
+        if (!otherPlayer.iMustGo && !otherPlayer.loser && active)
         {
             active = false;
             otherPlayer.active = false;
 
             loser = true;
+
+            if (loser && paralyzed)
+            {
+                calloutScript.ParalyzedLoss();
+            }
         }
     }
 }

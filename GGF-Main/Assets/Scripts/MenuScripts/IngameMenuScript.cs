@@ -45,11 +45,14 @@ public class IngameMenuScript : MonoBehaviour
     private float countDownTimer;
     public bool countDown;
 
+    private CalloutScript calloutScript;
+
     private void Awake()
     {
         menuScript = FindObjectOfType<MenuScript>();
         spawnPoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
         evilOverlordCamera = GameObject.Find("Main Camera").GetComponent<EvilOverlordCamera>();
+        calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
 
         // Players
         player1 = menuScript.player1.GetComponent<Player>();
@@ -109,6 +112,8 @@ public class IngameMenuScript : MonoBehaviour
 
                 player1.active = true;
                 player2.active = true;
+
+                calloutScript.Go();
             }
         }
     }
@@ -167,7 +172,7 @@ public class IngameMenuScript : MonoBehaviour
     }
     private void Win()
     {
-        if (player1.winner)
+        if (player1.winner || player2.winner)
         {
             backgroundMusic.Pause();
             pauseMusic.Pause();
@@ -175,16 +180,8 @@ public class IngameMenuScript : MonoBehaviour
 
             winCanvas.enabled = true;
             paused = true;
-        }
 
-        else if (player2.winner)
-        {
-            backgroundMusic.Pause();
-            pauseMusic.Pause();
-            //winMusic.UnPause();
-
-            winCanvas.enabled = true;
-            paused = true;
+            calloutScript.Applause();
         }
     }
     private void Lose()
@@ -229,9 +226,7 @@ public class IngameMenuScript : MonoBehaviour
         pauseCanvas.enabled = false;
         paused = false;
 
-        DestroyObject(menuScript.player1.gameObject);
-        DestroyObject(menuScript.player2.gameObject);
-        DestroyObject(menuScript);
+        DestroyObjects();
 
         Application.LoadLevel(0);
     }
@@ -265,9 +260,7 @@ public class IngameMenuScript : MonoBehaviour
         winCanvas.enabled = false;
         paused = false;
 
-        DestroyObject(menuScript.player1.gameObject);
-        DestroyObject(menuScript.player2.gameObject);
-        DestroyObject(menuScript);
+        DestroyObjects();
 
         Application.LoadLevel(0);
     }
@@ -284,6 +277,7 @@ public class IngameMenuScript : MonoBehaviour
         player1.Restart();
         player2.Restart();
 
+        calloutScript.Restart();
 
         Application.LoadLevel(Application.loadedLevel);
     }
@@ -291,5 +285,11 @@ public class IngameMenuScript : MonoBehaviour
     {
         countDownTimer = 3f;
         countDown = true;
+    }
+    private void DestroyObjects()
+    {
+        DestroyObject(menuScript.player1.gameObject);
+        DestroyObject(menuScript.player2.gameObject);
+        DestroyObject(menuScript);
     }
 }

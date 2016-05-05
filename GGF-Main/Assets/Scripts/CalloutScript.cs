@@ -7,9 +7,14 @@ public class CalloutScript : MonoBehaviour {
 
 
     // SoundEffects
+    private AudioSource rabbitVoice;
+    private AudioSource knifeGuyVoice;
     private AudioSource waowAS;
     private AudioSource andHeWillAS;
     private AudioSource hesGottaUseItSoonAS;
+    private AudioSource go;
+    private AudioSource applause;
+    private AudioSource hahaha;
 
     public float useTimer;
     public float hitTimer;
@@ -20,27 +25,59 @@ public class CalloutScript : MonoBehaviour {
 
     public bool secondShot;
 
+    private bool mute;
 
     private void Awake()
     {
         useTimer = 3f;
         hitTimer = 3f;
 
+        rabbitVoice = GameObject.Find("RabbitVoice").GetComponent<AudioSource>();
+        knifeGuyVoice = GameObject.Find("KnifeGuyVoice").GetComponent<AudioSource>();
+
         waowAS = GameObject.Find("CalloutWaow").GetComponent<AudioSource>();
         andHeWillAS = GameObject.Find("CalloutAndHeWill").GetComponent<AudioSource>();
         hesGottaUseItSoonAS = GameObject.Find("CalloutHesGotta").GetComponent<AudioSource>();
+        go = GameObject.Find("CalloutGo").GetComponent<AudioSource>();
+        applause = GameObject.Find("CalloutApplause").GetComponent<AudioSource>();
+        hahaha = GameObject.Find("CalloutHahaha").GetComponent<AudioSource>();
 
         DontDestroy();
+
+        applause.Play();
     }
     private void Start ()
     {
+        applause.Pause();
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    private void DontDestroy()
     {
+        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(rabbitVoice);
+        DontDestroyOnLoad(knifeGuyVoice);
+        DontDestroyOnLoad(hesGottaUseItSoonAS);
+        DontDestroyOnLoad(andHeWillAS);
+        DontDestroyOnLoad(waowAS);
+        DontDestroyOnLoad(go);
+        DontDestroyOnLoad(applause);
+        DontDestroyOnLoad(hahaha);
+    }
+    // Update is called once per frame
+    private void Update ()
+    {
+        MuteCheck();
+        ShootSequence();
+    }
+    // MuteCheck
+    private void MuteCheck()
+    {
+        mute = MenuScript.mute;
+    }
 
+    // Shoot sequence
+    private void ShootSequence()
+    {
         // Checking if second shot hit
         if (andHeWill)
         {
@@ -56,7 +93,11 @@ public class CalloutScript : MonoBehaviour {
 
             if (target.paralyzed)
             {
-                waowAS.Play();
+                if (!mute)
+                {
+                    waowAS.Play();
+                }
+
                 waow = true;
             }
         }
@@ -64,7 +105,11 @@ public class CalloutScript : MonoBehaviour {
         // Second shot
         if (hesGottaUseItSoon && secondShot)
         {
-            andHeWillAS.Play();
+            if (!mute)
+            {
+                andHeWillAS.Play();
+            }
+
             andHeWill = true;
             secondShot = false;
         }
@@ -84,10 +129,13 @@ public class CalloutScript : MonoBehaviour {
             }
         }
     }
-
     public void PlayerFirstShot()
     {
-        hesGottaUseItSoonAS.Play();
+        if (!mute)
+        {
+            hesGottaUseItSoonAS.Play();
+        }
+
         hesGottaUseItSoon = true;
         waow = false;
     }
@@ -96,11 +144,40 @@ public class CalloutScript : MonoBehaviour {
         this.target = otherPlayer;
         secondShot = true;
     }
-    private void DontDestroy()
+
+    // SoundEffects
+    public void Go()
     {
-        DontDestroyOnLoad(this);
-        DontDestroyOnLoad(hesGottaUseItSoonAS);
-        DontDestroyOnLoad(andHeWillAS);
-        DontDestroyOnLoad(waowAS);
+        if (!mute)
+            go.Play();
     }
+    public void Applause()
+    {
+        if (!mute)
+            applause.UnPause();
+    }
+    public void ParalyzedLoss()
+    {
+        if (!mute)
+            hahaha.Play();
+    }
+    public void RabbitVoice()
+    {
+        if (!mute)
+            rabbitVoice.Play();
+    }
+    public void KnifeGuyVoice()
+    {
+        if (!mute)
+            knifeGuyVoice.Play();
+    }
+
+
+    // Called upon when pressing restart
+    public void Restart()
+    {
+        applause.Play();
+        applause.Pause();
+    }
+
 }
