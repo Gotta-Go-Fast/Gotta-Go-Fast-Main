@@ -63,6 +63,8 @@ public class IngameMenuScript : MonoBehaviour
 
         paused = false;
         ActivateCountdown();
+
+        backgroundMusic.volume = 0.2f;
     }
     private void Start()
     {
@@ -92,31 +94,12 @@ public class IngameMenuScript : MonoBehaviour
 
     private void Update()
     {
-        CountDown();
         Pause();
         Mute();
         Win();
         Lose();
     }
 
-    private void CountDown()
-    {
-        if (countDown)
-        {
-            // countdown.Canvas
-            countDownTimer -= Time.deltaTime;
-
-            if (countDownTimer <= 0)
-            {
-                countDown = false;
-
-                player1.active = true;
-                player2.active = true;
-
-                calloutScript.Go();
-            }
-        }
-    }
     private void Pause()
     {
         // Press "P" for pause
@@ -172,7 +155,7 @@ public class IngameMenuScript : MonoBehaviour
     }
     private void Win()
     {
-        if (player1.winner || player2.winner)
+        if ((player1.winner || player2.winner) && (player1.active && player2.active))
         {
             backgroundMusic.Pause();
             pauseMusic.Pause();
@@ -180,6 +163,9 @@ public class IngameMenuScript : MonoBehaviour
 
             winCanvas.enabled = true;
             paused = true;
+
+            player1.active = false;
+            player2.active = false;
 
             calloutScript.Applause();
         }
@@ -291,5 +277,16 @@ public class IngameMenuScript : MonoBehaviour
         DestroyObject(menuScript.player1.gameObject);
         DestroyObject(menuScript.player2.gameObject);
         DestroyObject(menuScript);
+    }
+
+    // Countdown
+    public void CountDown()
+    {
+        countDown = false;
+
+        player1.active = true;
+        player2.active = true;
+
+        calloutScript.Go();
     }
 }

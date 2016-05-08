@@ -288,9 +288,6 @@ public class Player : MonoBehaviour
 
             if (winTimer > 1f)
             {
-                active = false;
-                otherPlayer.active = false;
-
                 winner = true;
             }
         }
@@ -489,6 +486,7 @@ public class Player : MonoBehaviour
         winTimer = 0f;
 
         rbPlayer.velocity = new Vector2(0, 0);
+        transform.localScale = new Vector3(1, 1, 1);
     }
 
     // Camera detection
@@ -504,6 +502,12 @@ public class Player : MonoBehaviour
             if (loser && paralyzed)
             {
                 calloutScript.ParalyzedLoss();
+
+                spriteRenderer.material.color = Color.white;
+            }
+            if (loser && !paralyzed)
+            {
+                calloutScript.Losing();
             }
         }
     }

@@ -15,6 +15,7 @@ public class CalloutScript : MonoBehaviour {
     private AudioSource go;
     private AudioSource applause;
     private AudioSource hahaha;
+    private AudioSource naej;
 
     public float useTimer;
     public float hitTimer;
@@ -41,14 +42,13 @@ public class CalloutScript : MonoBehaviour {
         go = GameObject.Find("CalloutGo").GetComponent<AudioSource>();
         applause = GameObject.Find("CalloutApplause").GetComponent<AudioSource>();
         hahaha = GameObject.Find("CalloutHahaha").GetComponent<AudioSource>();
+        naej = GameObject.Find("CalloutNaej").GetComponent<AudioSource>();
 
         DontDestroy();
-
-        applause.Play();
     }
     private void Start ()
     {
-        applause.Pause();
+
     }
 
     private void DontDestroy()
@@ -62,6 +62,7 @@ public class CalloutScript : MonoBehaviour {
         DontDestroyOnLoad(go);
         DontDestroyOnLoad(applause);
         DontDestroyOnLoad(hahaha);
+        DontDestroyOnLoad(naej);
     }
     // Update is called once per frame
     private void Update ()
@@ -154,7 +155,12 @@ public class CalloutScript : MonoBehaviour {
     public void Applause()
     {
         if (!mute)
-            applause.UnPause();
+            applause.Play();
+    }
+    public void Losing()
+    {
+        if (!mute)
+            naej.Play();
     }
     public void ParalyzedLoss()
     {
@@ -176,8 +182,7 @@ public class CalloutScript : MonoBehaviour {
     // Called upon when pressing restart
     public void Restart()
     {
-        applause.Play();
-        applause.Pause();
+
     }
 
 }
