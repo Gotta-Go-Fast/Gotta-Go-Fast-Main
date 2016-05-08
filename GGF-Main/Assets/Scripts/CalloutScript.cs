@@ -24,6 +24,7 @@ public class CalloutScript : MonoBehaviour {
     public bool andHeWill;
     public bool waow;
 
+    public bool firstShot;
     public bool secondShot;
 
     private bool mute;
@@ -116,7 +117,19 @@ public class CalloutScript : MonoBehaviour {
         }
 
 
-        // First shot
+        // Checking if first shot hit
+        if (firstShot && !secondShot && target.paralyzed)
+        {
+            hesGottaUseItSoon = true;
+            firstShot = false;
+
+            if (!mute)
+            {
+                hesGottaUseItSoonAS.Play();
+            }
+        }
+
+        // After first shot, fire second shot in time
         if (hesGottaUseItSoon)
         {
             useTimer -= Time.deltaTime;
@@ -130,14 +143,10 @@ public class CalloutScript : MonoBehaviour {
             }
         }
     }
-    public void PlayerFirstShot()
+    public void PlayerFirstShot(Player otherPlayer)
     {
-        if (!mute)
-        {
-            hesGottaUseItSoonAS.Play();
-        }
-
-        hesGottaUseItSoon = true;
+        this.target = otherPlayer;
+        firstShot = true;
         waow = false;
     }
     public void PlayerSecondShot(Player otherPlayer)

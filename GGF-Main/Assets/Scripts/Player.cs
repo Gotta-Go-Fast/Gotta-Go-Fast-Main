@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
 
             if (shots == 2)
             {
-                calloutScript.PlayerFirstShot();
+                calloutScript.PlayerFirstShot(otherPlayer);
             }
             if (shots == 1)
             {

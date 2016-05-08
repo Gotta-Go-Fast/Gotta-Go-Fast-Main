@@ -60,41 +60,41 @@ public class MenuScript : MonoBehaviour {
     private void Start ()
     {
         // MainMenu Buttons
-        startGame = startGame.GetComponent<Button>();
-        options = options.GetComponent<Button>();
-        quitGame = quitGame.GetComponent<Button>();
+        //startGame = startGame.GetComponent<Button>();
+        //options = options.GetComponent<Button>();
+        //quitGame = quitGame.GetComponent<Button>();
 
         // OptionsMenu Buttons
-        toggleSound = toggleSound.GetComponent<Button>();
-        optionsBack = optionsBack.GetComponent<Button>();
+        //toggleSound = toggleSound.GetComponent<Button>();
+        //optionsBack = optionsBack.GetComponent<Button>();
 
         // CharacterSelection Buttons
-        levelSelection = levelSelection.GetComponent<Button>();
-        characterBack = characterBack.GetComponent<Button>();
+        //levelSelection = levelSelection.GetComponent<Button>();
+        //characterBack = characterBack.GetComponent<Button>();
 
         // LevelSelection Buttons
-        level1 = level1.GetComponent<Button>();
-        level2 = level2.GetComponent<Button>();
-        level3 = level3.GetComponent<Button>();
-        level4 = level4.GetComponent<Button>();
-        play = play.GetComponent<Button>();
-        levelBack = levelBack.GetComponent<Button>();
+        //level1 = level1.GetComponent<Button>();
+        //level2 = level2.GetComponent<Button>();
+        //level3 = level3.GetComponent<Button>();
+        //level4 = level4.GetComponent<Button>();
+        //play = play.GetComponent<Button>();
+        //levelBack = levelBack.GetComponent<Button>();
 
         // Canvases
-        mainMenuCanvas = mainMenuCanvas.GetComponent<Canvas>();
-        optionsCanvas = optionsCanvas.GetComponent<Canvas>();
-        characterMenuCanvas = characterMenuCanvas.GetComponent<Canvas>();
-        levelMenuCanvas = levelMenuCanvas.GetComponent<Canvas>();
+        //mainMenuCanvas = mainMenuCanvas.GetComponent<Canvas>();
+        //optionsCanvas = optionsCanvas.GetComponent<Canvas>();
+        //characterMenuCanvas = characterMenuCanvas.GetComponent<Canvas>();
+        //levelMenuCanvas = levelMenuCanvas.GetComponent<Canvas>();
 
         // Music
-        mainMenuMusic = mainMenuMusic.GetComponent<AudioSource>();
+        //mainMenuMusic = mainMenuMusic.GetComponent<AudioSource>();
 
         // SoundEffects
         vemEDu = characterMenuCanvas.GetComponentInChildren<AudioSource>();
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
 
         // Character
-        characterBoxes = characterBoxes.GetComponent<GameObject>();
+        //characterBoxes = characterBoxes.GetComponent<GameObject>();
     }
 
     // Update

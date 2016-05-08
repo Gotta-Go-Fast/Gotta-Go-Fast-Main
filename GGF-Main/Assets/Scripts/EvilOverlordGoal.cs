@@ -43,7 +43,7 @@ public class EvilOverlordGoal : MonoBehaviour
         NumberOfCheckPoints();
     }
 
-    void Start()
+    private void Start()
     {
         goalPosition = new Vector2(transform.position.x, transform.position.y);
 

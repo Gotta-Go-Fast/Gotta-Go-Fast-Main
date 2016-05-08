@@ -69,27 +69,27 @@ public class IngameMenuScript : MonoBehaviour
     private void Start()
     {
         // MainMenu Buttons
-        resume = resume.GetComponent<Button>();
-        restart = restart.GetComponent<Button>();
-        options = options.GetComponent<Button>();
-        mainMenu = mainMenu.GetComponent<Button>();
+        //resume = resume.GetComponent<Button>();
+        //restart = restart.GetComponent<Button>();
+        //options = options.GetComponent<Button>();
+        //mainMenu = mainMenu.GetComponent<Button>();
 
         // OptionsMenu Buttons
-        toggleSound = toggleSound.GetComponent<Button>();
-        optionsBack = optionsBack.GetComponent<Button>();
+        //toggleSound = toggleSound.GetComponent<Button>();
+        //optionsBack = optionsBack.GetComponent<Button>();
 
         // WinMenu Buttons
-        winRestart = winRestart.GetComponent<Button>();
+        //winRestart = winRestart.GetComponent<Button>();
 
         // Canvases
-        pauseCanvas = pauseCanvas.GetComponent<Canvas>();
-        optionsCanvas = optionsCanvas.GetComponent<Canvas>();
-        winCanvas = winCanvas.GetComponent<Canvas>();
+        //pauseCanvas = pauseCanvas.GetComponent<Canvas>();
+        //optionsCanvas = optionsCanvas.GetComponent<Canvas>();
+        //winCanvas = winCanvas.GetComponent<Canvas>();
 
         // Music
-        backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
-        pauseMusic = pauseMusic.GetComponent<AudioSource>();
-        winMusic = winMusic.GetComponent<AudioSource>();
+        //backgroundMusic = backgroundMusic.GetComponent<AudioSource>();
+        //pauseMusic = pauseMusic.GetComponent<AudioSource>();
+        //winMusic = winMusic.GetComponent<AudioSource>();
     }
 
     private void Update()
