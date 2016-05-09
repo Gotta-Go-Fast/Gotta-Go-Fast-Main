@@ -111,7 +111,7 @@ public class CalloutScript : MonoBehaviour {
             {
                 andHeWillAS.Play();
             }
-
+            Debug.Log("hallou");
             andHeWill = true;
             secondShot = false;
         }

@@ -37,8 +37,8 @@ public class EvilOverlordGoal : MonoBehaviour
         player1 = menuScript.player1.GetComponent<Player>();
         player2 = menuScript.player2.GetComponent<Player>();
 
-        player1.goal = FindObjectOfType<EvilOverlordGoal>();
-        player2.goal = FindObjectOfType<EvilOverlordGoal>();
+        player1.goal = GameObject.Find("Goal").GetComponent<EvilOverlordGoal>();
+        player2.goal = GameObject.Find("Goal").GetComponent<EvilOverlordGoal>();
 
         NumberOfCheckPoints();
     }
@@ -65,7 +65,7 @@ public class EvilOverlordGoal : MonoBehaviour
 
         if (menuScript.levelNumber == 1)
         {
-            numberOfCheckPoints = 0;
+            numberOfCheckPoints = 2;
         }
         if (menuScript.levelNumber == 2)
         {

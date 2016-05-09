@@ -66,7 +66,6 @@ public class Player : MonoBehaviour
 
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
     }
-
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -98,7 +97,6 @@ public class Player : MonoBehaviour
         rbPlayer = gameObject.GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponent<Animator>();
         bombAnimator = bomb.GetComponent<Animator>();
-        goal = goal.GetComponent<EvilOverlordGoal>();
     }
 
     // Update
@@ -373,6 +371,8 @@ public class Player : MonoBehaviour
 
         CheckPoint1(other);
         CheckPoint2(other);
+
+        OutOfBounds(other);
     }
 
     private void HitByBullet(Collider2D other)
@@ -448,6 +448,18 @@ public class Player : MonoBehaviour
             {
                 goal.checkPointsReached = 2;
             }
+        }
+    }
+    private void OutOfBounds(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Out"))
+        {
+            active = false;
+            otherPlayer.active = false;
+
+            loser = true;
+
+            calloutScript.Losing();
         }
     }
 
