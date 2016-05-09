@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class IngameMenuScript : MonoBehaviour
 {
@@ -44,6 +45,9 @@ public class IngameMenuScript : MonoBehaviour
     // Countdown
     private float countDownTimer;
     public bool countDown;
+
+    // Round Over
+    private bool roundOver = false;
 
     private CalloutScript calloutScript;
 
@@ -96,8 +100,11 @@ public class IngameMenuScript : MonoBehaviour
     {
         Pause();
         Mute();
-        Win();
-        Lose();
+        if (!roundOver)
+        {
+            Win();
+            Lose();
+        }
     }
 
     private void Pause()
@@ -155,8 +162,10 @@ public class IngameMenuScript : MonoBehaviour
     }
     private void Win()
     {
+
         if ((player1.winner || player2.winner) && (player1.active && player2.active))
         {
+            roundOver = true;
             backgroundMusic.Pause();
             pauseMusic.Pause();
             //winMusic.UnPause();
@@ -172,6 +181,7 @@ public class IngameMenuScript : MonoBehaviour
     }
     private void Lose()
     {
+
         if (player1.loser || player2.loser)
         {
             if (loseTimer < 1f)
@@ -181,11 +191,18 @@ public class IngameMenuScript : MonoBehaviour
 
             else
             {
+                roundOver = true;
                 backgroundMusic.Pause();
                 pauseMusic.Pause();
                 //winMusic.UnPause();
-
-                winCanvas.enabled = true;
+                if (winCanvas != null)
+                {
+                    winCanvas.enabled = true;
+                }
+                else
+                {
+                    Debug.Log("Cannot find winCanvas");
+                }
                 paused = true;
             }
         }
@@ -234,7 +251,7 @@ public class IngameMenuScript : MonoBehaviour
         optionsCanvas.enabled = false;
         pauseCanvas.enabled = true;
     }
-    
+
     // Win Menu
     public void WinRestart()
     {
@@ -264,8 +281,7 @@ public class IngameMenuScript : MonoBehaviour
         player2.Restart();
 
         calloutScript.Restart();
-
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void ActivateCountdown()
     {

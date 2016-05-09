@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class MenuScript : MonoBehaviour {
+public class MenuScript : MonoBehaviour
+{
 
 
     // MainMenu Buttons
@@ -57,7 +58,7 @@ public class MenuScript : MonoBehaviour {
     {
         mainMenuCanvas.enabled = true;
     }
-    private void Start ()
+    private void Start()
     {
         // MainMenu Buttons
         //startGame = startGame.GetComponent<Button>();
@@ -102,14 +103,7 @@ public class MenuScript : MonoBehaviour {
     {
         muteCheck = mute;
 
-        if (mute)
-        {
-            mainMenuMusic.Pause();
-        }
-        else if (!mute)
-        {
-            mainMenuMusic.UnPause();
-        }
+
 
         Time.timeScale = 1;
 
@@ -152,10 +146,26 @@ public class MenuScript : MonoBehaviour {
     {
         if (mute)
         {
+            if (mainMenuMusic != null)
+            {
+                mainMenuMusic.UnPause();
+            }
+            else
+            {
+                Debug.Log("MainMenuMusic Audiosource not found");
+            }
             mute = false;
         }
         else
         {
+            if (mainMenuMusic != null)
+            {
+                mainMenuMusic.Pause();
+            }
+            else
+            {
+                Debug.Log("MainMenuMusic Audiosource not found");
+            }
             mute = true;
         }
     }

@@ -107,9 +107,8 @@ public class Player : MonoBehaviour
 
         animator.SetBool("Grounded", grounded);
         animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
-
-        bombAnimator.SetBool("Activated", activatedBomb);
-
+       
+        
         oldJumpState = jumpState;
         jumpState = Input.GetButton("Jump" + playerNumber);
 
@@ -249,6 +248,8 @@ public class Player : MonoBehaviour
             GameObject dropBomb = (GameObject)Instantiate(bomb, new Vector2(firePoint.position.x, firePoint.position.y + 0.3f), firePoint.rotation);
             gotBomb = false;
             activatedBomb = true;
+
+            dropBomb.GetComponent<Animator>().SetTrigger("Activate");
             bombTimer = 0;
         }
 
@@ -504,22 +505,26 @@ public class Player : MonoBehaviour
     // Camera detection
     private void OnBecameInvisible()
     {
-        if (!otherPlayer.iMustGo && !otherPlayer.loser && active)
+        if (otherPlayer != null)
         {
-            active = false;
-            otherPlayer.active = false;
 
-            loser = true;
-
-            if (loser && paralyzed)
+            if (!otherPlayer.iMustGo && !otherPlayer.loser && active)
             {
-                calloutScript.ParalyzedLoss();
+                active = false;
+                otherPlayer.active = false;
 
-                spriteRenderer.material.color = Color.white;
-            }
-            if (loser && !paralyzed)
-            {
-                calloutScript.Losing();
+                loser = true;
+
+                if (loser && paralyzed)
+                {
+                    calloutScript.ParalyzedLoss();
+
+                    spriteRenderer.material.color = Color.white;
+                }
+                if (loser && !paralyzed)
+                {
+                    calloutScript.Losing();
+                }
             }
         }
     }

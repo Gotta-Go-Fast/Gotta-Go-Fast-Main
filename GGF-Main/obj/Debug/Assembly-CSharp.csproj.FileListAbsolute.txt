@@ -19,3 +19,24 @@ D:\Skola\Termin 2\Systemutveckling och projekt I\Projekt\Serious\Gotta-Go-Fast-M
 D:\Skola\Termin 2\Systemutveckling och projekt I\Projekt\Serious\Gotta-Go-Fast-Main\GGF-Main\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 D:\Skola\Termin 2\Systemutveckling och projekt I\Projekt\Serious\Gotta-Go-Fast-Main\GGF-Main\obj\Debug\Assembly-CSharp.dll
 D:\Skola\Termin 2\Systemutveckling och projekt I\Projekt\Serious\Gotta-Go-Fast-Main\GGF-Main\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEngine.xml
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEditor.xml
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\obj\Debug\Assembly-CSharp.dll
+C:\Users\Mwal\Documents\GitHub\Gotta-Go-Fast-Main\GGF-Main\obj\Debug\Assembly-CSharp.pdb
