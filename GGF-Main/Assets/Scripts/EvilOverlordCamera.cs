@@ -147,6 +147,7 @@ public class EvilOverlordCamera : MonoBehaviour
         cameraV2toV3.z = -10f;
 
         transform.position = Vector3.SmoothDamp(transform.position, cameraV2toV3, ref velocity, smoothTime);
+        
 
         //transform.position = new Vector3(cameraPosition.x, cameraPosition.y, -10);
     }

@@ -95,6 +95,7 @@ public class Player : MonoBehaviour
         checkPointsReached = 0;
 
         rbPlayer = gameObject.GetComponent<Rigidbody2D>();
+
         animator = gameObject.GetComponent<Animator>();
         bombAnimator = bomb.GetComponent<Animator>();
     }
