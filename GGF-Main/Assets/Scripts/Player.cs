@@ -107,9 +107,9 @@ public class Player : MonoBehaviour
         position.y = transform.position.y;
 
         animator.SetBool("Grounded", grounded);
-        animator.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal" + playerNumber)));
-       
-        
+        animator.SetFloat("Speed", Mathf.Abs(rbPlayer.velocity.x));
+
+
         oldJumpState = jumpState;
         jumpState = Input.GetButton("Jump" + playerNumber);
 
