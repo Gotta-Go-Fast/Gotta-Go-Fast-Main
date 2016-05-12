@@ -6,12 +6,19 @@ public class CalloutScript : MonoBehaviour {
     private Player target;
 
 
-    // SoundEffects
+    // Voice
     private AudioSource rabbitVoice;
     private AudioSource knifeGuyVoice;
+    private AudioSource vampireVoice;
+    private AudioSource lucasVoice;
+    private AudioSource pelleVoice;
+    private AudioSource blastoiseVoice;
+
+    // SoundEffects
     private AudioSource waowAS;
     private AudioSource andHeWillAS;
     private AudioSource hesGottaUseItSoonAS;
+
     private AudioSource go;
     private AudioSource applause;
     private AudioSource hahaha;
@@ -34,9 +41,15 @@ public class CalloutScript : MonoBehaviour {
         useTimer = 3f;
         hitTimer = 3f;
 
+        // Find voices
         rabbitVoice = GameObject.Find("RabbitVoice").GetComponent<AudioSource>();
         knifeGuyVoice = GameObject.Find("KnifeGuyVoice").GetComponent<AudioSource>();
+        vampireVoice = GameObject.Find("VampireVoice").GetComponent<AudioSource>();
+        lucasVoice = GameObject.Find("LucasVoice").GetComponent<AudioSource>();
+        pelleVoice = GameObject.Find("PelleVoice").GetComponent<AudioSource>();
+        blastoiseVoice = GameObject.Find("BlastoiseVoice").GetComponent<AudioSource>();
 
+        // Find callouts
         waowAS = GameObject.Find("CalloutWaow").GetComponent<AudioSource>();
         andHeWillAS = GameObject.Find("CalloutAndHeWill").GetComponent<AudioSource>();
         hesGottaUseItSoonAS = GameObject.Find("CalloutHesGotta").GetComponent<AudioSource>();
@@ -176,6 +189,8 @@ public class CalloutScript : MonoBehaviour {
         if (!mute)
             hahaha.Play();
     }
+
+    // Character Select
     public void RabbitVoice()
     {
         if (!mute)
@@ -186,7 +201,26 @@ public class CalloutScript : MonoBehaviour {
         if (!mute)
             knifeGuyVoice.Play();
     }
-
+    public void VampireVoice()
+    {
+        if (!mute)
+            vampireVoice.Play();
+    }
+    public void LucasVoice()
+    {
+        if (!mute)
+            lucasVoice.Play();
+    }
+    public void PelleVoice()
+    {
+        if (!mute)
+            pelleVoice.Play();
+    }
+    public void BlastoiseVoice()
+    {
+        if (!mute)
+            knifeGuyVoice.Play();
+    }
 
     // Called upon when pressing restart
     public void Restart()

@@ -72,6 +72,22 @@ public class CharacterCreation : MonoBehaviour {
         {
             calloutScript.KnifeGuyVoice();
         }
+        if (index == 2)
+        {
+            calloutScript.VampireVoice();
+        }
+        if (index == 3)
+        {
+            calloutScript.LucasVoice();
+        }
+        if (index == 4)
+        {
+            calloutScript.PelleVoice();
+        }
+        if (index == 5)
+        {
+            calloutScript.BlastoiseVoice();
+        }
 
     }
 
