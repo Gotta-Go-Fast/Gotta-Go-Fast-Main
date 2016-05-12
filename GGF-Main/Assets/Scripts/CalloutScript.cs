@@ -46,7 +46,7 @@ public class CalloutScript : MonoBehaviour {
         knifeGuyVoice = GameObject.Find("KnifeGuyVoice").GetComponent<AudioSource>();
         vampireVoice = GameObject.Find("VampireVoice").GetComponent<AudioSource>();
         lucasVoice = GameObject.Find("LucasVoice").GetComponent<AudioSource>();
-        pelleVoice = GameObject.Find("PelleVoice").GetComponent<AudioSource>();
+        pelleVoice = GameObject.Find("AsukaVoice").GetComponent<AudioSource>();
         blastoiseVoice = GameObject.Find("BlastoiseVoice").GetComponent<AudioSource>();
 
         // Find callouts

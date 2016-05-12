@@ -1,0 +1,282 @@
+fileFormatVersion: 2
+guid: e6af08ed0991ea94b80fc6e8bb2bdc6e
+timeCreated: 1463065172
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: asuka4_0
+    21300002: asuka4_1
+    21300004: asuka4_2
+    21300006: asuka4_3
+    21300008: asuka4_4
+    21300010: asuka4_5
+    21300012: asuka4_6
+    21300014: asuka4_7
+    21300016: asuka4_8
+    21300018: asuka4_9
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: asuka4_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 738
+        width: 95
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.5, y: 47.5}
+        - {x: -19.5, y: 36.5}
+        - {x: -47.5, y: -4.5}
+        - {x: -47.5, y: -29.5}
+        - {x: 8.5, y: -47.5}
+        - {x: 47.5, y: -47.5}
+        - {x: 47.5, y: 39.5}
+        - {x: 38.5, y: 47.5}
+    - name: asuka4_1
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 740
+        width: 88
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -5, y: 47.5}
+        - {x: -26, y: 35.5}
+        - {x: -44, y: 1.5}
+        - {x: -44, y: -38.5}
+        - {x: -22, y: -47.5}
+        - {x: 10, y: -47.5}
+        - {x: 35, y: -32.5}
+        - {x: 44, y: 0.5}
+        - {x: 44, y: 47.5}
+    - name: asuka4_2
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 741
+        width: 87
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10.5, y: 45}
+        - {x: -17.5, y: 33}
+        - {x: -6.5, y: 27}
+        - {x: -43.5, y: -24}
+        - {x: -43.5, y: -45}
+        - {x: 37.5, y: -45}
+        - {x: 43.5, y: -24}
+        - {x: 43.5, y: 45}
+    - name: asuka4_3
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 737
+        width: 96
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 37, y: 37.5}
+        - {x: 32, y: 33.5}
+        - {x: 30, y: 32.5}
+        - {x: 30, y: 27.5}
+        - {x: 28, y: 30.5}
+        - {x: 33, y: 33.5}
+        - {x: 35, y: 35.5}
+        - {x: 36, y: 38.5}
+        - {x: 36, y: 42.5}
+        - {x: 33, y: 47.5}
+        - {x: -5, y: 47.5}
+        - {x: -20, y: 28.5}
+        - {x: -17, y: 22.5}
+        - {x: -12, y: 20.5}
+        - {x: -4, y: 23.5}
+        - {x: -48, y: -0.5}
+        - {x: -48, y: -17.5}
+        - {x: -46, y: -18.5}
+        - {x: -41, y: -17.5}
+        - {x: -1, y: -21.5}
+        - {x: 25, y: -47.5}
+        - {x: 48, y: -47.5}
+        - {x: 48, y: -28.5}
+        - {x: 44, y: 40.5}
+    - name: asuka4_4
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 739
+        width: 83
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 37.5, y: 46.5}
+        - {x: 6.5, y: 46.5}
+        - {x: -41.5, y: 10.5}
+        - {x: -41.5, y: -36.5}
+        - {x: -34.5, y: -46.5}
+        - {x: 11.5, y: -46.5}
+        - {x: 41.5, y: -10.5}
+        - {x: 41.5, y: 41.5}
+        - {x: 40.5, y: 44.5}
+    - name: asuka4_5
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 753
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1, y: 45}
+        - {x: -29, y: 38}
+        - {x: -45, y: -21}
+        - {x: -45, y: -45}
+        - {x: -26, y: -45}
+        - {x: 37, y: -19}
+        - {x: 45, y: 5}
+        - {x: 45, y: 45}
+    - name: asuka4_6
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 495
+        width: 34
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17, y: 64}
+        - {x: -17, y: -64}
+        - {x: 4, y: -64}
+        - {x: 17, y: -34}
+        - {x: 17, y: 64}
+      - - {x: 10, y: -64}
+        - {x: 10, y: -62}
+        - {x: 7, y: -61}
+        - {x: 5, y: -64}
+    - name: asuka4_7
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 361
+        width: 68
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 26, y: 32.5}
+        - {x: 4, y: 52.5}
+        - {x: -14, y: 52.5}
+        - {x: -19, y: 50.5}
+        - {x: -33, y: 22.5}
+        - {x: -34, y: 3.5}
+        - {x: -34, y: -52.5}
+        - {x: 34, y: -52.5}
+        - {x: 34, y: -33.5}
+        - {x: 31, y: 25.5}
+      - - {x: 21, y: 40.5}
+        - {x: 24, y: 41.5}
+        - {x: 24, y: 44.5}
+        - {x: 21, y: 45.5}
+        - {x: 19, y: 43.5}
+    - name: asuka4_8
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 239
+        width: 68
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 52.5}
+        - {x: -29, y: 23.5}
+        - {x: -34, y: -29.5}
+        - {x: -34, y: -52.5}
+        - {x: 34, y: -52.5}
+        - {x: 34, y: 40.5}
+        - {x: 8, y: 52.5}
+    - name: asuka4_9
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 124
+        width: 68
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 33, y: 39.5}
+        - {x: 3, y: 52.5}
+        - {x: -18, y: 52.5}
+        - {x: -34, y: 24.5}
+        - {x: -34, y: -52.5}
+        - {x: 34, y: -52.5}
+        - {x: 34, y: -46.5}
+        - {x: 32, y: -44.5}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
