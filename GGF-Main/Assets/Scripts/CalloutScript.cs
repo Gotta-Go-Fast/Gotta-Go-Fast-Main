@@ -219,7 +219,7 @@ public class CalloutScript : MonoBehaviour {
     public void BlastoiseVoice()
     {
         if (!mute)
-            knifeGuyVoice.Play();
+            blastoiseVoice.Play();
     }
 
     // Called upon when pressing restart
