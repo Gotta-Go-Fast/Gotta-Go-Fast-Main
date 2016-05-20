@@ -8,9 +8,13 @@ public class MenuScript : MonoBehaviour
 
     // MainMenu Buttons
     public Button startGame;
+    public Button howToPlay;
     public Button options;
     public Button quitGame;
 
+    // HowToPlay Buttons
+    public Button howToPlayBack;
+    
     // OptionsMenu Buttons
     public Button toggleSound;
     public Button optionsBack;
@@ -29,6 +33,7 @@ public class MenuScript : MonoBehaviour
 
     // Canvases
     public Canvas mainMenuCanvas;
+    public Canvas howToPlayCanvas;
     public Canvas optionsCanvas;
     public Canvas characterMenuCanvas;
     public Canvas levelMenuCanvas;
@@ -131,6 +136,11 @@ public class MenuScript : MonoBehaviour
         if (!mute)
             vemEDu.Play();
     }
+    public void HowToPlay()
+    {
+        mainMenuCanvas.enabled = false;
+        howToPlayCanvas.enabled = true;
+    }
     public void QuitGame()
     {
         Application.Quit();
@@ -168,6 +178,12 @@ public class MenuScript : MonoBehaviour
             }
             mute = true;
         }
+    }
+    // How to play back buttonclick
+    public void HowToPlayBack()
+    {
+        howToPlayCanvas.enabled = false;
+        mainMenuCanvas.enabled = true;
     }
     public void OptionsBack()
     {
