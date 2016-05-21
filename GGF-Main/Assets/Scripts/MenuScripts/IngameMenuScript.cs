@@ -29,6 +29,8 @@ public class IngameMenuScript : MonoBehaviour
     public Canvas optionsCanvas;
     public Canvas winCanvas;
 
+    private Canvas GUI;
+
     // Music
     public AudioSource backgroundMusic;
     public AudioSource pauseMusic;
@@ -57,6 +59,7 @@ public class IngameMenuScript : MonoBehaviour
         spawnPoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
         evilOverlordCamera = GameObject.Find("Main Camera").GetComponent<EvilOverlordCamera>();
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
+        GUI = GameObject.Find("GUI").GetComponent<Canvas>();
 
         // Players
         player1 = menuScript.player1.GetComponent<Player>();
@@ -226,6 +229,7 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void MainMenu()
     {
+        GUI.enabled = false;
         pauseCanvas.enabled = false;
         paused = false;
 
@@ -260,6 +264,7 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void WinMainMenu()
     {
+        GUI.enabled = false;
         winCanvas.enabled = false;
         paused = false;
 

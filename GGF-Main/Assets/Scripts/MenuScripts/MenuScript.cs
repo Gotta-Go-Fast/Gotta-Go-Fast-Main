@@ -38,6 +38,8 @@ public class MenuScript : MonoBehaviour
     public Canvas characterMenuCanvas;
     public Canvas levelMenuCanvas;
 
+    private Canvas GUI;
+
     // Music
     public AudioSource mainMenuMusic;
     public static bool mute;
@@ -98,6 +100,8 @@ public class MenuScript : MonoBehaviour
         // SoundEffects
         vemEDu = characterMenuCanvas.GetComponentInChildren<AudioSource>();
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
+
+        GUI = GameObject.Find("GUI").GetComponent<Canvas>();
 
         // Character
         //characterBoxes = characterBoxes.GetComponent<GameObject>();
@@ -229,6 +233,7 @@ public class MenuScript : MonoBehaviour
     {
         mainMenuMusic.Pause();
         levelMenuCanvas.enabled = false;
+        GUI.enabled = true;
 
         FindCharacters();
         LoadCharactersToNextScene();
@@ -270,6 +275,7 @@ public class MenuScript : MonoBehaviour
 
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(characterBoxes);
+        DontDestroyOnLoad(GUI);
     }
     private void LoadLevel()
     {

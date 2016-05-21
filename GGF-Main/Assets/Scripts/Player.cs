@@ -59,12 +59,15 @@ public class Player : MonoBehaviour
     private Animator bombAnimator;
 
     public CalloutScript calloutScript;
+    private Interface GUI;
 
     private void Awake()
     {
         active = true;
 
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
+
+        GUI = GameObject.Find("GUI").GetComponent<Interface>();
     }
     private void Start()
     {
@@ -376,6 +379,7 @@ public class Player : MonoBehaviour
         PickUpSpeedBoost(other);
         PickUpAmmo(other);
         PickUpBomb(other);
+        PickUpBlink(other);
 
         CheckPoint1(other);
         CheckPoint2(other);
@@ -409,6 +413,8 @@ public class Player : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             gotDoubleJump = true;
+
+            GUI.Doublejump(playerNumber);
         }
     }
     private void PickUpSpeedBoost(Collider2D other)
@@ -417,6 +423,8 @@ public class Player : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             gotSpeedBoost = true;
+
+            GUI.Speedboost(playerNumber);
         }
     }
     private void PickUpAmmo(Collider2D other)
@@ -426,6 +434,8 @@ public class Player : MonoBehaviour
             other.gameObject.SetActive(false);
             gotShots = true;
             shots = 2;
+
+            GUI.Ammo(playerNumber);
         }
     }
     private void PickUpBomb(Collider2D other)
@@ -434,6 +444,18 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             gotBomb = true;
+
+            GUI.Bomb(playerNumber);
+        }
+    }
+    private void PickUpBlink(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Blink") && !gotPickup)
+        {
+            Destroy(other.gameObject);
+            gotBomb = true;
+
+            GUI.Blink(playerNumber);
         }
     }
     private void CheckPoint1(Collider2D other)
