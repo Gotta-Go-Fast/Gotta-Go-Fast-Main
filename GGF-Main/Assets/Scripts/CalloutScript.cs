@@ -24,6 +24,18 @@ public class CalloutScript : MonoBehaviour {
     private AudioSource hahaha;
     private AudioSource naej;
 
+
+    // Pickups
+    private AudioSource pickupAmmo;
+    private AudioSource pickupBomb;
+    private AudioSource pickupBoost;
+    private AudioSource pickupJump;
+    private AudioSource shoot;
+    private AudioSource placeBomb;
+    private AudioSource speedBoost;
+    private AudioSource doubleJump;
+
+
     public float useTimer;
     public float hitTimer;
 
@@ -58,6 +70,17 @@ public class CalloutScript : MonoBehaviour {
         hahaha = GameObject.Find("CalloutHahaha").GetComponent<AudioSource>();
         naej = GameObject.Find("CalloutNaej").GetComponent<AudioSource>();
 
+
+        // Find Pickups
+        pickupAmmo = GameObject.Find("PickupAmmo").GetComponent<AudioSource>();
+        pickupBomb = GameObject.Find("PickupBomb").GetComponent<AudioSource>();
+        pickupBoost = GameObject.Find("PickupBoost").GetComponent<AudioSource>();
+        pickupJump = GameObject.Find("PickupJump").GetComponent<AudioSource>();
+        shoot = GameObject.Find("Shoot").GetComponent<AudioSource>();
+        placeBomb = GameObject.Find("PlaceBomb").GetComponent<AudioSource>();
+        speedBoost = GameObject.Find("Speedboost").GetComponent<AudioSource>();
+        doubleJump = GameObject.Find("Doublejump").GetComponent<AudioSource>();
+
         DontDestroy();
     }
     private void Start ()
@@ -77,6 +100,15 @@ public class CalloutScript : MonoBehaviour {
         DontDestroyOnLoad(applause);
         DontDestroyOnLoad(hahaha);
         DontDestroyOnLoad(naej);
+
+        DontDestroyOnLoad(pickupAmmo);
+        DontDestroyOnLoad(pickupBomb);
+        DontDestroyOnLoad(pickupBoost);
+        DontDestroyOnLoad(pickupJump);
+        DontDestroyOnLoad(shoot);
+        DontDestroyOnLoad(placeBomb);
+        DontDestroyOnLoad(speedBoost);
+        DontDestroyOnLoad(doubleJump);
     }
     // Update is called once per frame
     private void Update ()
@@ -189,6 +221,10 @@ public class CalloutScript : MonoBehaviour {
         if (!mute)
             hahaha.Play();
     }
+    public void PlayerHit()
+    {
+
+    }
 
     // Character Select
     public void RabbitVoice()
@@ -228,4 +264,47 @@ public class CalloutScript : MonoBehaviour {
 
     }
 
+
+
+    // Pickup Effects
+    private void PickupShots()
+    {
+        if (!mute)
+            pickupAmmo.Play();
+    }
+    private void PickupBomb()
+    {
+        if (!mute)
+            pickupBomb.Play();
+    }
+    private void PickupBoost()
+    {
+        if (!mute)
+            pickupBoost.Play();
+    }
+    private void PickupJump()
+    {
+        if (!mute)
+            pickupJump.Play();
+    }
+    private void Shoot()
+    {
+        if (!mute)
+            shoot.Play();
+    }
+    private void PlaceBomb()
+    {
+        if (!mute)
+            placeBomb.Play();
+    }
+    private void Speedboost()
+    {
+        if (!mute)
+            speedBoost.Play();
+    }
+    private void Doublejump()
+    {
+        if (!mute)
+            doubleJump.Play();
+    }
 }

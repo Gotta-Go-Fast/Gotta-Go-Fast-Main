@@ -137,13 +137,13 @@ public class EvilOverlordGoal : MonoBehaviour
 
         if (player1.checkPointsReached == player2.checkPointsReached)
         {
-            if ((distancePlayer1 < distancePlayer2) || player2.loser)
+            if (((distancePlayer1 < distancePlayer2) && !player1.loser) || player2.loser)
             {
                 player1.leader = true;
                 player2.leader = false;
             }
 
-            if ((distancePlayer2 < distancePlayer1) || player1.loser)
+            if (((distancePlayer2 < distancePlayer1) && !player2.loser) || player1.loser)
             {
                 player2.leader = true;
                 player1.leader = false;

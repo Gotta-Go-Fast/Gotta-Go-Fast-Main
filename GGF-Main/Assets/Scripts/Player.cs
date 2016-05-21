@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
     private Animator bombAnimator;
 
     public CalloutScript calloutScript;
+    private ParticleScript particleScript;
 
     private void Awake()
     {
@@ -187,6 +188,8 @@ public class Player : MonoBehaviour
             rbPlayer.AddForce(Vector2.up * jumpPower);
 
             gotDoubleJump = false;
+
+            particleScript.Doublejump();
         }
     }
     private void SpeedBoost()
@@ -196,6 +199,8 @@ public class Player : MonoBehaviour
             speedBoostTimer += 2.0f;
 
             gotSpeedBoost = false;
+
+            particleScript.Speedboost();
         }
 
         if (speedBoostTimer > 0)
@@ -383,6 +388,8 @@ public class Player : MonoBehaviour
         {
             Destroy(other.gameObject);
             paralyzed = true;
+
+            calloutScript.PlayerHit();
         }
     }
     private void HitByBomb(Collider2D other)
@@ -528,6 +535,11 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void FindParticleScript(ParticleScript ps)
+    {
+        particleScript = ps;
     }
 }
 
