@@ -23,7 +23,7 @@ public class CalloutScript : MonoBehaviour {
     private AudioSource applause;
     private AudioSource hahaha;
     private AudioSource naej;
-
+    private AudioSource bleigh;
 
     // Pickups
     private AudioSource pickupAmmo;
@@ -69,7 +69,7 @@ public class CalloutScript : MonoBehaviour {
         applause = GameObject.Find("CalloutApplause").GetComponent<AudioSource>();
         hahaha = GameObject.Find("CalloutHahaha").GetComponent<AudioSource>();
         naej = GameObject.Find("CalloutNaej").GetComponent<AudioSource>();
-
+        bleigh = GameObject.Find("CalloutBleigh").GetComponent<AudioSource>();
 
         // Find Pickups
         pickupAmmo = GameObject.Find("PickupAmmo").GetComponent<AudioSource>();
@@ -100,6 +100,7 @@ public class CalloutScript : MonoBehaviour {
         DontDestroyOnLoad(applause);
         DontDestroyOnLoad(hahaha);
         DontDestroyOnLoad(naej);
+        DontDestroyOnLoad(bleigh);
 
         DontDestroyOnLoad(pickupAmmo);
         DontDestroyOnLoad(pickupBomb);
@@ -154,7 +155,7 @@ public class CalloutScript : MonoBehaviour {
         {
             if (!mute)
             {
-                andHeWillAS.Play();
+                //andHeWillAS.Play();
             }
             Debug.Log("hallou");
             andHeWill = true;
@@ -223,7 +224,8 @@ public class CalloutScript : MonoBehaviour {
     }
     public void PlayerHit()
     {
-
+        if (!mute)
+            bleigh.Play();
     }
 
     // Character Select
@@ -267,42 +269,42 @@ public class CalloutScript : MonoBehaviour {
 
 
     // Pickup Effects
-    private void PickupShots()
+    public void PickupShots()
     {
         if (!mute)
             pickupAmmo.Play();
     }
-    private void PickupBomb()
+    public void PickupBomb()
     {
         if (!mute)
             pickupBomb.Play();
     }
-    private void PickupBoost()
+    public void PickupBoost()
     {
         if (!mute)
             pickupBoost.Play();
     }
-    private void PickupJump()
+    public void PickupJump()
     {
         if (!mute)
             pickupJump.Play();
     }
-    private void Shoot()
+    public void Shoot()
     {
         if (!mute)
             shoot.Play();
     }
-    private void PlaceBomb()
+    public void PlaceBomb()
     {
         if (!mute)
             placeBomb.Play();
     }
-    private void Speedboost()
+    public void Speedboost()
     {
         if (!mute)
             speedBoost.Play();
     }
-    private void Doublejump()
+    public void Doublejump()
     {
         if (!mute)
             doubleJump.Play();

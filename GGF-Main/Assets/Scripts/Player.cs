@@ -59,7 +59,6 @@ public class Player : MonoBehaviour
     private Animator bombAnimator;
 
     public CalloutScript calloutScript;
-    private ParticleScript particleScript;
 
     private void Awake()
     {
@@ -189,7 +188,7 @@ public class Player : MonoBehaviour
 
             gotDoubleJump = false;
 
-            particleScript.Doublejump();
+            calloutScript.Doublejump();
         }
     }
     private void SpeedBoost()
@@ -199,8 +198,6 @@ public class Player : MonoBehaviour
             speedBoostTimer += 2.0f;
 
             gotSpeedBoost = false;
-
-            particleScript.Speedboost();
         }
 
         if (speedBoostTimer > 0)
@@ -239,6 +236,8 @@ public class Player : MonoBehaviour
                 calloutScript.PlayerSecondShot(otherPlayer);
             }
 
+            calloutScript.Shoot();
+
             shots -= 1;
 
             if (shots == 0)
@@ -257,6 +256,8 @@ public class Player : MonoBehaviour
 
             dropBomb.GetComponent<Animator>().SetTrigger("Activate");
             bombTimer = 0;
+
+            calloutScript.PlaceBomb();
         }
 
         if (activatedBomb)
@@ -535,11 +536,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void FindParticleScript(ParticleScript ps)
-    {
-        particleScript = ps;
     }
 }
 

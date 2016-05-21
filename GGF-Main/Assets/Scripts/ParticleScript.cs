@@ -17,8 +17,6 @@ public class ParticleScript : MonoBehaviour {
         particleSpeedboost.gameObject.SetActive(false);
 
         player = this.GetComponentInParent<Player>();
-
-        player.FindParticleScript(this);
     }
 
     public void Doublejump()
