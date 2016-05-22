@@ -9,53 +9,56 @@ public class CharacterCreation : MonoBehaviour {
     private Player player;
 
 	// Default Index of the model
-	private int selectionIndex = 0;
+	public int selectionIndex;
 
 
     // SoundEffects
     private CalloutScript calloutScript;
     private MenuScript menuScript;
-
+    public CharacterCreation otherCharacter;
 
 	private void Start () 
 	{
+        selectionIndex = 0;
+
 		models = new List<GameObject> ();
 		foreach (Transform t in transform) 
 		{
 			models.Add (t.gameObject);
 			t.gameObject.SetActive (false);
-
 		}
 
 		models [selectionIndex].SetActive (true);
-
 
         // SoundEffects
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
 
         menuScript = GameObject.Find("MenuScript").GetComponent<MenuScript>();
-	}
+    }
 
 	private void Update()
 	{
-		
+
 	}
 
 	public void Select(int index)
 	{
-		// If index is the same that we have we do nothing
-		if (index == selectionIndex)
-			return;
+        if (index != otherCharacter.selectionIndex)
+        {
+            // If index is the same that we have we do nothing
+            if (index == selectionIndex)
+                return;
 
-		// If index is outside array we do nothing
-		if (index < 0 || index >= models.Count)
-			return;
+            // If index is outside array we do nothing
+            if (index < 0 || index >= models.Count)
+                return;
 
-		models [selectionIndex].SetActive (false);
-		selectionIndex = index;
-		models[selectionIndex].SetActive(true);
+            models[selectionIndex].SetActive(false);
+            selectionIndex = index;
+            models[selectionIndex].SetActive(true);
 
-        CharacterVoice(index);
+            CharacterVoice(index);
+        }
 	}
 
     public Player GetCharacter()

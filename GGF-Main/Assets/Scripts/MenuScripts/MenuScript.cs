@@ -66,6 +66,9 @@ public class MenuScript : MonoBehaviour
     {
         mainMenuCanvas.enabled = true;
         interfaceScript = GameObject.Find("GUI").GetComponent<Interface>();
+
+        characterCreationPlayer1.otherCharacter = characterCreationPlayer2;
+        characterCreationPlayer2.otherCharacter = characterCreationPlayer1;
     }
     private void Start()
     {
@@ -260,12 +263,6 @@ public class MenuScript : MonoBehaviour
     private void HideCharacterBoxes()
     {
         characterBoxes.transform.position = new Vector3(-100, -1, 0);
-    }
-
-
-    public void CheckOtherCharacter()
-    {
-
     }
 
     public void FindCharacters()
