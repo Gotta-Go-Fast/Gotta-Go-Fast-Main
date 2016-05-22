@@ -407,6 +407,8 @@ public class Player : MonoBehaviour
             paralyzed = true;
 
             calloutScript.PlayerHit();
+
+            GUI.CalloutSorryNotSorry();
         }
     }
     private void HitByBomb(Collider2D other)

@@ -5,7 +5,6 @@ public class CalloutScript : MonoBehaviour {
 
     private Player target;
 
-
     // Voice
     private AudioSource rabbitVoice;
     private AudioSource knifeGuyVoice;

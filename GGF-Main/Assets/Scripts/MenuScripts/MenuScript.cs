@@ -262,6 +262,12 @@ public class MenuScript : MonoBehaviour
         characterBoxes.transform.position = new Vector3(-100, -1, 0);
     }
 
+
+    public void CheckOtherCharacter()
+    {
+
+    }
+
     public void FindCharacters()
     {
         player1 = characterCreationPlayer1.GetCharacter();
