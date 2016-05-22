@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public bool iMustGo;
     public bool winner;
     public bool loser;
+    public bool gameOn;
 
     public bool activatedBomb;
     public bool bombUsed;
@@ -549,13 +550,13 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(1, 1, 1);
 
         playerFrame.Clear();
-
     }
 
     // Camera detection
     private void OnBecameInvisible()
     {
-        PlayerOutOfScreen();
+        if (gameOn)
+            PlayerOutOfScreen();
     }
 
     public void GetPlayerFrame(PlayerFrame playerFrame)
@@ -565,6 +566,7 @@ public class Player : MonoBehaviour
 
     private void PlayerOutOfScreen()
     {
+
         if (!otherPlayer.iMustGo && !otherPlayer.loser && active)
         {
             loser = true;
@@ -590,6 +592,8 @@ public class Player : MonoBehaviour
 
     public void GetPortrait(int index)
     {
+        Debug.Log("index " + index);
+
         playerFrame.GetPortrait(index);
     }
 }

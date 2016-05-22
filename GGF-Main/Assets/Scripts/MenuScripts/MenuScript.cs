@@ -262,32 +262,26 @@ public class MenuScript : MonoBehaviour
         characterBoxes.transform.position = new Vector3(-100, -1, 0);
     }
 
-    public void GetPortrait(int index)
-    {
-        if (index <= 5)
-        {
-            player1.GetPortrait(index);
-        }
-
-        else if (index >= 6)
-        {
-            player2.GetPortrait(index);
-        }
-    }
     public void FindCharacters()
     {
         player1 = characterCreationPlayer1.GetCharacter();
         player2 = characterCreationPlayer2.GetCharacter();
 
+        interfaceScript.FindPlayers(player1, player2);
+
         player1.otherPlayer = player2;
         player2.otherPlayer = player1;
+
+        player1.GetPortrait(characterCreationPlayer1.SelectedCharacterIndex());
+        player2.GetPortrait(characterCreationPlayer2.SelectedCharacterIndex());
     }
+
     private void LoadCharactersToNextScene()
     {
         player1.active = false;
         player2.active = false;
-
-        interfaceScript.FindPlayers(player1, player2);
+        player1.gameOn = true;
+        player2.gameOn = true;
 
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(characterBoxes);

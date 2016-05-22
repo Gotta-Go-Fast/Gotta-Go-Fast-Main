@@ -232,6 +232,8 @@ public class IngameMenuScript : MonoBehaviour
         GUI.enabled = false;
         pauseCanvas.enabled = false;
         paused = false;
+        player1.gameOn = false;
+        player2.gameOn = false;
 
         DestroyObjects();
 
@@ -267,6 +269,8 @@ public class IngameMenuScript : MonoBehaviour
         GUI.enabled = false;
         winCanvas.enabled = false;
         paused = false;
+        player1.gameOn = false;
+        player2.gameOn = false;
 
         DestroyObjects();
 

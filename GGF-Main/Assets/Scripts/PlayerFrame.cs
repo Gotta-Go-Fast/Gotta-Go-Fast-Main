@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerFrame : MonoBehaviour {
 
@@ -34,6 +35,8 @@ public class PlayerFrame : MonoBehaviour {
     private Image vålnadTexture;
     private Image asukaTexture;
     private Image blastoiseTexture;
+
+    private List<Image> textures;
 
     private void Awake()
     {
@@ -79,36 +82,6 @@ public class PlayerFrame : MonoBehaviour {
         if (index == 5)
         {
             blastoiseTexture.enabled = true;
-        }
-        if (index == 6)
-        {
-            varulvTexture.enabled = true;
-            varulvTexture.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (index == 7)
-        {
-            knifeguyTexture.enabled = true;
-            knifeguyTexture.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (index == 8)
-        {
-            vampireTexture.enabled = true;
-            vampireTexture.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (index == 9)
-        {
-            vålnadTexture.enabled = true;
-            vålnadTexture.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (index == 10)
-        {
-            asukaTexture.enabled = true;
-            asukaTexture.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (index == 11)
-        {
-            blastoiseTexture.enabled = true;
-            blastoiseTexture.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 

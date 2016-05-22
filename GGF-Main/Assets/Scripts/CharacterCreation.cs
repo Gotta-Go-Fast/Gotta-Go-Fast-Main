@@ -56,7 +56,6 @@ public class CharacterCreation : MonoBehaviour {
 		models[selectionIndex].SetActive(true);
 
         CharacterVoice(index);
-        menuScript.GetPortrait(index);
 	}
 
     public Player GetCharacter()
@@ -64,6 +63,10 @@ public class CharacterCreation : MonoBehaviour {
         player = models[selectionIndex].GetComponent<Player>();
 
         return player;
+    }
+    public int SelectedCharacterIndex()
+    {
+        return selectionIndex;
     }
 
     private void CharacterVoice(int index)
