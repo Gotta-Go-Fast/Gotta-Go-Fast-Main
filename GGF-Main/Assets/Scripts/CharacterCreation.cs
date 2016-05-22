@@ -36,11 +36,6 @@ public class CharacterCreation : MonoBehaviour {
         menuScript = GameObject.Find("MenuScript").GetComponent<MenuScript>();
     }
 
-	private void Update()
-	{
-
-	}
-
 	public void Select(int index)
 	{
         if (index != otherCharacter.selectionIndex)

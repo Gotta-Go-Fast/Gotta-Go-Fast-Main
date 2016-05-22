@@ -66,9 +66,6 @@ public class MenuScript : MonoBehaviour
     {
         mainMenuCanvas.enabled = true;
         interfaceScript = GameObject.Find("GUI").GetComponent<Interface>();
-
-        characterCreationPlayer1.otherCharacter = characterCreationPlayer2;
-        characterCreationPlayer2.otherCharacter = characterCreationPlayer1;
     }
     private void Start()
     {
@@ -270,10 +267,10 @@ public class MenuScript : MonoBehaviour
         player1 = characterCreationPlayer1.GetCharacter();
         player2 = characterCreationPlayer2.GetCharacter();
 
-        interfaceScript.FindPlayers(player1, player2);
-
         player1.otherPlayer = player2;
         player2.otherPlayer = player1;
+
+        interfaceScript.FindPlayers(player1, player2);
 
         player1.GetPortrait(characterCreationPlayer1.SelectedCharacterIndex());
         player2.GetPortrait(characterCreationPlayer2.SelectedCharacterIndex());
