@@ -39,6 +39,7 @@ public class MenuScript : MonoBehaviour
     public Canvas levelMenuCanvas;
 
     private Canvas GUI;
+    private Interface interfaceScript;
 
     // Music
     public AudioSource mainMenuMusic;
@@ -64,6 +65,7 @@ public class MenuScript : MonoBehaviour
     private void Awake()
     {
         mainMenuCanvas.enabled = true;
+        interfaceScript = GameObject.Find("GUI").GetComponent<Interface>();
     }
     private void Start()
     {
@@ -260,6 +262,18 @@ public class MenuScript : MonoBehaviour
         characterBoxes.transform.position = new Vector3(-100, -1, 0);
     }
 
+    public void GetPortrait(int index)
+    {
+        if (index <= 5)
+        {
+            player1.GetPortrait(index);
+        }
+
+        else if (index >= 6)
+        {
+            player2.GetPortrait(index);
+        }
+    }
     public void FindCharacters()
     {
         player1 = characterCreationPlayer1.GetCharacter();
@@ -272,6 +286,8 @@ public class MenuScript : MonoBehaviour
     {
         player1.active = false;
         player2.active = false;
+
+        interfaceScript.FindPlayers(player1, player2);
 
         DontDestroyOnLoad(this);
         DontDestroyOnLoad(characterBoxes);
@@ -288,4 +304,6 @@ public class MenuScript : MonoBehaviour
             Application.LoadLevel(4);
         }
     }
+
+
 }

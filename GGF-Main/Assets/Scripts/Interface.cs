@@ -5,71 +5,23 @@ public class Interface : MonoBehaviour {
 
     private Canvas canvas;
 
-    private GameObject blueFrame;
-    private GameObject redFrame;
+    private Player player1;
+    private Player player2;
+
+    public PlayerFrame blueFrame;
+    public PlayerFrame redFrame;
 
     private void Awake()
     {
         canvas = gameObject.GetComponent<Canvas>();
-
-        blueFrame = GameObject.Find("BluePlayerFrame").GetComponent<GameObject>();
-        redFrame = GameObject.Find("RedPlayerFrame").GetComponent<GameObject>();
     }
 
-
-    public void Doublejump(int playernumber)
+    public void FindPlayers(Player player1, Player player2)
     {
-        if (playernumber == 1)
-        {
+        this.player1 = player1;
+        this.player2 = player2;
 
-        }
-        else
-        {
-
-        }
+        player1.GetPlayerFrame(blueFrame);
+        player2.GetPlayerFrame(redFrame);
     }
-    public void Speedboost(int playernumber)
-    {
-        if (playernumber == 1)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
-    public void Ammo(int playernumber)
-    {
-        if (playernumber == 1)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
-    public void Bomb(int playernumber)
-    {
-        if (playernumber == 1)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
-    public void Blink(int playernumber)
-    {
-        if (playernumber == 1)
-        {
-
-        }
-        else
-        {
-
-        }
-    }    
 }

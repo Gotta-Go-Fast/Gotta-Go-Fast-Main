@@ -68,7 +68,7 @@ public class EvilOverlordCamera : MonoBehaviour
             CenterPosition();
         }
 
-        else if (!followBoth && !followWinner)
+        if ((!followBoth && !followWinner))
         {
             FollowLeader();
         }

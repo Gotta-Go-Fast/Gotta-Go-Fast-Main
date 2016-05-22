@@ -266,28 +266,26 @@ public class CalloutScript : MonoBehaviour {
 
     }
 
-
-
     // Pickup Effects
     public void PickupShots()
     {
         if (!mute)
-            pickupAmmo.Play();
+            bleigh.Play();
     }
     public void PickupBomb()
     {
         if (!mute)
-            pickupBomb.Play();
+            bleigh.Play();
     }
     public void PickupBoost()
     {
         if (!mute)
-            pickupBoost.Play();
+            bleigh.Play();
     }
     public void PickupJump()
     {
         if (!mute)
-            pickupJump.Play();
+            bleigh.Play();
     }
     public void Shoot()
     {
@@ -302,11 +300,11 @@ public class CalloutScript : MonoBehaviour {
     public void Speedboost()
     {
         if (!mute)
-            speedBoost.Play();
+            bleigh.Play();
     }
     public void Doublejump()
     {
         if (!mute)
-            doubleJump.Play();
+            bleigh.Play();
     }
 }

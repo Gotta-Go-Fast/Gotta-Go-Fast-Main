@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
 
     public CalloutScript calloutScript;
     private Interface GUI;
+    private PlayerFrame playerFrame;
 
     private void Awake()
     {
@@ -192,6 +193,8 @@ public class Player : MonoBehaviour
             gotDoubleJump = false;
 
             calloutScript.Doublejump();
+
+            playerFrame.RemoveDoublejump();
         }
     }
     private void SpeedBoost()
@@ -201,6 +204,10 @@ public class Player : MonoBehaviour
             speedBoostTimer += 2.0f;
 
             gotSpeedBoost = false;
+
+            playerFrame.RemoveSpeedboost();
+
+            calloutScript.Speedboost();
         }
 
         if (speedBoostTimer > 0)
@@ -246,6 +253,8 @@ public class Player : MonoBehaviour
             if (shots == 0)
             {
                 gotShots = false;
+
+                playerFrame.RemoveAmmo();
             }
         }
     }
@@ -261,6 +270,8 @@ public class Player : MonoBehaviour
             bombTimer = 0;
 
             calloutScript.PlaceBomb();
+
+            playerFrame.RemoveBomb();
         }
 
         if (activatedBomb)
@@ -414,7 +425,9 @@ public class Player : MonoBehaviour
             other.gameObject.SetActive(false);
             gotDoubleJump = true;
 
-            GUI.Doublejump(playerNumber);
+            playerFrame.Doublejump();
+
+            calloutScript.PickupJump();
         }
     }
     private void PickUpSpeedBoost(Collider2D other)
@@ -424,7 +437,9 @@ public class Player : MonoBehaviour
             other.gameObject.SetActive(false);
             gotSpeedBoost = true;
 
-            GUI.Speedboost(playerNumber);
+            playerFrame.Speedboost();
+
+            calloutScript.PickupBoost();
         }
     }
     private void PickUpAmmo(Collider2D other)
@@ -435,7 +450,9 @@ public class Player : MonoBehaviour
             gotShots = true;
             shots = 2;
 
-            GUI.Ammo(playerNumber);
+            playerFrame.Ammo();
+
+            calloutScript.PickupShots();
         }
     }
     private void PickUpBomb(Collider2D other)
@@ -445,7 +462,9 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
             gotBomb = true;
 
-            GUI.Bomb(playerNumber);
+            playerFrame.Bomb();
+
+            calloutScript.PickupBomb();
         }
     }
     private void PickUpBlink(Collider2D other)
@@ -455,7 +474,7 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject);
             gotBomb = true;
 
-            GUI.Blink(playerNumber);
+            playerFrame.Blink();
         }
     }
     private void CheckPoint1(Collider2D other)
@@ -486,12 +505,9 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Out"))
         {
-            active = false;
-            otherPlayer.active = false;
+            PlayerOutOfScreen();
 
-            loser = true;
-
-            calloutScript.Losing();
+            Debug.Log("KillZone");
         }
     }
 
@@ -531,33 +547,50 @@ public class Player : MonoBehaviour
 
         rbPlayer.velocity = new Vector2(0, 0);
         transform.localScale = new Vector3(1, 1, 1);
+
+        playerFrame.Clear();
+
     }
 
     // Camera detection
     private void OnBecameInvisible()
     {
-        if (otherPlayer != null)
+        PlayerOutOfScreen();
+    }
+
+    public void GetPlayerFrame(PlayerFrame playerFrame)
+    {
+        this.playerFrame = playerFrame;
+    }
+
+    private void PlayerOutOfScreen()
+    {
+        if (!otherPlayer.iMustGo && !otherPlayer.loser && active)
         {
+            loser = true;
+            otherPlayer.winner = true;
 
-            if (!otherPlayer.iMustGo && !otherPlayer.loser && active)
+            if (paralyzed)
             {
-                active = false;
-                otherPlayer.active = false;
+                calloutScript.ParalyzedLoss();
 
-                loser = true;
-
-                if (loser && paralyzed)
-                {
-                    calloutScript.ParalyzedLoss();
-
-                    spriteRenderer.material.color = Color.white;
-                }
-                if (loser && !paralyzed)
-                {
-                    calloutScript.Losing();
-                }
+                spriteRenderer.material.color = Color.white;
             }
+            else if (!paralyzed)
+            {
+                calloutScript.Losing();
+
+                Debug.Log("Loser");
+            }
+
+            active = false;
+            otherPlayer.active = false;
         }
+    }
+
+    public void GetPortrait(int index)
+    {
+        playerFrame.GetPortrait(index);
     }
 }
 

@@ -14,6 +14,8 @@ public class CharacterCreation : MonoBehaviour {
 
     // SoundEffects
     private CalloutScript calloutScript;
+    private MenuScript menuScript;
+
 
 	private void Start () 
 	{
@@ -30,6 +32,8 @@ public class CharacterCreation : MonoBehaviour {
 
         // SoundEffects
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
+
+        menuScript = GameObject.Find("MenuScript").GetComponent<MenuScript>();
 	}
 
 	private void Update()
@@ -52,6 +56,7 @@ public class CharacterCreation : MonoBehaviour {
 		models[selectionIndex].SetActive(true);
 
         CharacterVoice(index);
+        menuScript.GetPortrait(index);
 	}
 
     public Player GetCharacter()
@@ -67,7 +72,6 @@ public class CharacterCreation : MonoBehaviour {
         {
             calloutScript.RabbitVoice();
         }
-
         if (index == 1)
         {
             calloutScript.KnifeGuyVoice();
@@ -88,7 +92,5 @@ public class CharacterCreation : MonoBehaviour {
         {
             calloutScript.BlastoiseVoice();
         }
-
     }
-
 }
