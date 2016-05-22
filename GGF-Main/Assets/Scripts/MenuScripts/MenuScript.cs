@@ -264,8 +264,8 @@ public class MenuScript : MonoBehaviour
 
     public void FindCharacters()
     {
-        player1 = characterCreationPlayer1.GetCharacter();
-        player2 = characterCreationPlayer2.GetCharacter();
+        player1 = characterCreationPlayer1.player;
+        player2 = characterCreationPlayer1.otherCharacter.player;
 
         player1.otherPlayer = player2;
         player2.otherPlayer = player1;
@@ -273,7 +273,7 @@ public class MenuScript : MonoBehaviour
         interfaceScript.FindPlayers(player1, player2);
 
         player1.GetPortrait(characterCreationPlayer1.SelectedCharacterIndex());
-        player2.GetPortrait(characterCreationPlayer2.SelectedCharacterIndex());
+        player2.GetPortrait(characterCreationPlayer1.otherCharacter.SelectedCharacterIndex());
     }
 
     private void LoadCharactersToNextScene()

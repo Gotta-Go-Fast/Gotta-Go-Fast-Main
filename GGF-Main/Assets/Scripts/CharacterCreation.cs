@@ -6,7 +6,7 @@ public class CharacterCreation : MonoBehaviour {
 
 	private List<GameObject> models;
 
-    private Player player;
+    public Player player;
 
 	// Default Index of the model
 	public int selectionIndex;
@@ -53,15 +53,11 @@ public class CharacterCreation : MonoBehaviour {
             models[selectionIndex].SetActive(true);
 
             CharacterVoice(index);
+
+            player = models[selectionIndex].GetComponent<Player>();
         }
 	}
 
-    public Player GetCharacter()
-    {
-        player = models[selectionIndex].GetComponent<Player>();
-
-        return player;
-    }
     public int SelectedCharacterIndex()
     {
         return selectionIndex;
