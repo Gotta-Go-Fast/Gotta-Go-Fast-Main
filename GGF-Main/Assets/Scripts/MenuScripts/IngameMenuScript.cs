@@ -229,6 +229,9 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void MainMenu()
     {
+        player1.ClearGUI();
+        player2.ClearGUI();
+
         GUI.enabled = false;
         pauseCanvas.enabled = false;
         paused = false;
@@ -266,6 +269,9 @@ public class IngameMenuScript : MonoBehaviour
     }
     public void WinMainMenu()
     {
+        player1.ClearGUI();
+        player2.ClearGUI();
+
         GUI.enabled = false;
         winCanvas.enabled = false;
         paused = false;

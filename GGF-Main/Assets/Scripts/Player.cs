@@ -535,8 +535,9 @@ public class Player : MonoBehaviour
     {
         gotDoubleJump = false;
         gotSpeedBoost = false;
-        gotShots = false;
         gotBomb = false;
+        gotShots = false;
+        shots = 0;
 
         paralyzed = false;
 
@@ -551,7 +552,13 @@ public class Player : MonoBehaviour
         rbPlayer.velocity = new Vector2(0, 0);
         transform.localScale = new Vector3(1, 1, 1);
 
-        playerFrame.Clear();
+        playerFrame.ClearPickups();
+    }
+
+    public void ClearGUI()
+    {
+        playerFrame.ClearFrame();
+        playerFrame.ClearPickups();
     }
 
     // Camera detection
@@ -594,8 +601,6 @@ public class Player : MonoBehaviour
 
     public void GetPortrait(int index)
     {
-        Debug.Log("index " + index);
-
         playerFrame.GetPortrait(index);
     }
 }

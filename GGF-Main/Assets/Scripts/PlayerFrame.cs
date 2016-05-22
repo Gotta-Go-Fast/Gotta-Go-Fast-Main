@@ -7,6 +7,8 @@ public class PlayerFrame : MonoBehaviour {
 
     public PlayerFrame frame;
 
+    private int portraitIndex;
+
     // Pickups
     public GameObject jump;
     public GameObject speed;
@@ -59,6 +61,8 @@ public class PlayerFrame : MonoBehaviour {
     // Player Portrait
     public void GetPortrait(int index)
     {
+        portraitIndex = index;
+
         if (index == 0)
         {
             varulvTexture.enabled = true;
@@ -129,12 +133,24 @@ public class PlayerFrame : MonoBehaviour {
     }
 
     // Called on reset
-    public void Clear()
+    public void ClearPickups()
     {
+        portraitIndex = -1;
+
         jumpTexture.enabled = false;
         speedTexture.enabled = false;
         ammoTexture.enabled = false;
         bombTexture.enabled = false;
         blinkTexture.enabled = false;
+    }
+
+    public void ClearFrame()
+    {
+        knifeguyTexture.enabled = false;
+        varulvTexture.enabled = false;
+        vålnadTexture.enabled = false;
+        vampireTexture.enabled = false;
+        asukaTexture.enabled = false;
+        blastoiseTexture.enabled = false;
     }
 }
