@@ -29,7 +29,7 @@ public class IngameMenuScript : MonoBehaviour
     public Canvas optionsCanvas;
     public Canvas winCanvas;
 
-    private Canvas GUI;
+    private Interface GUI;
 
     // Music
     public AudioSource backgroundMusic;
@@ -59,7 +59,7 @@ public class IngameMenuScript : MonoBehaviour
         spawnPoint = GameObject.Find("SpawnPoint").GetComponent<Transform>();
         evilOverlordCamera = GameObject.Find("Main Camera").GetComponent<EvilOverlordCamera>();
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
-        GUI = GameObject.Find("GUI").GetComponent<Canvas>();
+        GUI = GameObject.Find("GUI").GetComponent<Interface>();
 
         // Players
         player1 = menuScript.player1.GetComponent<Player>();

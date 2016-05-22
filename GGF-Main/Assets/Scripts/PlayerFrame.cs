@@ -7,7 +7,7 @@ public class PlayerFrame : MonoBehaviour {
 
     public PlayerFrame frame;
 
-    private int portraitIndex;
+    public int portraitIndex;
 
     // Pickups
     public GameObject jump;

@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public int playerNumber;
     public int bulletSpeed;
     public int checkPointsReached;
+    public int characterIndex;
 
     public float speed;
     public float regularSpeed;
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
 
     public bool active;
     public bool leader;
+    public bool notLeader;
     public bool iMustGo;
     public bool winner;
     public bool loser;
@@ -118,6 +120,8 @@ public class Player : MonoBehaviour
         oldJumpState = jumpState;
         jumpState = Input.GetButton("Jump" + playerNumber);
 
+        TakingTheLeadCheck();
+
         if (active)
         {
             TurnToInputDirection();
@@ -134,6 +138,21 @@ public class Player : MonoBehaviour
             }
 
             Winning();
+        }
+    }
+
+    private void TakingTheLeadCheck()
+    {
+        if (!leader)
+        {
+            notLeader = true;
+        }
+
+        if (notLeader && leader)
+        {
+            TakingTheLead();
+
+            notLeader = false;
         }
     }
 
@@ -310,6 +329,7 @@ public class Player : MonoBehaviour
             if (winTimer > 1f)
             {
                 winner = true;
+                CalloutWinner();
             }
         }
     }
@@ -580,6 +600,7 @@ public class Player : MonoBehaviour
         {
             loser = true;
             otherPlayer.winner = true;
+            otherPlayer.CalloutWinner();
 
             if (paralyzed)
             {
@@ -601,7 +622,23 @@ public class Player : MonoBehaviour
 
     public void GetPortrait(int index)
     {
+        characterIndex = index;
+
         playerFrame.GetPortrait(index);
+        GUI.GetPlayerNames(playerNumber, characterIndex);
+    }
+
+    public void TakingTheLead()
+    {
+        if (active)
+        {
+            GUI.CalloutTakingTheLead(playerNumber);
+        }
+    }
+
+    public void CalloutWinner()
+    {
+        GUI.CalloutWinner(playerNumber);
     }
 }
 
