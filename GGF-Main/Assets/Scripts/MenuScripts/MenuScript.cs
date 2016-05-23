@@ -127,13 +127,6 @@ public class MenuScript : MonoBehaviour
     // Main Menu
     public void StartGame()
     {
-        // Temporary shortcut for testing.
-
-        //Application.LoadLevel(1);
-
-
-        // the original code.
-
         mainMenuCanvas.enabled = false;
         characterMenuCanvas.enabled = true;
 
@@ -202,7 +195,6 @@ public class MenuScript : MonoBehaviour
     {
         characterMenuCanvas.enabled = false;
         levelMenuCanvas.enabled = true;
-
         HideCharacterBoxes();
     }
     public void CharacterSelectionBack()

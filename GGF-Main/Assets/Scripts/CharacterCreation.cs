@@ -11,7 +11,6 @@ public class CharacterCreation : MonoBehaviour {
 	// Default Index of the model
 	public int selectionIndex;
 
-
     // SoundEffects
     private CalloutScript calloutScript;
     private MenuScript menuScript;
@@ -19,8 +18,6 @@ public class CharacterCreation : MonoBehaviour {
 
 	private void Start () 
 	{
-        selectionIndex = 0;
-
 		models = new List<GameObject> ();
 		foreach (Transform t in transform) 
 		{
@@ -29,6 +26,8 @@ public class CharacterCreation : MonoBehaviour {
 		}
 
 		models [selectionIndex].SetActive (true);
+
+        player = models[selectionIndex].GetComponent<Player>();
 
         // SoundEffects
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
