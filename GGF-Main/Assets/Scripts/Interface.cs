@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Interface : MonoBehaviour {
 
-    private Canvas canvas;
+    public Canvas canvas;
 
     private Player player1;
     private Player player2;
