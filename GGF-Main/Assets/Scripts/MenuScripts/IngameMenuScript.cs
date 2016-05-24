@@ -34,7 +34,6 @@ public class IngameMenuScript : MonoBehaviour
     // Music
     public AudioSource backgroundMusic;
     public AudioSource pauseMusic;
-    public AudioSource winMusic;
 
     public static bool paused;
     public bool muteCheck;
@@ -165,13 +164,10 @@ public class IngameMenuScript : MonoBehaviour
     }
     private void Win()
     {
-
         if ((player1.winner || player2.winner) && (player1.active && player2.active))
         {
             roundOver = true;
             backgroundMusic.Pause();
-            pauseMusic.Pause();
-            //winMusic.UnPause();
 
             winCanvas.enabled = true;
             paused = true;
@@ -236,6 +232,8 @@ public class IngameMenuScript : MonoBehaviour
         GUI.enabled = false;
         pauseCanvas.enabled = false;
         paused = false;
+
+        pauseMusic.Stop();
         player1.gameOn = false;
         player2.gameOn = false;
 
@@ -278,6 +276,8 @@ public class IngameMenuScript : MonoBehaviour
         GUI.enabled = false;
         winCanvas.enabled = false;
         paused = false;
+        pauseMusic.Stop();
+
         player1.gameOn = false;
         player2.gameOn = false;
 
