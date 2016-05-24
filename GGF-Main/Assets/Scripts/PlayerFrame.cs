@@ -93,22 +93,27 @@ public class PlayerFrame : MonoBehaviour {
     public void Doublejump()
     {
         jumpTexture.enabled = true;
+        jump.GetComponent<Animation>().Play();
     }
     public void Speedboost()
     {
         speedTexture.enabled = true;
+        speed.GetComponent<Animation>().Play();
     }
     public void Ammo()
     {
         ammoTexture.enabled = true;
+        ammo.GetComponent<Animation>().Play();
     }
     public void Bomb()
     {
         bombTexture.enabled = true;
+        bomb.GetComponent<Animation>().Play();
     }
     public void Blink()
     {
         blinkTexture.enabled = true;
+        blink.GetComponent<Animation>().Play();
     }
 
     public void RemoveDoublejump()
