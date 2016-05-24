@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     private bool gotDoubleJump;
     private bool gotShots;
     private int shots;
+    private bool gotBlink;
 
     public bool grounded;
     public bool paralyzed;
@@ -135,6 +136,7 @@ public class Player : MonoBehaviour
                 SpeedBoost();
                 Shoot();
                 Bomb();
+                Blink();
             }
 
             Winning();
@@ -193,7 +195,7 @@ public class Player : MonoBehaviour
     // Pickups
     private void GotPickup()
     {
-        if (gotBomb || gotShots || gotDoubleJump || gotSpeedBoost)
+        if (gotBomb || gotShots || gotDoubleJump || gotSpeedBoost || gotBlink)
         {
             gotPickup = true;
         }
@@ -316,6 +318,19 @@ public class Player : MonoBehaviour
         }
 
 
+    }
+    private void Blink()
+    {
+        if (Input.GetButtonDown("Fire" + playerNumber) && gotBlink)
+        {
+            rbPlayer.position = new Vector2(rbPlayer.position.x + 2, rbPlayer.position.y);
+
+            gotBlink = false;
+
+            calloutScript.Blink();
+
+            playerFrame.RemoveBlink();
+        }
     }
 
     private void Winning()
@@ -495,9 +510,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Blink") && !gotPickup)
         {
             Destroy(other.gameObject);
-            gotBomb = true;
+            gotBlink = true;
 
             playerFrame.Blink();
+
+            calloutScript.PickupBomb();
         }
     }
     private void CheckPoint1(Collider2D other)

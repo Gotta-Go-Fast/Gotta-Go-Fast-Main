@@ -286,6 +286,11 @@ public class CalloutScript : MonoBehaviour {
         if (!mute)
             bleigh.Play();
     }
+    public void PickupBlink()
+    {
+        if (!mute)
+            bleigh.Play();
+    }
     public void Shoot()
     {
         if (!mute)
@@ -302,6 +307,11 @@ public class CalloutScript : MonoBehaviour {
             bleigh.Play();
     }
     public void Doublejump()
+    {
+        if (!mute)
+            bleigh.Play();
+    }
+    public void Blink()
     {
         if (!mute)
             bleigh.Play();
