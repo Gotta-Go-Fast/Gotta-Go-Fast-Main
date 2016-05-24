@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private bool gotShots;
     private int shots;
     private bool gotBlink;
+    private int blinkDistance;
 
     public bool grounded;
     public bool paralyzed;
@@ -92,11 +93,13 @@ public class Player : MonoBehaviour
         jumpPower = 270f;
         jumpTimer = 0;
         shots = 0;
+        blinkDistance = 3;
 
         gotDoubleJump = false;
         gotSpeedBoost = false;
         gotShots = false;
         gotBomb = false;
+        gotBlink = false;
 
         airturn = false;
 
@@ -323,7 +326,14 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire" + playerNumber) && gotBlink)
         {
-            rbPlayer.position = new Vector2(rbPlayer.position.x + 2, rbPlayer.position.y);
+            if (transform.localScale.x > 0)
+            {
+                rbPlayer.position = new Vector2(rbPlayer.position.x + blinkDistance, rbPlayer.position.y);
+            }
+            else
+            {
+                rbPlayer.position = new Vector2(rbPlayer.position.x - blinkDistance, rbPlayer.position.y);
+            }
 
             gotBlink = false;
 
