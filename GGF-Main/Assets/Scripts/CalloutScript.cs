@@ -32,7 +32,6 @@ public class CalloutScript : MonoBehaviour {
     private AudioSource doubleJump;
     private AudioSource blink;
 
-
     public float useTimer;
     public float hitTimer;
 
@@ -192,6 +191,7 @@ public class CalloutScript : MonoBehaviour {
         hesGottaUseItSoon = false;
         andHeWill = false;
         waow = false;
+        secondShot = false;
 
         firstShot = true;
     }
