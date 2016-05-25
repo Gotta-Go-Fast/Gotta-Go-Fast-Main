@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public float speed;
     public float regularSpeed;
     public float maxSpeed;
+    public float airturnSpeed;
     public float jumpPower;
 
     //Timers 
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
     private bool hasDoubleJumped;
     private bool jumpState;
     private bool oldJumpState;
-    private bool airturn;
+    public bool airturn; //PUBLIC RIGHT NOW
 
     public EvilOverlordGoal goal;
 
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
         paralyzedTimer = paralyzedReset;
 
         velocity = new Vector2(0, 0);
+        airturnSpeed = 4f;
         speed = 8f;
         maxSpeed = 10f;
         regularSpeed = speed;
@@ -396,7 +398,15 @@ public class Player : MonoBehaviour
         // Add input to force movement
         else if (!paralyzed)
         {
-            velocity.x = (speed * h);
+            if (!airturn)
+            {
+                velocity.x = (speed * h);
+            }
+            else
+            {
+                velocity.x = (airturnSpeed * h);
+            }
+
             velocity.y = rbPlayer.velocity.y;
 
             rbPlayer.velocity = velocity;
@@ -406,10 +416,10 @@ public class Player : MonoBehaviour
 
         if (!grounded && !airturn)
         {
-            if (velocity.x != speed * h)
+
+            if (velocity.x > h)
             {
                 airturn = true;
-                speed = 6f;
             }
         }
     }

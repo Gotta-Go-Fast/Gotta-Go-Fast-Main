@@ -286,7 +286,7 @@ public class CalloutScript : MonoBehaviour {
     public void Speedboost()
     {
         if (!mute)
-            speedBoost.Play();
+            pickup.Play();
     }
     public void Doublejump()
     {
@@ -296,6 +296,6 @@ public class CalloutScript : MonoBehaviour {
     public void Blink()
     {
         if (!mute)
-            blink.Play();
+            pickup.Play();
     }
 }
