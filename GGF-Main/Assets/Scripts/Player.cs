@@ -591,6 +591,7 @@ public class Player : MonoBehaviour
         speedBoostTimer = 0;
 
         paralyzed = false;
+        paralyzedTimer = paralyzedReset;
 
         active = false;
         loser = false;

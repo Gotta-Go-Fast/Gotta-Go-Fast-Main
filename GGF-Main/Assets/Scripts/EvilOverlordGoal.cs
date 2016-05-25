@@ -92,7 +92,7 @@ public class EvilOverlordGoal : MonoBehaviour
             Leader();
         }
 
-        else if (player1.iMustGo)
+        if (player1.iMustGo)
         {
             player1.leader = true;
             player2.leader = false;
@@ -164,13 +164,17 @@ public class EvilOverlordGoal : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        Debug.Log("Something");
+
         if (other.gameObject.CompareTag("Player1") && !player2.iMustGo)
         {
+            Debug.Log("Player1");
             player1.iMustGo = true;
         }
 
         else if (other.gameObject.CompareTag("Player2") && !player1.iMustGo)
         {
+            Debug.Log("Player2");
             player2.iMustGo = true;
         }
     }
