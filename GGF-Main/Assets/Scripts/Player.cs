@@ -3,6 +3,11 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+
+    float dir;
+    float oldDir;
+
+
     public int playerNumber;
     public int bulletSpeed;
     public int checkPointsReached;
@@ -414,14 +419,16 @@ public class Player : MonoBehaviour
             spriteRenderer.material.color = Color.white;
         }
 
+        dir = h;
         if (!grounded && !airturn)
         {
-
-            if (velocity.x > h)
+            if (oldDir != dir)
             {
                 airturn = true;
             }
         }
+        oldDir = dir;
+
     }
     private void SpeedLimit()
     {
