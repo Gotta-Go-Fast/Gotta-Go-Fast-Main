@@ -22,7 +22,6 @@ public class PlayerFrame : MonoBehaviour {
     private Image bombTexture;
     private Image blinkTexture;
 
-
     // Characters
     public GameObject knifeguy;
     public GameObject varulv;

@@ -228,6 +228,7 @@ public class IngameMenuScript : MonoBehaviour
         GUI.canvas.enabled = false;
         player1.ClearGUI();
         player2.ClearGUI();
+        GUI.Clear();
 
         GUI.enabled = false;
         pauseCanvas.enabled = false;
@@ -272,6 +273,7 @@ public class IngameMenuScript : MonoBehaviour
 
         player1.ClearGUI();
         player2.ClearGUI();
+        GUI.Clear();
 
         GUI.enabled = false;
         winCanvas.enabled = false;
@@ -297,6 +299,7 @@ public class IngameMenuScript : MonoBehaviour
 
         player1.Restart();
         player2.Restart();
+        GUI.Clear();
 
         calloutScript.Restart();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

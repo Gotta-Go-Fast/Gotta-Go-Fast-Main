@@ -201,4 +201,11 @@ public class Interface : MonoBehaviour {
             reset = true;
         }
     }
+
+    public void Clear()
+    {
+        reset = false;
+        timer = timerReset;
+        callout.text = "";
+    }
 }

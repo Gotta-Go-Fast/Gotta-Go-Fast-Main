@@ -47,12 +47,6 @@ public class EvilOverlordGoal : MonoBehaviour
     {
         goalPosition = new Vector2(transform.position.x, transform.position.y);
 
-        checkPoint1 = checkPoint1.GetComponent<Transform>();
-        checkPoint2 = checkPoint2.GetComponent<Transform>();
-
-        positionCheckPoint1 = new Vector2(checkPoint1.position.x, checkPoint1.position.y);
-        positionCheckPoint2 = new Vector2(checkPoint2.position.x, checkPoint2.position.y);
-
         toGoalPlayer1 = new Vector2(0, 0);
         toGoalPlayer2 = new Vector2(0, 0);
         distancePlayer1 = 0;
@@ -66,6 +60,12 @@ public class EvilOverlordGoal : MonoBehaviour
         if (menuScript.levelNumber == 1)
         {
             numberOfCheckPoints = 2;
+
+            checkPoint1 = checkPoint1.GetComponent<Transform>();
+            checkPoint2 = checkPoint2.GetComponent<Transform>();
+
+            positionCheckPoint1 = new Vector2(checkPoint1.position.x, checkPoint1.position.y);
+            positionCheckPoint2 = new Vector2(checkPoint2.position.x, checkPoint2.position.y);
         }
         if (menuScript.levelNumber == 2)
         {
@@ -90,6 +90,17 @@ public class EvilOverlordGoal : MonoBehaviour
         if (!player1.iMustGo && !player2.iMustGo)
         {
             Leader();
+        }
+
+        else if (player1.iMustGo)
+        {
+            player1.leader = true;
+            player2.leader = false;
+        }
+        else if (player2.iMustGo)
+        {
+            player2.leader = true;
+            player1.leader = false;
         }
     }
 
