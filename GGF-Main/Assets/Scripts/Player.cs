@@ -587,6 +587,9 @@ public class Player : MonoBehaviour
         gotBlink = false;
         shots = 0;
 
+        speed = regularSpeed;
+        speedBoostTimer = 0;
+
         paralyzed = false;
 
         active = false;

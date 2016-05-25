@@ -107,12 +107,14 @@ public class IngameMenuScript : MonoBehaviour
             Win();
             Lose();
         }
+
+        RestartWithR();
     }
 
     private void Pause()
     {
         // Press "P" for pause
-        if (Input.GetButton("Pause") && !winCanvas.enabled)
+        if (Input.GetButton("Pause") && !winCanvas.enabled && !pauseCanvas.enabled && !optionsCanvas.enabled)
         {
             paused = true;
 
@@ -203,6 +205,20 @@ public class IngameMenuScript : MonoBehaviour
                     Debug.Log("Cannot find winCanvas");
                 }
                 paused = true;
+            }
+        }
+    }
+    private void RestartWithR()
+    {
+        if (Input.GetButton("Restart"))
+        {
+            if (pauseCanvas.enabled)
+            {
+                Restart();
+            }
+            else if (winCanvas.enabled)
+            {
+                WinRestart();
             }
         }
     }
