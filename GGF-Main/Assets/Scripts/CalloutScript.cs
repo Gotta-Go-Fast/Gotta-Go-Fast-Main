@@ -25,14 +25,12 @@ public class CalloutScript : MonoBehaviour {
     private AudioSource bleigh;
 
     // Pickups
-    private AudioSource pickupAmmo;
-    private AudioSource pickupBomb;
-    private AudioSource pickupBoost;
-    private AudioSource pickupJump;
+    private AudioSource pickup;
     private AudioSource shoot;
     private AudioSource placeBomb;
     private AudioSource speedBoost;
     private AudioSource doubleJump;
+    private AudioSource blink;
 
 
     public float useTimer;
@@ -71,14 +69,12 @@ public class CalloutScript : MonoBehaviour {
         bleigh = GameObject.Find("CalloutBleigh").GetComponent<AudioSource>();
 
         // Find Pickups
-        pickupAmmo = GameObject.Find("PickupAmmo").GetComponent<AudioSource>();
-        pickupBomb = GameObject.Find("PickupBomb").GetComponent<AudioSource>();
-        pickupBoost = GameObject.Find("PickupBoost").GetComponent<AudioSource>();
-        pickupJump = GameObject.Find("PickupJump").GetComponent<AudioSource>();
+        pickup = GameObject.Find("Pickup").GetComponent<AudioSource>();
         shoot = GameObject.Find("Shoot").GetComponent<AudioSource>();
         placeBomb = GameObject.Find("PlaceBomb").GetComponent<AudioSource>();
         speedBoost = GameObject.Find("Speedboost").GetComponent<AudioSource>();
         doubleJump = GameObject.Find("Doublejump").GetComponent<AudioSource>();
+        blink = GameObject.Find("Blink").GetComponent<AudioSource>();
 
         DontDestroy();
     }
@@ -101,14 +97,12 @@ public class CalloutScript : MonoBehaviour {
         DontDestroyOnLoad(naej);
         DontDestroyOnLoad(bleigh);
 
-        DontDestroyOnLoad(pickupAmmo);
-        DontDestroyOnLoad(pickupBomb);
-        DontDestroyOnLoad(pickupBoost);
-        DontDestroyOnLoad(pickupJump);
+        DontDestroyOnLoad(pickup);
         DontDestroyOnLoad(shoot);
         DontDestroyOnLoad(placeBomb);
         DontDestroyOnLoad(speedBoost);
         DontDestroyOnLoad(doubleJump);
+        DontDestroyOnLoad(blink);
     }
     // Update is called once per frame
     private void Update ()
@@ -191,14 +185,22 @@ public class CalloutScript : MonoBehaviour {
     public void PlayerFirstShot(Player otherPlayer)
     {
         this.target = otherPlayer;
-        firstShot = true;
+
+        hitTimer = 3f;
+        useTimer = 3f;
+
+        hesGottaUseItSoon = false;
+        andHeWill = false;
         waow = false;
+
+        firstShot = true;
     }
     public void PlayerSecondShot(Player otherPlayer)
     {
         this.target = otherPlayer;
         secondShot = true;
     }
+
 
     // SoundEffects
     public void Go()
@@ -266,30 +268,10 @@ public class CalloutScript : MonoBehaviour {
     }
 
     // Pickup Effects
-    public void PickupShots()
+    public void Pickup()
     {
         if (!mute)
-            bleigh.Play();
-    }
-    public void PickupBomb()
-    {
-        if (!mute)
-            bleigh.Play();
-    }
-    public void PickupBoost()
-    {
-        if (!mute)
-            bleigh.Play();
-    }
-    public void PickupJump()
-    {
-        if (!mute)
-            bleigh.Play();
-    }
-    public void PickupBlink()
-    {
-        if (!mute)
-            bleigh.Play();
+            pickup.Play();
     }
     public void Shoot()
     {
@@ -304,16 +286,16 @@ public class CalloutScript : MonoBehaviour {
     public void Speedboost()
     {
         if (!mute)
-            bleigh.Play();
+            speedBoost.Play();
     }
     public void Doublejump()
     {
         if (!mute)
-            bleigh.Play();
+            doubleJump.Play();
     }
     public void Blink()
     {
         if (!mute)
-            bleigh.Play();
+            blink.Play();
     }
 }

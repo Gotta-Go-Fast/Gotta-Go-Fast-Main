@@ -475,7 +475,7 @@ public class Player : MonoBehaviour
 
             playerFrame.Doublejump();
 
-            calloutScript.PickupJump();
+            calloutScript.Pickup();
         }
     }
     private void PickUpSpeedBoost(Collider2D other)
@@ -487,7 +487,7 @@ public class Player : MonoBehaviour
 
             playerFrame.Speedboost();
 
-            calloutScript.PickupBoost();
+            calloutScript.Pickup();
         }
     }
     private void PickUpAmmo(Collider2D other)
@@ -500,7 +500,7 @@ public class Player : MonoBehaviour
 
             playerFrame.Ammo();
 
-            calloutScript.PickupShots();
+            calloutScript.Pickup();
         }
     }
     private void PickUpBomb(Collider2D other)
@@ -512,7 +512,7 @@ public class Player : MonoBehaviour
 
             playerFrame.Bomb();
 
-            calloutScript.PickupBomb();
+            calloutScript.Pickup();
         }
     }
     private void PickUpBlink(Collider2D other)
@@ -524,7 +524,7 @@ public class Player : MonoBehaviour
 
             playerFrame.Blink();
 
-            calloutScript.PickupBomb();
+            calloutScript.Pickup();
         }
     }
     private void CheckPoint1(Collider2D other)
