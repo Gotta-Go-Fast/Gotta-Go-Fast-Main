@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        active = true;
+        active = false;
 
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
 
