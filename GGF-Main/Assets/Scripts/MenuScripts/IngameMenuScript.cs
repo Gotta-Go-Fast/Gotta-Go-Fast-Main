@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class IngameMenuScript : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class IngameMenuScript : MonoBehaviour
     public MenuScript menuScript;
     public EvilOverlordCamera evilOverlordCamera;
 
+    public EventSystem eventSystem;
+
     // Countdown
     private float countDownTimer;
     public bool countDown;
@@ -59,6 +62,7 @@ public class IngameMenuScript : MonoBehaviour
         evilOverlordCamera = GameObject.Find("Main Camera").GetComponent<EvilOverlordCamera>();
         calloutScript = GameObject.Find("CalloutScript").GetComponent<CalloutScript>();
         GUI = GameObject.Find("GUI").GetComponent<Interface>();
+        eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
 
         // Players
         player1 = menuScript.player1.GetComponent<Player>();
@@ -118,8 +122,14 @@ public class IngameMenuScript : MonoBehaviour
         {
             paused = true;
 
+            eventSystem.SetSelectedGameObject(resume.gameObject);
             pauseCanvas.enabled = true;
             winCanvas.enabled = false;
+
+            player1.Pause();
+            player2.Pause();
+            player1.active = false;
+            player2.active = false;
 
             if (!muteCheck)
             {
@@ -129,15 +139,16 @@ public class IngameMenuScript : MonoBehaviour
         }
 
         // Freezing time when paused
-        if (paused)
-        {
-            Time.timeScale = 0;
-        }
-
-        if (!paused)
-        {
-            Time.timeScale = 1;
-        }
+        //if (paused)
+        //{
+        //    player1.Pause();
+        //    player2.Pause();
+        //}
+        //else
+        //{
+        //    player1.Pause();
+        //    player2.Pause();
+        //}
     }
     private void Mute()
     {
@@ -171,6 +182,7 @@ public class IngameMenuScript : MonoBehaviour
             roundOver = true;
             backgroundMusic.Pause();
 
+            eventSystem.SetSelectedGameObject(winRestart.gameObject);
             winCanvas.enabled = true;
             paused = true;
 
@@ -198,6 +210,7 @@ public class IngameMenuScript : MonoBehaviour
                 //winMusic.UnPause();
                 if (winCanvas != null)
                 {
+                    eventSystem.SetSelectedGameObject(winRestart.gameObject);
                     winCanvas.enabled = true;
                 }
                 else
@@ -228,6 +241,11 @@ public class IngameMenuScript : MonoBehaviour
     {
         pauseCanvas.enabled = false;
         paused = false;
+
+        player1.active = true;
+        player2.active = true;
+        player1.Pause();
+        player2.Pause();
     }
     public void Restart()
     {

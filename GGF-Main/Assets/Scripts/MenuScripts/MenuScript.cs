@@ -58,6 +58,7 @@ public class MenuScript : MonoBehaviour
 
     // Level Selection
     public int levelNumber;
+    public bool levelSelected;
 
     public Player player1;
     public Player player2;
@@ -112,9 +113,9 @@ public class MenuScript : MonoBehaviour
     // Update
     private void Update()
     {
+        level1.animator.SetBool("LevelSelected", levelSelected);
+
         muteCheck = mute;
-
-
 
         Time.timeScale = 1;
 

@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     public bool winner;
     public bool loser;
     public bool gameOn;
-
+    public bool paused;
     public bool activatedBomb;
     public bool bombUsed;
 
@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
 
     public EvilOverlordGoal goal;
 
+    public Vector2 pausePosition;
     public Vector2 position;
     public Vector2 velocity;
 
@@ -93,7 +94,7 @@ public class Player : MonoBehaviour
         paralyzedTimer = paralyzedReset;
 
         velocity = new Vector2(0, 0);
-        airturnSpeed = 4f;
+        airturnSpeed = 6f;
         speed = 8f;
         maxSpeed = 10f;
         regularSpeed = speed;
@@ -150,6 +151,12 @@ public class Player : MonoBehaviour
             }
 
             Winning();
+        }
+
+        if (paused)
+        {
+            transform.position = pausePosition;
+            rbPlayer.velocity = Vector2.zero;
         }
     }
 
@@ -360,6 +367,7 @@ public class Player : MonoBehaviour
 
             if (winTimer > 1f)
             {
+                Pause();
                 winner = true;
                 CalloutWinner();
             }
@@ -428,7 +436,6 @@ public class Player : MonoBehaviour
             }
         }
         oldDir = dir;
-
     }
     private void SpeedLimit()
     {
@@ -441,6 +448,12 @@ public class Player : MonoBehaviour
         {
             rbPlayer.velocity = new Vector2(-maxSpeed, rbPlayer.velocity.y);
         }
+    }
+    public void Pause()
+    {
+        paused = !paused;
+
+        pausePosition = transform.position;
     }
 
     // Player colliding with interactables
@@ -610,6 +623,7 @@ public class Player : MonoBehaviour
         paralyzed = false;
         paralyzedTimer = paralyzedReset;
 
+        paused = false;
         active = false;
         loser = false;
         winner = false;
@@ -666,6 +680,7 @@ public class Player : MonoBehaviour
 
             active = false;
             otherPlayer.active = false;
+            otherPlayer.Pause();
         }
     }
 
